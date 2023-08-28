@@ -23,7 +23,7 @@
     - USM
     - local share memory
 - dependencies:
-    -
+  
 - internal profiling and debugging:
     
 - cuda to sycl:
