@@ -10,7 +10,7 @@
 - lambdas
 - functors
 - smart pointers
-## SYCL
+## SYCL ( https://enccs.github.io/sycl-workshop/ )
 - queues:
     - device association
     - device info
