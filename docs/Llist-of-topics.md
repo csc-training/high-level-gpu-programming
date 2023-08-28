@@ -28,5 +28,5 @@
 - internal profiling and debugging:
     
 - cuda to sycl:
-- 
+- installation on Puhti (intel llvm) and LUMI (hipsycl)
 ## KOKKOS
