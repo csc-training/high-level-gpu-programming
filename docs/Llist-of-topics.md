@@ -1,4 +1,8 @@
 ## Introduction to GPU programming model
+- execution model
+- memory hierarchy
+- streams
+- 
 ## cpp concepts
 - structures
 - templates
