@@ -1,36 +1,21 @@
 ---
-title:  Introduction
-subtitle: GPU programming with HIP
+title:  Introduction to GPU parallel computing and programming model
+subtitle: Higher level GPU programming 
 author:   CSC Training
-date:     2022-11
+date:     2024-02
 lang:     en
 ---
 
 
-# High-performance computing
+# High Performance Computing through the ages
 
-<div class="column">
+<div class="column" width=20%>
 
-- High performance computing is fueled by ever increasing performance
-- Increasing performance allows breakthroughs in many major challenges that
-  humankind faces today
-
+![](img/top500-perf-dev.png){.center width=70%}
 </div>
 
-<div class="column">
-![](img/top500-perf-dev.png)
-</div>
-
-# HPC through the ages
-
-<div class="column" width=55%>
-- Achieving performance has been based on various strategies throughout the years
-    - Frequency, vectorization, multi-node, multi-core, etc.
-- Accelerators provide compute resources based on a very high level of parallelism to reach high performance at low relative power consumption 
-</div>
-
-<div class="column" width=43%>
-![](img/microprocessor-trend-data.png)
+<div class="column" width=80%> 
+![](img/microprocessor-trend-data.png){.center width=170%}
 </div>
 
 
@@ -51,7 +36,7 @@ lang:     en
 
 
 - Local memory in GPU
-    - Smaller than main memory (32 GB in Puhti, 128 GB in LUMI)
+    - Smaller than main memory (32 GB in Puhti, 64GB in LUMI)
     - Very high bandwidth (up to 3200 GB/s in LUMI)
     - Latency high compared to compute performance
 
@@ -67,18 +52,17 @@ lang:     en
 
 
 # GPU architecture
-
-<div class="column" width=56%>
-- Designed for running thousands or tens of thousands of threads simultaneously
+<div class="column">
+- Designed for running tens of thousands of threads simultaneously on
+  thousands of cores
+- Very small penalty for switching threads
 - Running large amounts of threads hides memory access penalties
-    - The relative benefit of using a GPU often increases with an increasing job size
-- Recurring data movement between CPU and GPU is often a bottleneck
-- The penalty for context switching is relatively small
+- Very expensive to synchronize all threads
 </div>
 
-<div class="column" width=42%>
-![](img/amd_m200.png){.center width=60%}
-<div align="center"><small>      AMD Instinct MI200 architecture (source: AMD).  </small></div>
+<div class="column">
+![](img/mi100-architecture.png)
+<small>AMD Instinct MI100 architecture (source: AMD)</small>
 </div>
 
 # Challenges in using Accelerators
