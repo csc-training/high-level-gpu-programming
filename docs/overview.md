@@ -25,9 +25,11 @@ Day 1, Wednesday 14.02, 9:00-16:00
 - C++ concepts
 - Introduction to SYCL, queues, command, command groups, kernels
 - Memory management in SYCL 
+
 Day 2, Thursday 15.02, 9:00-16:00
 - Expressing parallelism
 - Dependencies, synchronization
+
 Day 3 Friday 16.02, 9:00-16:00
 - SYCL profiling
 - Interoperability with other libraries
