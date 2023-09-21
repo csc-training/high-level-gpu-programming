@@ -10,7 +10,7 @@
 This course basic to intermediate level on GPU programming using SYCL and Kokkos. It starts with half a day introduction to GPU parallel programming model and C++ concepts. Then it continues with SYCL for two days. Building on this more advance topics are introduced. These enabe the developer to utilize the whole range of features to write portable and performant applications  
 
 # Learning outcomes
-After the course, participant will be able to write hardware-agnostic code to express parallelism using SYCL and Kokkos. Manage memory across devices, do basic performance analysis, and evaluate the drawbacks between different approches for programming GPUs.
+After the course, participant will be able to write hardware-agnostic code to express parallelism using SYCL and Kokkos that can runon CPU, Nvidia GPU, or AMD GPU. Manage memory across devices, do basic performance analysis, and evaluate the drawbacks between different approches for programming GPUs.
 
 # Prerequisites and content level:
 This course is targets developers who know C++ and would like to learn how to programm GPUs or for developers who are already doing GPU programming using a non-portable approach such like CUDA or HIP and would like to write performant code which runs on various computing platforms. In order to be able to follow the course the participant should be familiar with C++ concepts such as raw and  smart pointers, classes, structures, templates, lambdas, functors, and understand in general the concept of parallel programming.
