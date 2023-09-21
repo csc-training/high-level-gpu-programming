@@ -35,6 +35,8 @@ Day 3 Friday 16.02, 9:00-16:00
 - Interoperability with other libraries
 - Multi-GPU programming
 - Kokkos
+
+  
 Lecturers: Cristian-Vasile Achim (CSC), Jaro Hokkanen (CSC), Tuomas Rossi (CSC)
 
 Language: English
