@@ -36,3 +36,4 @@
 - https://sycl.tech/
 - https://www.youtube.com/watch?v=IeOnlBXTdn4&list=PL46sP9LM8GsyHAxj1k7MbWrv5f5SlMpIF
 - https://enccs.github.io/sycl-workshop/
+- https://www.dropbox.com/scl/fo/bmgeetfr31i5vcz7j5sjw/h?rlkey=qg0tdg14tx65n0kxpxbz50bzo&dl=0
