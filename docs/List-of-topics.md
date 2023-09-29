@@ -31,3 +31,8 @@
 - cuda to sycl:
 - installation on Puhti (intel llvm) and LUMI (hipsycl)
 ## KOKKOS
+
+## Sources
+- sycl.tech
+- https://www.youtube.com/watch?v=IeOnlBXTdn4&list=PL46sP9LM8GsyHAxj1k7MbWrv5f5SlMpIF
+- https://enccs.github.io/sycl-workshop/
