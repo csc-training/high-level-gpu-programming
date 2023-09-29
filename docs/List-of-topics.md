@@ -10,6 +10,7 @@
 - lambdas
 - functors
 - smart pointers
+- namespace
 ## SYCL ( https://enccs.github.io/sycl-workshop/ )
 - queues:
     - device association
