@@ -90,26 +90,31 @@ lang:     en
 
 # Using GPUs
 
-<div class="column">
+<div class="column" width=20%>
+
+
+
+
+
 1. Use existing GPU applications
 2. Use accelerated libraries
 3. Directive based methods
     - OpenMP, OpenACC
 4. Use native GPU language
-    - CUDA, **HIP**, SYCL, Kokkos,...
+    - CUDA, HIP, **SYCL**, **Kokkos**,...
 </div>
-<div class="column" width=40%>
-Easier, but more limited
+<div class="column" width=80%>
+Easier, more limited
 
-![](img/arrow.png){.center width=20% }
+![](img/arrow.png){width=10% }
 
-More difficult, but more opportunities
+More difficult, more opportunities
 
 </div>
 
 
 
-
+<!--
 # Directive-based accelerator languages
 
 - Annotating code to pinpoint accelerator-offloadable regions
@@ -139,6 +144,7 @@ More difficult, but more opportunities
     - almost a one-on-one clone of CUDA from the user perspective
     - ecosystem is new and developing fast
 
+-->
 
 # GPUs @ CSC
 
@@ -147,7 +153,7 @@ More difficult, but more opportunities
 - **Mahti-AI**: 24 nodes, total peak performance of 2. Petaflops
     - Four Nvidia A100 GPUs, two 64-core AMD Epyc processors, 3.8 TB fast local storage,  network connectivity of 200Gbps aggregate bandwidth   
 - **LUMI-G**: 2560 nodes, total peak performance of 500 Petaflops
-    - Four AMD MI250X GPUs, one 64-core AMD Epyc processor, 2x3 TB fast local storage, network connectivity of 800Gbps aggregate bandwidth
+    - Four AMD MI250X GPUs, one 64-core AMD Epyc processor, <!--2x3 TB fast local storage,--> network connectivity of 800Gbps aggregate bandwidth
 
 # Summary
 
