@@ -1,6 +1,6 @@
 ---
 title:  Introduction to GPU parallel computing and programming model
-subtitle: Higher level GPU programming 
+subtitle: Higher Level GPU programming 
 author:   CSC Training
 date:     2024-02
 lang:     en

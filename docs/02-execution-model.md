@@ -1,6 +1,6 @@
 ---
-title:  GPU Programming Model. Execution and Memory Hierarchy
-subtitle: Higher level GPU programming 
+title:  GPU Execution Model
+subtitle: Higher Level GPU programming 
 author:   CSC Training
 date:     2024-02
 lang:     en
@@ -50,6 +50,83 @@ lang:     en
   - handles the data transfers between CPU and GPUs
 - CPU and GPU can work concurrently
    - kernel launches are normally asynchronous
+
+# Example: axpy
+
+<div class="column">
+
+Serial cpu code of `y=y+a*x`:
+
+- have a loop going over the each index
+
+
+<small>
+```cpp
+void axpy_(int n, double a, double *x, double *y)
+{
+    for(int id=0;id<n; id++) {
+        y[id] += a * x[id];
+    }
+}
+```
+</small>
+</div>
+
+<div class="column">
+
+On a accelerator:
+
+- no loop 
+- we create instances of the same function, **kernels**
+<small>
+
+```cpp
+GPU_K void axpy_(int n, double a, double *x, double *y, int id)
+{
+        y[id] += a * x[id]; // id<n
+}
+
+```
+</small>
+
+</div>
+
+# A Grid of Threads is Launched on a Device
+
+<div class="column">
+
+
+![](img/Grid_threads.png){.center width=44%}
+
+<div align="center"><small>A grrid of threads executing the same **kernel**</small></div>
+
+</div>
+
+<div class="column">
+![](img/mi100-architecture.png){.center width=65%}
+
+<div align="center"><small>AMD Instinct MI100 architecture (source: AMD)</small></div>
+</div>
+
+- a grid of threads is launched on a specififc device to perform a given work. 
+- each thread executes the same kernel processing different elemtns of the data.
+
+# A Work-Group is Assigned to a Compute Unit
+
+<div class="column">
+
+
+![](img/work_group.png){.center width=35%}
+
+<div align="center"><small>Work-groups of threads</small></div>
+
+</div>
+
+<div class="column">
+![](img/CU.png){.center width=35%}
+
+<div align="center"><small>Compute Unit in an AMD GPU.</small></div>
+</div>
 
 # Summary
 
