@@ -91,42 +91,103 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 </div>
 
-# A Grid of Threads is Launched on a Device
+
+
+# Work-items
 
 <div class="column">
 
 
-![](img/Grid_threads.png){.center width=44%}
+![](img/work_item.png){.center width=5%}
 
-<div align="center"><small>A grrid of threads executing the same **kernel**</small></div>
+<div align="center"><small>A work-item is running on a simd lane</small></div>
 
 </div>
 
 <div class="column">
-![](img/mi100-architecture.png){.center width=65%}
+
+![](img/amd_simd_lanet.png){.center width=31%} 
+
+<div align="center"><small>The smallest compuational element in a GPU.</small></div>
+</div>
+
+- the work-items are very light execution contexts.
+- contain all information needed to execute a stream of instructions.
+- for each work-item there is an instance of the **kernel**. 
+- each work-item processes different elements of the data (SIMD).
+
+# Sub-Group
+
+<div class="column">
+
+
+![](img/sub_group.png){.center width=15%}
+
+<div align="center"><small>Execution is done per sub-groups.</small></div>
+
+</div>
+
+<div class="column">
+
+![](img/amd_simd_unit.png){.center width=55%} 
+
+<div align="center"><small>Scheme of a SIMD unit in an AMD GPU.</small></div>
+</div>
+- the work-items are physically locked in sub-groups
+- the size is locked  by hardware, 64 for AMD and 32 for Nvidia GPUs.
+- an instruction is executed by all items in the sub-group (in 4 cycles).
+- in the case of branching, each branch has to be handled separetely.
+- memory accesses are done per sub-group.
+
+# Work-Group
+
+<div class="column">
+
+
+![](img/work_group.png){.center width=25%}
+
+<div align="center"><small>Work-groups of work-items.</small></div>
+
+</div>
+
+<div class="column">
+![](img/CU2.png){.center width=26%}
+
+<div align="center"><small>Compute Unit in an AMD GPU.</small></div>
+</div>
+- the work-items are divided in groups of fixed size.
+- the hardware gives the maximum size, 1024 in GPUS or 8912 in CPUs.
+- each work-group is assign to a CU and it can not be split. 
+- synchronization and data exchange is possible inside a group.
+
+
+# Grid of Work-Items
+
+<div class="column">
+
+
+![](img/Grid_threads.png){.center width=35%}
+
+<div align="center"><small>A grid of work-items executing the same **kernel**</small></div>
+
+</div>
+
+<div class="column">
+![](img/mi100-architecture.png){.center width=10%}
 
 <div align="center"><small>AMD Instinct MI100 architecture (source: AMD)</small></div>
 </div>
 
-- a grid of threads is launched on a specififc device to perform a given work. 
-- each thread executes the same kernel processing different elemtns of the data.
-
-# A Work-Group is Assigned to a Compute Unit
-
-<div class="column">
-
-
-![](img/work_group.png){.center width=35%}
-
-<div align="center"><small>Work-groups of threads</small></div>
-
-</div>
-
-<div class="column">
-![](img/CU.png){.center width=35%}
-
-<div align="center"><small>Compute Unit in an AMD GPU.</small></div>
-</div>
+- a grid of threads is created on a specific device to perform the work. 
+- each work-item executes the same kernel
+- each work-item processes different elements of the data. 
+- there is no global synchronization or data exchange.
 
 # Summary
+- GPUs are hardware with high degree of parallelism.
+- many threads execute the same instruction (SIMD).
+- there is a hierarchy of the work-items (*work-groups*, *sub-groups*).
+- all items in the sub-group execute the same instruction (in 4 cycles).
+- branching in a *sub-group* should be avoided
+- memory accesses are done per *sub-group*.
 
