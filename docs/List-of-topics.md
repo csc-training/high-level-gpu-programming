@@ -5,7 +5,7 @@
 - streams
 - 
 ## cpp concepts
-- structures
+- classes, structures
 - templates
 - lambdas
 - functors
