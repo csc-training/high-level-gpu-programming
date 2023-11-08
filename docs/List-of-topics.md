@@ -1,5 +1,4 @@
 
-
 ## Introduction to GPU programming model
 - execution model
 - hardware to software mapping (CU --> block, ...)
@@ -32,6 +31,9 @@
     
 - cuda to sycl:
 - installation on Puhti (intel llvm) and LUMI (hipsycl)
+## SYCL and outside libraries
+- SYCL & MPI
+- SYCL & CUDA/HIP libraries
 ## KOKKOS
 
 ## Sources
