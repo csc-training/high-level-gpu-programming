@@ -1,3 +1,5 @@
+
+
 ## Introduction to GPU programming model
 - execution model
 - hardware to software mapping (CU --> block, ...)
