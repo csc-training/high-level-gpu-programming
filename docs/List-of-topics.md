@@ -29,7 +29,7 @@
   
 - internal profiling and debugging:
     
-- cuda to sycl:
+- cuda to sycl: CUDA heat equation  as an exercise
 - installation on Mahti  and LUMI (hipsycl/AdaptiveCpp & (intel llvm))
 ## SYCL and outside libraries
 - SYCL & MPI
