@@ -30,7 +30,7 @@
 - internal profiling and debugging:
     
 - cuda to sycl:
-- installation on Puhti (intel llvm) and LUMI (hipsycl)
+- installation on Mahti  and LUMI (hipsycl/AdaptiveCpp & (intel llvm))
 ## SYCL and outside libraries
 - SYCL & MPI
 - SYCL & CUDA/HIP libraries
