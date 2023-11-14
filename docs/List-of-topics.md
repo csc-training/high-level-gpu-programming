@@ -36,6 +36,12 @@
 - SYCL & CUDA/HIP libraries
 ## KOKKOS
 
+## Possible exercises:
+- selecting device in a node with several GPUs
+- SYCL + mpi for computing *pi* (https://www.intel.com/content/www/us/en/developer/articles/technical/compile-and-run-mpi-programs-using-dpcpp-language.html)
+- syclomatic for the heat equation
+- calling other libraries (not portable)
+- check examples from here https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL
 ## Sources
 - https://sycl.tech/
 - https://www.youtube.com/watch?v=IeOnlBXTdn4&list=PL46sP9LM8GsyHAxj1k7MbWrv5f5SlMpIF
