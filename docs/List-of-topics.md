@@ -1,4 +1,3 @@
-
 ## Introduction to GPU programming model
 - execution model
 - hardware to software mapping (CU --> block, ...)
@@ -47,3 +46,7 @@
 - https://www.youtube.com/watch?v=IeOnlBXTdn4&list=PL46sP9LM8GsyHAxj1k7MbWrv5f5SlMpIF
 - https://enccs.github.io/sycl-workshop/
 - https://www.dropbox.com/scl/fo/bmgeetfr31i5vcz7j5sjw/h?rlkey=qg0tdg14tx65n0kxpxbz50bzo&dl=0
+- https://www.intel.com/content/www/us/en/developer/tools/oneapi/training/migrate-from-cuda-to-cpp-with-sycl.html#gs.0zbdmk
+- https://documentation.sigma2.no/code_development/guides_gpu.html#dev-guides-gpu
+- https://fs.hlrs.de/projects/par/events/2023/intel-oneapi/
+- https://fs.hlrs.de/projects/par/events/2023/GPU-AMD/ (some Kokkos)
