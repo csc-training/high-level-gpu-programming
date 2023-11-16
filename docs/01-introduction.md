@@ -1,11 +1,12 @@
 ---
 title:  Introduction to GPU parallel computing and programming model
-subtitle: Higher Level GPU programming 
+subtitle: High-Level GPU Programming 
 author:   CSC Training
 date:     2024-02
 lang:     en
 ---
 
+# Introduction to GPU parallel computing and programming model{.section}
 
 # High Performance Computing through the ages
 
@@ -100,7 +101,7 @@ lang:     en
 2. Use accelerated libraries
 3. Directive based methods
     - OpenMP, OpenACC
-4. Use native GPU language
+4. Use direct GPU programming
     - CUDA, HIP, **SYCL**, **Kokkos**,...
 </div>
 <div class="column" width=80%>

@@ -1,45 +1,12 @@
 ---
 title:  GPU Execution Model
-subtitle: Higher Level GPU programming 
+subtitle: High-Level GPU Programming 
 author:   CSC Training
 date:     2024-02
 lang:     en
 ---
 
-
-# Accelerator model today
-
-
-- Local memory in GPU
-    - Smaller than main memory (32 GB in Puhti, 64GB in LUMI)
-    - Very high bandwidth (up to 3200 GB/s in LUMI)
-    - Latency high compared to compute performance
-
-![](img/gpu-bws.png){width=100%}
-
-- GPUs are connected to CPUs via PCIe
-- Data must be copied from CPU to GPU over the PCIe bus
-
-
-# Lumi - Pre-exascale system in Finland
-
- ![](img/lumi.png){.center width=50%}
-
-
-# GPU architecture
-<div class="column">
-- Designed for running tens of thousands of threads simultaneously on
-  thousands of cores
-- Very small penalty for switching threads
-- Running large amounts of threads hides memory access penalties
-- Very expensive to synchronize all threads
-</div>
-
-<div class="column">
-![](img/mi100-architecture.png)
-<small>AMD Instinct MI100 architecture (source: AMD)</small>
-</div>
-
+# GPU Execution Model{.section}
 
 #  Heterogeneous Programming Model
 
@@ -108,7 +75,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 ![](img/amd_simd_lanet.png){.center width=31%} 
 
-<div align="center"><small>The smallest compuational element in a GPU.</small></div>
+<div align="center"><small>The smallest computational element in a GPU.</small></div>
 </div>
 
 - the work-items are very light execution contexts.
@@ -173,7 +140,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 </div>
 
 <div class="column">
-![](img/mi100-architecture.png){.center width=10%}
+![](img/mi100-architecture.png){.center width=55%}
 
 <div align="center"><small>AMD Instinct MI100 architecture (source: AMD)</small></div>
 </div>
