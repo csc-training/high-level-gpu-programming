@@ -39,6 +39,8 @@ void simple_vadd(const std::array<T, N> &A, const std::array<T, N> &B, std::arra
 
 # Namespaces 
 
+# Templates
+
 # Raw pointers
 
 - fundamental elements that store memory addresses of another variable. 
@@ -177,7 +179,7 @@ class derived_class : base_class {...};
 
 - anonymous function objects.
 - a concise way to define small, unnamed functions inline 
-- useful short-lived tasks or as arguments to other functions.
+- useful for short-lived tasks or as arguments to other functions.
 - `[ capture clause ] (parameters) -> return-type { body }`
 ```cpp
 int b = 6;
