@@ -37,9 +37,29 @@ void simple_vadd(const std::array<T, N> &A, const std::array<T, N> &B, std::arra
 
 - SYCL and Kokkos are modern C++ with classes, templates, lambdas, ...
 
-# Namespaces 
+# Namespaces
+
+- a way of organizing names (variables, functions, classes, etc.).
+- access a name declared in a namespace: `my_namespace::my_variable`.
+- the `using` directive` makes names available without the  `::` operator.
+- for a specific name: `using my_namespace::my_function;`.
+- for all names: `using namespace my_namespace;`.
+- for `std`: `using namespace std;`.
+- for `sycl`: `using namespace sycl;`.
 
 # Templates
+
+- allows writing generic programs
+- entity that defines a family of classes, functions, variables, aliases, or concepts that can be parameterized 
+```
+template <class T>
+T max (T a, T b) { // function template definition inside declaration
+  return (a > b) ? a : b;
+}
+```
+- `std::vector<float> A(N)`
+- promotes code reusability and flexibility.
+- support generic programming paradigms
 
 # Raw pointers
 
@@ -51,54 +71,10 @@ void simple_vadd(const std::array<T, N> &A, const std::array<T, N> &B, std::arra
 - **deallocation**: `delete ptrA;`
 - perform operations on pointers: `ptrA+N;` (shifts  by `N*sizeof(float)`).
 
-# Structures
-
-- composite data types which allows grouping of variables.
-
-<div class="column">
-<small>
-```cpp
-struct particle {
-    double x;
-    double y;
-    double mass;
-    int charge;
-};
-```
-</small>
-
-</div>
-
-<div class="column">
-<small>
-```cpp
-struct particle {
-    double *x;
-    double *y;
-    double *mass;
-    int *charge;
-};
-```
-</small>
-</div>
-- access:  `double my_x=par_i.x;`. set: `par_i.x=5.0`. 
-- structure can also  have functions (methods) as components:
-<small>
-```cpp
-double compute_distance(const particle& par_j) const {
-        double dx = x - par_j.x;
-        double dy = y - par_j.y;
-        return std::sqrt(dx * dx + dy * dy);
-    }
-...
-particle par_i,par_j;
-double distance=par_i.compute_distance(par_j);
-```
-</small>
-
 # Classes
 
-- similar to **structures**,  but members are either **public** or **private**
+- composite data types which allows grouping of variables.
+-  members are be **public** or **private**
 
 <div class="column">
 <small>
@@ -139,41 +115,29 @@ par_i.set_position(5.0,6.0);
 // or
 set_function(par_i,5.0,6.0); 
 double my_x=par_i.get_x_position(); 
+par_i.mass=9.10938e-31;
 ```
 </small>
 </div>
 
+- classes can  have *constructors* and *destructors*
 
-# Derived **classes/structures**
+# Derived classes
 
-- **structures/classes** can have members other **structures/classes**.
+- **classes** can have members other **classes**.
 - inherit properties and behaviors.
-- within structures everything is public by default.
 - withing classes  everything is private by default.
 
-<div class="column">
-<small>
+
 ```cpp
-// Structure inheritance (public by default)
-struct base_struct {...};
-
-struct derived_struct : base_struct {...};
-```
-</small>
-</div>
-
-
-<div class="column">
-<small>
-```cpp
-// Structure inheritance (public by default)
+// Class inheritance (private by default)
 class base_class {...};
 
 class derived_class : base_class {...};
 ```
-</small>
-</div>
-- increases the code reusability and promotes a clean organization of the code.
+
+- increases the code reusability 
+- promotes a clean organization of the code.
 
 # Lambdas
 
@@ -191,6 +155,30 @@ int sum = add(5, &b);
 
 # Functors
 
-# Error Handling
+- objects that behave as functions.
+- can be encapsulated within classes.
+- can be passed as an argument to another function.
+
+<small>
+```cpp
+// Define the functor
+class Add {
+public:
+    int operator()(int a, int b) {return a + b;}
+};
+void use_functor(Add add, int a, int b) {
+    int sum = add(a, b);
+    std::cout << "The sum is: " << sum << std::endl;
+}
+
+```
+</small>
+
+- can be used to achieve generic programming.
+- allow us to write code that is more reusable, expressive, and efficient.
 
 # Summary
+
+- SYCL and Kokkos are modern C++ trying aiming towards generic parallel programming. 
+- classes, templates, lambdas, functors
+- reusable, expressive, and efficient.
