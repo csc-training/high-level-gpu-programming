@@ -20,17 +20,17 @@ The content level of the course is broken down as: beginner's - 0%, intermediate
 The event is organised at the CSC Training Facilities located in the premises of CSC at Keilaranta 14, Espoo, Finland.
 
 ## Agenda 
-Day 1, Wednesday 14.02, 9:00-16:00
+Day 1, Wednesday 14.02, 9:00-17:00
 - Introduction to GPUs and GPU parallle programming model
 - C++ concepts
 - Introduction to SYCL, queues, command, command groups, kernels
 - Memory management in SYCL 
 
-Day 2, Thursday 15.02, 9:00-16:00
+Day 2, Thursday 15.02, 9:00-17:00
 - Expressing parallelism
 - Dependencies, synchronization
 
-Day 3 Friday 16.02, 9:00-16:00
+Day 3 Friday 16.02, 9:00-17:00
 - SYCL profiling
 - Interoperability with other libraries
 - Multi-GPU programming
