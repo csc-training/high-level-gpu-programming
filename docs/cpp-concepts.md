@@ -177,8 +177,38 @@ void use_functor(Add add, int a, int b) {
 - can be used to achieve generic programming.
 - allow us to write code that is more reusable, expressive, and efficient.
 
+# Error Handling
+
+- errors are handled via exceptions. 
+- an unusual condition that results in an interruption in the flow of the program.
+- C++ exceptions can cleanly separates the detection from  the handling.
+- C++ exceptions can handle both *synchronous* and *asynchronous* errors.
+sssss
+
+<small>
+```cpp
+int main() {
+  int x, y;
+  cout << "Enter two numbers: ";
+  cin >> x >> y;
+
+  try {
+    if (y == 0) {
+      throw "Division by zero error"; // throw an exception
+    }
+    cout << "x / y = " << x / y << endl; // this may cause an exception
+  }
+  catch (const char* msg) {
+    cerr << "Error: " << msg << endl; // catch and handle the exception
+  }
+  return 0;
+}
+
+```
+</small>
+
 # Summary
 
-- SYCL and Kokkos are modern C++ trying aiming towards generic parallel programming. 
+- SYCL and Kokkos are modern C++  aiming towards generic parallel programming. 
 - classes, templates, lambdas, functors
 - reusable, expressive, and efficient.
