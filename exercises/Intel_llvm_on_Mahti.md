@@ -7,7 +7,7 @@ First create folder to install `llvm`
 
 ```
 mkdir <your_scratch_folder>/sycl_workspace
-export DPCPP_HOME=<your_scratch_folder>/llvmIntel/sycl_workspace
+export DPCPP_HOME=<your_scratch_folder>/sycl_workspace
 ```
 
 Clone the repository:
