@@ -43,7 +43,7 @@ In order to compile  `sycl` codes first set the environment:
 module load python-data
 module load gcc/11.2.0
 module load cuda/11.5.0
-export DPCPP_HOME=<your_scratch_folder>/llvmIntel/sycl_workspace
+export DPCPP_HOME=<your_scratch_folder>/sycl_workspace
 ```
 
 ```
