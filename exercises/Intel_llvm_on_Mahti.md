@@ -17,7 +17,7 @@ cd $DPCPP_HOME
 git clone https://github.com/intel/llvm -b sycl
 ```
 
-**Note**! The repository has more than 100k files. On Mahti we want to keep the applications in `/projappl/project_zzzz` folder which is very fast, but has a limit of `50GB` and `100k` files. So `/scratch/project_zzzz` needs to be used.
+**Note**! The repository has more than 100k files. On Mahti we would want to keep the applications in `/projappl/project_zzzz` folder which is very fast, but has a limit of `50GB` and `100k` files. So `/scratch/project_zzzz` needs to be used.
 
 The compiler uses `cuda` as a back-end and also needs python:
 
