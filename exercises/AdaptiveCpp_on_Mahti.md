@@ -1,3 +1,5 @@
+AdavptiveCPP was previously known as hipSYCL.
+
 # Installation with spack `v0.21`
 Purge the modules. 
 ``` 
