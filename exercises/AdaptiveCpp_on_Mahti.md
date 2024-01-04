@@ -16,7 +16,11 @@ $(spack location -i lmod)/lmod/lmod/init/bash
 ``` 
 
 Install:
+It needs needs proper C++17 support to be built. If not available, first intall `gcc`:
+
  ```
+spack install gcc@11.2.0
+
 spack install hipsycl@0.9.4 +cuda
 ```
 
