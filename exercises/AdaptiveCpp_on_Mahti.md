@@ -3,6 +3,15 @@ Purge the modules.
 ``` 
 git clone -c feature.manyFiles=true https://github.com/spack/spack.git
 ```
+Set the `lmod`
+
+```
+. spack/share/spack/setup-env.sh
+spack config add "modules:default:enable:[tcl]"
+spack install lmod
+$(spack location -i lmod)/lmod/lmod/init/bash
+. spack/share/spack/setup-env.sh
+``` 
 
 Install:
  ```
