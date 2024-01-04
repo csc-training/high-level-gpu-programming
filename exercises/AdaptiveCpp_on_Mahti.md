@@ -20,10 +20,17 @@ It needs needs proper C++17 support to be built. If not available, first intall 
 
  ```
 spack install gcc@11.2.0
-
-spack install hipsycl@0.9.4 +cuda
 ```
+Add the compiler to spack:
 
+```
+spack load gcc@11.2.0
+spack compiler add
+```
+Finally the `AdaptiveCpp` installation:
+```
+spack install hipsycl@0.9.4 +cuda@11.5.0 %gcc@11.2.0
+```
 
 After installation check the package with `syclcc --hipsycl-version` or `syclcc --hipsycl-info`.
 
