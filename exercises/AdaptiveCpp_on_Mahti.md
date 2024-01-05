@@ -36,10 +36,14 @@ spack install hipsycl@0.9.4 %gcc@11.2.0 +cuda ^cuda@11.5.0 %gcc@11.2.0
 
 After installation check the package with `syclcc --hipsycl-version` or `syclcc --hipsycl-info`.
 
-### (Optional) OpenMP offloading to Nvidua GPUs
+### (Optional, Nor working at the moment on Mahti) OpenMP offloading to Nvidia GPUs
 
 ```
 spack install gcc@12.2.0 %gcc@11.2.0+ nvptx ^cuda@11.5.0  %gcc@11.2.0
+```
+Might work also for version `11.1.0`
+```
+spack install gcc@11.2.0 %gcc@11.2.0+ nvptx ^cuda@11.5.0  %gcc@11.2.0
 ```
 
 ### Usage
