@@ -161,6 +161,7 @@ int sum = add(5, &b);
 
 <small>
 ```cpp
+  
 // Define the functor
 class Add {
 public:
@@ -186,6 +187,7 @@ void use_functor(Add add, int a, int b) {
 
 <small>
 ```cpp
+
 int main() {
   int x, y;
   cout << "Enter two numbers: ";
