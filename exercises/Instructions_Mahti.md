@@ -14,6 +14,6 @@ $DPCPP_HOME/llvm/build/bin/clang++ -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-
 ```
 ### Execution
 ```
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DPCPP_HOME/llvm/build/lib srun  --time=00:15:00 --partition=gputest --account=project_2001498 --nodes=1 --ntasks-per-node=1  --cpus-per-task=1 --gres=gpu:a100:4  ./a.out
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DPCPP_HOME/llvm/build/lib srun  --time=00:15:00 --partition=gputest --account=project_2008874 --nodes=1 --ntasks-per-node=1  --cpus-per-task=1 --gres=gpu:a100:4  ./a.out
 ```
 
