@@ -183,7 +183,6 @@ void use_functor(Add add, int a, int b) {
 - an unusual condition that results in an interruption in the flow of the program.
 - C++ exceptions can cleanly separates the detection from  the handling.
 - C++ exceptions can handle both *synchronous* and *asynchronous* errors.
-sssss
 
 <small>
 ```cpp
