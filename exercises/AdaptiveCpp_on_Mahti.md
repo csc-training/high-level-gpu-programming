@@ -54,12 +54,10 @@ After installation:
 
 ```
 module purge
-cd spack
-. share/spack/setup-env.sh # note the "." at the beginning of the command
-spack load gcc
-spack load cuda
-spack load llvm
-spack load hipsycl
+module use /scratch/project_2008874/spack/share/spack/modules/linux-rhel8-x86_64_v3/
+module load gcc/11.2.0-gcc-11.2.0-5q2hczg
+module load hipsycl
+export LD_LIBRARY_PATH=/scratch/project_2008874/spack/opt/spack/linux-rhel8-x86_64_v3/gcc-11.2.0/gcc-11.2.0-5q2hczgm5awkwzf3yclqnne3pstvq65n/lib64/:$LD_LIBRARY_PATH
 ```
 Compile with `syclcc` or `sycl-clang`. 
 ```
