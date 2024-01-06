@@ -10,11 +10,11 @@ git checkout releases/v0.21
 Set the `lmod`
 
 ```
-. spack/share/spack/setup-env.sh
+. share/spack/setup-env.sh
 spack config add "modules:default:enable:[tcl]"
 spack install lmod
 $(spack location -i lmod)/lmod/lmod/init/bash
-. spack/share/spack/setup-env.sh
+. share/spack/setup-env.sh
 ``` 
 
 Install:
