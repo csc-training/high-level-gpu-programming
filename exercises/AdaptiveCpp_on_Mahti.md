@@ -6,6 +6,7 @@ Purge the modules.
 git clone -c feature.manyFiles=true https://github.com/spack/spack.git
 cd spack
 git checkout releases/v0.21
+module purge
 ```
 Set the `lmod`
 
