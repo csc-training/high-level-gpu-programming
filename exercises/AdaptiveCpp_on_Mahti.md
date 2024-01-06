@@ -37,7 +37,7 @@ spack install hipsycl@0.9.4 %gcc@11.2.0 +cuda ^cuda@11.5.0 %gcc@11.2.0
 
 After installation check the package with `syclcc --hipsycl-version` or `syclcc --hipsycl-info`.
 
-### (Optional, Nor working at the moment on Mahti) OpenMP offloading to Nvidia GPUs
+### (Optional, Not working at the moment on Mahti) OpenMP offloading to Nvidia GPUs
 
 ```
 spack load gcc@11.2.0
@@ -52,16 +52,24 @@ spack load cuda@11.5.0
 spack install gcc@11.2.0 %gcc@11.2.0+ nvptx ^cuda@11.5.0  %gcc@11.2.0
 ```
 
-### Usage
-After installation:
+### (Optional) Install `hip`
 
 ```
-module purge
+spack install hip
+```
+
+
+### Usage
+After installation:
+If the initial set-up was succesful there should be modules files available. 
+
+```
 module use /scratch/project_2008874/spack/share/spack/modules/linux-rhel8-x86_64_v3/
 module load gcc/11.2.0-gcc-11.2.0-5q2hczg
 module load hipsycl
 export LD_LIBRARY_PATH=/scratch/project_2008874/spack/opt/spack/linux-rhel8-x86_64_v3/gcc-11.2.0/gcc-11.2.0-5q2hczgm5awkwzf3yclqnne3pstvq65n/lib64/:$LD_LIBRARY_PATH
 ```
+Alternaetively if there are no modules files, one can use the `spack load <package>`. 
 Compile with `syclcc` or `sycl-clang`. 
 ```
 syclcc -O2 --hipsycl-targets="omp;cuda:sm_80" hello.cpp
