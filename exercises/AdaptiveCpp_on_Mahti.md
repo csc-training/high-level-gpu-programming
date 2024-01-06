@@ -40,12 +40,14 @@ After installation check the package with `syclcc --hipsycl-version` or `syclcc 
 ### (Optional, Nor working at the moment on Mahti) OpenMP offloading to Nvidia GPUs
 
 ```
+spack load gcc@11.2.0
 spack load cuda@11.5.0 
 spack install gcc@12.2.0 %gcc@11.2.0+ nvptx ^cuda@11.5.0  %gcc@11.2.0
 ```
 
 Version `11.2.0`
 ```
+spack load gcc@11.2.0
 spack load cuda@11.5.0 
 spack install gcc@11.2.0 %gcc@11.2.0+ nvptx ^cuda@11.5.0  %gcc@11.2.0
 ```
