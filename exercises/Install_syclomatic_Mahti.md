@@ -23,3 +23,12 @@ ninja install-c2s
 export PATH=$PATH_TO_C2S_INSTALL_FOLDER/bin:$PATH
 export CPATH=$PATH_TO_C2S_INSTALL_FOLDER/include:$CPATH
 ```
+
+# Install with spack:
+Nothing special required on version `v 0.12`
+```
+spack install intel-oneapi-dpct
+```
+
+This would create the modules file.
+
