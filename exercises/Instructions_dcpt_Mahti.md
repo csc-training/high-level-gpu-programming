@@ -1,7 +1,7 @@
 ```
 module purge
 module use /scratch/project_2008874/spack/share/spack/modules/linux-rhel8-x86_64_v3/
-module load module load gcc/11.2.0-gcc-8.5.0-gpvckmb
+module load gcc/11.2.0-gcc-8.5.0-gpvckmb
 module load cmake/3.27.7-gcc-11.2.0-t3n4tps
 module load cuda/11.5.0-gcc-11.2.0-gmjjets
 ```
