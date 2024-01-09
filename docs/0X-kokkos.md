@@ -82,7 +82,7 @@ struct Kokkos::InitArguments {
 
 # Kokkos programming - Execution and Memory Spaces
 - Kokkos uses an execution space model to abstract the details of parallel hardware 
-- The execution space instances map to the available backend options such as CUDA, HIP, or SYCL
+- The execution space instances map to the available backend options such as CUDA, HIP, OpenMP, or SYCL
 - Similarly, Kokkos uses a memory space model for different types of memory, such as host memory or device memory
 - If the execution space or memory space are not explicitly chosen by the programmer in the source code, the default spaces are used (chosen during compile time)
 
@@ -132,7 +132,8 @@ Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
 2. Execute `git clone https://github.com/kokkos/kokkos.git` in the same folder
 3. Run `make`
 4. Run executable with, eg, `./hello` or `srun ./hello`
-- No separate step to manually compile and link Kokkos is required!
+<br><br><br>
+- **No separate step to manually compile and link Kokkos is required!**
 
 # Summary
 - Kokkos is a portable GPU programming ecosystem supporting CUDA, HIP, SYCL, HPX, OpenMP, and C++ threads
