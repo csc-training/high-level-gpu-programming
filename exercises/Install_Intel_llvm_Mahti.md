@@ -1,7 +1,7 @@
 
 # Mahti
 
-## Compile the intell llvm from source
+## Compile the intel llvm from source
 
 First create folder to install `llvm`
 
