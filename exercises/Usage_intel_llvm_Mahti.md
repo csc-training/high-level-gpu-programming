@@ -1,10 +1,12 @@
 ## Compile `sycl` codes with intel llvm
 In order to compile  `sycl` codes first set the environment:
 
-``` 
-module load python-data
-module load gcc/11.2.0
-module load cuda/11.5.0
+```
+module purge
+module use /scratch/project_2008874/spack/share/spack/modules/linux-rhel8-x86_64_v3/
+module load gcc/11.2.0-gcc-8.5.0-gpvckmb
+module load cmake/3.27.7-gcc-11.2.0-t3n4tps
+module load cuda/11.5.0-gcc-11.2.0-gmjjets
 export DPCPP_HOME=/scratch/project_2008874/sycl_workspace
 ```
 ### Compile the code
