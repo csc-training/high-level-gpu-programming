@@ -17,4 +17,4 @@ Convert a simple cuda code to sycl:
 ```
 dpct --cuda-include-path=/scratch/project_2008874/spack/opt/spack/linux-rhel8-x86_64_v3/gcc-11.2.0/cuda-11.5.0-gmjjetscy7qwcwrrmuoqsujhdqkkyjss/include --in-root=./ src/vector_add.cu
 ```
-Now we can try to compil using [intel llvm](Instructions_intel_llvm_Mahti.md).
+Now we can try to compil using [intel llvm](Usage_intel_llvm_Mahti.md).
