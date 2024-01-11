@@ -1,6 +1,6 @@
 ## Install from source:
 
-Clone and switch to the approapriate version:
+Clone and switch to the appropriate version:
 ```
 git clone https://github.com/AdaptiveCpp/AdaptiveCpp.git
 git switch --detach  v0.9.4
