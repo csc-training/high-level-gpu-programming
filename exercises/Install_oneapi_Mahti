@@ -1,9 +1,8 @@
-
-Load cuda 12
+Load cuda 
 
 ```
 
-module load cuda/12.1.1
+module load cuda
 ```
 
 Downlaod and intall the oneapi basekit:
