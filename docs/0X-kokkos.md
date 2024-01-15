@@ -146,7 +146,7 @@ Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
 
 # Run Kokkos in simple steps
 1. Create a folder with source file and Makefile, eg, `hello.cpp` and `Makefile`
-2. Execute `git clone https://github.com/kokkos/kokkos.git` in the same folder
+2. Execute `git clone https://github.com/kokkos/kokkos.git` (in the same folder if using the Makefile shown at earlier page)
 3. Run `make`
 4. Run executable with, eg, `./hello` or `srun ./hello`
 <br><br><br>
