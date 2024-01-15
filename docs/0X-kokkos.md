@@ -34,9 +34,12 @@ lang:     en
 # Kokkos Compilation
 - Usage of cross-platform portability libraries could require compiling multiple instances if different projects on the same system require different compilation settings
 - For instance, with Kokkos, one project might prefer CUDA as the default execution space, while another requires a CPU
-- Kokkos supports simultaneous compilation of the Kokkos library with the user project, by specifying Kokkos compilation settings and including the Kokkos Makefile in the user Makefile
+- Kokkos supports inline building of the Kokkos library with the user project, by specifying Kokkos compilation settings and including the Kokkos Makefile in the user Makefile
+<small>
+- Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/building.html](https://kokkos.github.io/kokkos-core-wiki/building.html)
+</small>
 
-# Hello Makefile example
+# Inline build: Hello Makefile example
 <small>
 ```
 default: build
@@ -61,14 +64,19 @@ build: $(KOKKOS_LINK_DEPENDS) $(KOKKOS_CPP_DEPENDS) hello.cpp
 </small>
 
 # Kokkos programming
-- Kokkos code must start with Kokkos initialization and end with Kokkos finalization, ie, 
+- Kokkos code starts with Kokkos initialization and ends with finalization,
+<small>
 ```
 Kokkos::initialize(int& argc, char* argv[]);
 .
 .
 Kokkos::finalize();
 ```
+</small>
+
 - The optional initialization parameters can be passed as a struct:
+
+<small>
 ```
 struct Kokkos::InitArguments {
   int num_threads; // number of threads (per numa region)
@@ -79,6 +87,9 @@ struct Kokkos::InitArguments {
   bool disable_warnings;
 };
 ```
+- Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/API/core/Initialize-and-Finalize.html](https://kokkos.github.io/kokkos-core-wiki/API/core/Initialize-and-Finalize.html)
+</small>
+
 
 # Kokkos programming - Execution and Memory Spaces
 - Kokkos uses an execution space model to abstract the details of parallel hardware 
@@ -114,6 +125,9 @@ Kokkos::kokkos_malloc(n * sizeof(int)); // n is the size of the allocation in in
 ```
 Kokkos::View<int*> a("a", n); // "a" is a label, and n is the size of the allocation in ints 
 ```
+<small>
+- Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/API/core/View.html](https://kokkos.github.io/kokkos-core-wiki/API/core/View.html)
+</small>
 
 # Kokkos parallel execution
 - Kokkos provides three different parallel operations: parallel_for, parallel_reduce, and parallel_scan 
@@ -126,6 +140,9 @@ Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
   c[i] = a[i] * b[i];
 });
 ```
+<small>
+- Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/API/core/ParallelDispatch.html](https://kokkos.github.io/kokkos-core-wiki/API/core/ParallelDispatch.html)
+</small>
 
 # Run Kokkos in simple steps
 1. Create a folder with source file and Makefile, eg, `hello.cpp` and `Makefile`
@@ -140,3 +157,6 @@ Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
 - The ecosystem includes three main components, ie, Kokkos Core, Kokkos Kernels, and Kokkos Tools for GPU program development
 - Kokkos (like SYCL) heavily utilizes modern C++ features like lambdas and templates for loop construction and memory management
 - Kokkos is not a very popular choice for parallel programming, and therefore, learning and using Kokkos can be more difficult compared to more established programming models such as CUDA/HIP or OpenMP
+<small>
+- See Kokkos docs for more: [https://kokkos.github.io/kokkos-core-wiki/index.html](https://kokkos.github.io/kokkos-core-wiki/index.html)
+</small>
