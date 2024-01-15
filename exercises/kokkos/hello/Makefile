@@ -1,7 +1,7 @@
 default: build
 
 # Set compiler
-KOKKOS_PATH = $(shell pwd)/kokkos
+KOKKOS_PATH = $(shell pwd)/../kokkos
 CXX = hipcc
 # CXX = ${KOKKOS_PATH}/bin/nvcc_wrapper
 

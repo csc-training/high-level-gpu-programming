@@ -1,7 +1,7 @@
 default: build
 
 # Set compiler
-KOKKOS_PATH = $(shell pwd)/kokkos
+KOKKOS_PATH = $(shell pwd)/../../kokkos
 CXX = hipcc
 # CXX = ${KOKKOS_PATH}/bin/nvcc_wrapper
 
@@ -16,4 +16,4 @@ KOKKOS_CUDA_OPTIONS = "enable_lambda,force_uvm"
 include $(KOKKOS_PATH)/Makefile.kokkos
 
 build: $(KOKKOS_LINK_DEPENDS) $(KOKKOS_CPP_DEPENDS) kokkos_malloc.cpp
-	$(CXX) $(KOKKOS_CPPFLAGS) $(KOKKOS_CXXFLAGS) $(KOKKOS_LDFLAGS) kokkos_malloc.cpp $(KOKKOS_LIBS) -o solution
+	$(CXX) $(KOKKOS_CPPFLAGS) $(KOKKOS_CXXFLAGS) $(KOKKOS_LDFLAGS) kokkos_malloc.cpp $(KOKKOS_LIBS) -o kokkos_malloc
