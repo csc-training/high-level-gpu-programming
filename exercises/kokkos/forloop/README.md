@@ -1,6 +1,6 @@
 # For loop exercise
 
-Here, the purpose is to write a simple program using Kokkos that evaluates a loop from `i = 0` to `ì = 5`. The loop calculates `c[i] = a[i] * b[i]` for all `i` on a GPU. After this, try to create a second loop (without Kokkos) to print out each `c[i]` to see the results are correct. In addition to `Kokkos::initialize()` and `Kokkos::finalize`, you will need `Kokkos::parallel_for` and `Kokkos::fence` in this exercise. Furthermore, two different memory management strategies are investigated here:
+Here, the purpose is to write a simple program using Kokkos that evaluates a loop from `i = 0` to `ì = 5`. The loop calculates `c[i] = a[i] * b[i]` for all `i` on a GPU. After this, the program should evaluate a second loop (without Kokkos) to print out each `c[i]` to see the results are correct. In addition to `Kokkos::initialize()` and `Kokkos::finalize`, you will need `Kokkos::parallel_for` and `Kokkos::fence` in this exercise. Furthermore, two different memory management strategies are investigated here:
 
 ## Case 1: Raw pointers with Unified Memory
 `Kokkos::kokkos_malloc` and `Kokkos::kokkos_free` are needed here.
@@ -17,4 +17,4 @@ Here, the purpose is to write a simple program using Kokkos that evaluates a loo
 3. Run on Lumi or Mahti by `srun ./executable`
 
 # Example solution
-Example Kokkos implementations (.cpp) are given in the solution folder. However, the intention is to try solving the exercise first without looking into these.
+Example Kokkos implementations (.cpp) are given in the solution folders. However, the intention is to try solving the exercise first without looking into these.
