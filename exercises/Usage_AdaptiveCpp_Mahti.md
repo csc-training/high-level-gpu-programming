@@ -20,5 +20,5 @@ srun  --time=00:15:00 --partition=test --account=project_2008874 --nodes=1 --nta
 ```
 or with gpus:
 ```
-srun  --time=00:15:00 --partition=gputest --account=project_2008874 --nodes=1 --ntasks-per-node=1  --cpus-per-task=1 -gres=gpu:a100:4 ./a.out
+srun  --time=00:15:00 --partition=gputest --account=project_2008874 --nodes=1 --ntasks-per-node=1  --cpus-per-task=1 --gres=gpu:a100:4 ./a.out
 ```
