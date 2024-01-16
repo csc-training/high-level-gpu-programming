@@ -74,18 +74,15 @@ Kokkos::finalize();
 ```
 </small>
 
-- The optional initialization parameters can be passed as a struct:
+- Optional initialization parameters can be passed as follows:
 
 <small>
 ```
-struct Kokkos::InitArguments {
-  int num_threads; // number of threads (per numa region)
-  int num_numa; // number of NUMA regions used by process
-  int device_id; // device id to be used by Kokkos
-  int ndevices; // the number of devices per node to be used with MPI
-  int skip_device; // ignore existing device
-  bool disable_warnings;
-};
+Kokkos::initialize(Kokkos::InitializationSettings()
+                   .set_device_id(0)                /* select the device (eg, 0th gpu of the total of 4 gpus) */
+                   .set_disable_warnings(false)     /* disable warning messages */
+                   .set_num_threads(1)              /* set the number of threads */
+                   .set_print_configuration(true)); /* print the configuration after initialization */                   
 ```
 - Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/API/core/Initialize-and-Finalize.html](https://kokkos.github.io/kokkos-core-wiki/API/core/Initialize-and-Finalize.html)
 </small>
