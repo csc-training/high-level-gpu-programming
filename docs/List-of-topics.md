@@ -43,6 +43,8 @@
 - check examples from here https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL
 ## Sources
 - https://sycl.tech/
+- https://link.springer.com/book/10.1007/978-1-4842-9691-2
+- https://github.com/Apress/data-parallel-CPP/tree/main
 - https://www.youtube.com/watch?v=IeOnlBXTdn4&list=PL46sP9LM8GsyHAxj1k7MbWrv5f5SlMpIF
 - https://enccs.github.io/sycl-workshop/
 - https://www.dropbox.com/scl/fo/bmgeetfr31i5vcz7j5sjw/h?rlkey=qg0tdg14tx65n0kxpxbz50bzo&dl=0
@@ -50,3 +52,7 @@
 - https://documentation.sigma2.no/code_development/guides_gpu.html#dev-guides-gpu
 - https://fs.hlrs.de/projects/par/events/2023/intel-oneapi/
 - https://fs.hlrs.de/projects/par/events/2023/GPU-AMD/ (some Kokkos)
+- https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL/Jupyter/oneapi-essentials-training
+- https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL/Jupyter/gpu-optimization-sycl-training
+- https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL/Jupyter/sycl-performance-portability-training
+- https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL/Jupyter/cuda-to-sycl-migration-training
