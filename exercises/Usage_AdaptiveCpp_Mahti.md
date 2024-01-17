@@ -12,7 +12,7 @@ export LD_LIBRARY_PATH=/scratch/project_2008874/spack/opt/spack/linux-rhel8-x86_
 Alternatively if there are no modules files, one can use the `spack load <package>`. 
 Compile with `syclcc` or `sycl-clang`. 
 ```
-syclcc -O2 --hipsycl-targets="omp;cuda:sm_80" hello.cpp
+syclcc -O2 --hipsycl-targets="omp;cuda:sm_80" <syl-code>.cpp
 ```
 Run on without gpus  with:
 ```
