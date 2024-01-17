@@ -57,3 +57,5 @@
 - https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL/Jupyter/gpu-optimization-sycl-training
 - https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL/Jupyter/sycl-performance-portability-training
 - https://github.com/oneapi-src/oneAPI-samples/tree/master/DirectProgramming/C%2B%2BSYCL/Jupyter/cuda-to-sycl-migration-training
+- **heat equation** in sycl: https://github.com/ENCCS/gpu-programming/tree/main/content/examples/stencil/sycl
+- cuda training repository at CSC: https://github.com/csc-training/CUDA
