@@ -98,11 +98,9 @@ int main(int argc, char *argv[]) {
     std::cout << "\tConfiguration         : MATRIX_SIZE= " << N << "x" << N << "\n";
     
     
-    //Measure the execution time via events
-    
-    //# Submit command groups to execute on device
 
     std::cout << "Now the matrix-matrix  multiplication." << "\n"; 
+    //# Submit command groups to execute on device
     e = q.submit([&](handler &h){
         
         //# Define size for ND-Range and work-group size
