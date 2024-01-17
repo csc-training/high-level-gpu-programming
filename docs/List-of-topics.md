@@ -47,6 +47,7 @@
 - https://github.com/Apress/data-parallel-CPP/tree/main
 - https://www.youtube.com/watch?v=IeOnlBXTdn4&list=PL46sP9LM8GsyHAxj1k7MbWrv5f5SlMpIF
 - https://enccs.github.io/sycl-workshop/
+- https://enccs.github.io/gpu-programming/
 - https://www.dropbox.com/scl/fo/bmgeetfr31i5vcz7j5sjw/h?rlkey=qg0tdg14tx65n0kxpxbz50bzo&dl=0
 - https://www.intel.com/content/www/us/en/developer/tools/oneapi/training/migrate-from-cuda-to-cpp-with-sycl.html#gs.0zbdmk
 - https://documentation.sigma2.no/code_development/guides_gpu.html#dev-guides-gpu
