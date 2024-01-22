@@ -1,5 +1,5 @@
 // We use built-in sycl::reduction mechanism in this example.
-// The manual implementation of the reduction kernel can be found in folder 04-reduction
+// The manual implementation of the reduction kernel can be found in folder 06-reduction
 #include <sycl/sycl.hpp>
 
 int main() {
