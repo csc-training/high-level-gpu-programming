@@ -3,7 +3,7 @@
 Clone and switch to the appropriate version:
 ```
 git clone https://github.com/AdaptiveCpp/AdaptiveCpp.git
-git switch --detach  v0.9.4
+# git switch --detach  v0.9.4 # use this only if there are problems with the latest version
 ```
 Load the modules needed:
 ```
