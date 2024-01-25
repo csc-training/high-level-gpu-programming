@@ -70,6 +70,39 @@ int main(int argc, char *argv[]) {
             matrix_d[i*N+j] = 0.f;
     }
     q.submit([&](handler &h){
+        
+        //# Define size for ND-Range and work-group size
+        range<2> global_size(N,N);
+        range<2> work_group_size(M,M);
+        //# Parallel Compute Matrix Multiplication
+        h.parallel_for(nd_range<2>{global_size, work_group_size}, [=](nd_item<2> item){
+            const int i = item.get_global_id(1);
+            const int j = item.get_global_id(0);
+                //# Use private mem to store intermediate result
+                float temp=0.f;
+                for (int k = 0; k < N; k++) {
+                   temp += matrix_a[i*N+k] * matrix_b[k*N+j];
+               }
+               matrix_c[i*N+j] = temp;
+
+         });
+    });
+    q.fill(matrix_c, 0.0f, N * N).wait();
+    
+    //Measure the execution time via events
+    event e;
+    std::cout << "Offload Device        : " << q.get_device().get_info<info::device::name>() << "\n";
+    std::cout << "max_work_group_size   : " << q.get_device().get_info<info::device::max_work_group_size>() << "\n";
+    std::cout << "Configuration         : MATRIX_SIZE= " << N << "x" << N << "\n";
+    
+    
+    
+
+    std::cout << "Now the matrix-matrix  multiplication." << "\n"; 
+    
+    //# Submit command groups to execute on device
+    e = 
+    q.submit([&](handler &h){
 
 
             //# Define size for ND-Range and work-group size
@@ -101,38 +134,6 @@ int main(int argc, char *argv[]) {
 
             });           
         });
-    q.fill(matrix_c, 0.0f, N * N).wait();
-    
-    //Measure the execution time via events
-    event e;
-    std::cout << "Offload Device        : " << q.get_device().get_info<info::device::name>() << "\n";
-    std::cout << "max_work_group_size   : " << q.get_device().get_info<info::device::max_work_group_size>() << "\n";
-    std::cout << "Configuration         : MATRIX_SIZE= " << N << "x" << N << "\n";
-    
-    
-    
-
-    std::cout << "Now the matrix-matrix  multiplication." << "\n"; 
-    
-    //# Submit command groups to execute on device
-    e = q.submit([&](handler &h){
-        
-        //# Define size for ND-Range and work-group size
-        range<2> global_size(N,N);
-        range<2> work_group_size(M,M);
-        //# Parallel Compute Matrix Multiplication
-        h.parallel_for(nd_range<2>{global_size, work_group_size}, [=](nd_item<2> item){
-            const int i = item.get_global_id(1);
-            const int j = item.get_global_id(0);
-                //# Use private mem to store intermediate result
-                float temp=0.f;
-                for (int k = 0; k < N; k++) {
-                   temp += matrix_a[i*N+k] * matrix_b[k*N+j];
-               }
-               matrix_c[i*N+j] = temp;
-
-         });
-    });
     
 
     auto kernel_duration = (e.get_profiling_info<info::event_profiling::command_end>() - e.get_profiling_info<info::event_profiling::command_start>());
