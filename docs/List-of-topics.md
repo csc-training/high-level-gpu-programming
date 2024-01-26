@@ -44,7 +44,9 @@
 ## Sources
 - https://sycl.tech/
 - https://link.springer.com/book/10.1007/978-1-4842-9691-2
+- https://tinyurl.com/book-SYCL
 - https://github.com/Apress/data-parallel-CPP/tree/main
+- `git clone --recursive --branch sc23 https://github.com/codeplaysoftware/syclacademy.git` 
 - https://www.youtube.com/watch?v=IeOnlBXTdn4&list=PL46sP9LM8GsyHAxj1k7MbWrv5f5SlMpIF
 - https://enccs.github.io/sycl-workshop/
 - https://enccs.github.io/gpu-programming/
