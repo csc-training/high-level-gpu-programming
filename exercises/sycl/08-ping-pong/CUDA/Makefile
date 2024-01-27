@@ -6,8 +6,8 @@ NVCFLAGS = -c -O2 -arch=sm_80
 LDFLAGS = -L${CUDA_HOME}/lib64
 LIBS = -lcudart
 INCLUDES = -I${CUDA_HOME}/include/
-CUDASRC = add_kernel.cu
-MPISRC = pingpong.cpp 
+CUDASRC = src/add_kernel.cu
+MPISRC = src/pingpong.cpp 
 OBJS = $(MPISRC:.cpp=.cpp.o) $(CUDASRC:.cu=.cu.o)
 EXE = pingpong
 
