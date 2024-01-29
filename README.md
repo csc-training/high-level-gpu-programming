@@ -15,7 +15,7 @@ part of the EuroCC training activities at CSC.
 | 09:50-10:00 | Break 
 | 10:00-10:30 | GPU parallel programming model
 | 10:50-11:20 | GPU memory hierarchy
-| 11:25-12:00 | Refresher of C++ concepts (TR)
+| 11:25-12:00 | Refresher of C++ concepts
 12:00-13:00 Lunch break
 13:00-13:30 Mahti and LUMI  Computing Platforms (login & edit files, Slurm,SYCL installation, usage) (CVA)
 13:30-15:00 SYCL I(a)  (Soner) 
