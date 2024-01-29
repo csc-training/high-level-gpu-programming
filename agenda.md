@@ -2,8 +2,8 @@ Contents (fine grained) :
 
 ## Day 1, Wednesday 14.02, 9:00-17:00
 
-09:00-09:15 Welcome (CVA)
-09:20-9:50 Introduction to GPUs  (CVA)
+ 09:00-09:15 Welcome (CVA)
+ 09:20-9:50 Introduction to GPUs  (CVA)
 10:10-10:40 GPU parallel programming model (CVA)
 10:50-11:20 GPU memory hierarchy (CVA)
 11:25-12:00 Refresher of C++ concepts (TR)
