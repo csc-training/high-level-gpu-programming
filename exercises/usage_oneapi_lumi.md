@@ -10,6 +10,10 @@ icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend
 ```
 
 ## Running
+CPU
 ```
-#SBATCH
+srun -p debug --exclusive  -n 1 --cpus-per-task=128  --time=00:05:00 --account=project_462000456 ./a.out
+```
+```
+#SBATCH 
 ```
