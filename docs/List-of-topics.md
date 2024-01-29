@@ -3,7 +3,7 @@
 - hardware to software mapping (CU --> block, ...)
 - memory hierarchy
 - streams
-- 
+  
 ## cpp concepts
 - classes, structures
 - templates
@@ -63,3 +63,4 @@
 - **heat equation** in sycl: https://github.com/ENCCS/gpu-programming/tree/main/content/examples/stencil/sycl
 - cuda training repository at CSC: https://github.com/csc-training/CUDA
 - https://www.intel.com/content/www/us/en/developer/articles/technical/solve-a-2d-heat-equation-using-data-parallel-c.html
+- https://doku.lrz.de/files/17826165/16942343/2/1686045904023/syclomatic-lrz-workshop+1.pdf
