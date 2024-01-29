@@ -147,7 +147,7 @@ class derived_class : base_class {...};
 - `[ capture clause ] (parameters) -> return-type { body }`
 ```cpp
 int b = 6;
-auto add = [=, &b](int a, int *b) -> int { return a + b[0]; };
+auto add = [](int a, int *b) -> int { return a + b[0]; };
 int sum = add(5, &b);
 
 ```
