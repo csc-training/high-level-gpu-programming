@@ -62,3 +62,4 @@
 - **heat equation** in cuda: https://github.com/cschpc/heat-equation/tree/main/cuda
 - **heat equation** in sycl: https://github.com/ENCCS/gpu-programming/tree/main/content/examples/stencil/sycl
 - cuda training repository at CSC: https://github.com/csc-training/CUDA
+- https://www.intel.com/content/www/us/en/developer/articles/technical/solve-a-2d-heat-equation-using-data-parallel-c.html
