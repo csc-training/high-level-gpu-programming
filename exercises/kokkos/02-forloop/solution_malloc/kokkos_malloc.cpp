@@ -8,10 +8,10 @@ int main(int argc, char* argv[]) {
   {
     unsigned n = 5;
 
-    // Allocate on Kokkos default memory space (Unified Memory)
-    int* a = (int*) Kokkos::kokkos_malloc(n * sizeof(int));
-    int* b = (int*) Kokkos::kokkos_malloc(n * sizeof(int));
-    int* c = (int*) Kokkos::kokkos_malloc(n * sizeof(int));
+    // Allocate on Kokkos SharedSpace (Unified Memory)
+    int* a = (int*) Kokkos::kokkos_malloc<Kokkos::SharedSpace>(n * sizeof(int));
+    int* b = (int*) Kokkos::kokkos_malloc<Kokkos::SharedSpace>(n * sizeof(int));
+    int* c = (int*) Kokkos::kokkos_malloc<Kokkos::SharedSpace>(n * sizeof(int));
 
     // Initialize values on host
     for (unsigned i = 0; i < n; i++)
@@ -33,9 +33,9 @@ int main(int argc, char* argv[]) {
       printf("c[%d] = %d\n", i, c[i]);
 
     // Free Kokkos allocation (Unified Memory)
-    Kokkos::kokkos_free(a);
-    Kokkos::kokkos_free(b);
-    Kokkos::kokkos_free(c);
+    Kokkos::kokkos_free<Kokkos::SharedSpace>(a);
+    Kokkos::kokkos_free<Kokkos::SharedSpace>(b);
+    Kokkos::kokkos_free<Kokkos::SharedSpace>(c);
   }
 
   // Finalize Kokkos

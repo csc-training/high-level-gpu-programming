@@ -10,7 +10,6 @@ KOKKOS_DEVICES = "HIP"
 # KOKKOS_DEVICES = "Cuda"
 KOKKOS_ARCH = "VEGA90A"
 # KOKKOS_ARCH = "Volta70"
-KOKKOS_CUDA_OPTIONS = "enable_lambda,force_uvm"
 
 # Include Makefile.kokkos
 include $(KOKKOS_PATH)/Makefile.kokkos

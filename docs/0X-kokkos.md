@@ -51,7 +51,6 @@ CXX = hipcc
 # Variables for the Makefile.kokkos
 KOKKOS_DEVICES = "HIP"
 KOKKOS_ARCH = "VEGA90A"
-KOKKOS_CUDA_OPTIONS = "enable_lambda,force_uvm"
 
 # Include Makefile.kokkos
 include $(KOKKOS_PATH)/Makefile.kokkos

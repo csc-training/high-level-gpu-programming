@@ -8,12 +8,12 @@ int main(int argc, char* argv[]) {
   {
     unsigned n = 5;
 
-    // Allocate space for 5 ints on Kokkos host memory space
+    // Allocate space for 5 ints on Kokkos HostSpace
     Kokkos::View<int*, Kokkos::HostSpace> h_a("h_a", n);
     Kokkos::View<int*, Kokkos::HostSpace> h_b("h_b", n);
     Kokkos::View<int*, Kokkos::HostSpace> h_c("h_c", n);
 
-    // Allocate space for 5 ints on Kokkos default memory space (eg, GPU memory)
+    // Allocate space for 5 ints on Kokkos default memory space (GPU memory)
     Kokkos::View<int*> a("a", n);
     Kokkos::View<int*> b("b", n);
     Kokkos::View<int*> c("c", n);
