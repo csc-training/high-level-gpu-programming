@@ -1,11 +1,9 @@
-# Computing `pi`
-
+# Parallel calculation of π
 Starting from the mpi example of computing `pi` https://github.com/csc-training/mpi-introduction/edit/main/parallel-pi/solution/pi.cpp and using this Intel  example https://www.intel.com/content/www/us/en/developer/articles/technical/compile-and-run-mpi-programs-using-dpcpp-language.html construct a code which computes the value of `pi` using 2 or more gpus, with 1 GPU device per MPI task.
 
-## CPU code
 <!-- Adapted from material by EPCC https://github.com/EPCCed/archer2-MPI-2020-05-14 -->
 
-### Parallel calculation of π
+## Computing of π
 
 An approximation to the value of π can be calculated from the following 
 expression
