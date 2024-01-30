@@ -15,7 +15,7 @@ expression
 -->
 ![img](img/eq1.png)
 
-where the answer becomes more accurate with increasing N. As each term is independent, the summation over *i* can be parallelized nearly trivially. The work is divided in `ntasks` so that rank 0 does i=1, 2, ..., N / ntasks, rank 1 does i=N / ntasks + 1, N / ntasks + 2, ... , *etc.* (we assume that N is evenly divisible by the number of processes). Each tasks computes their own sum. Once finished with the calculation, all ranks expect rank 0 send their partial sum to rank 0, which then calculates the final result and prints it out. 
+where the answer becomes more accurate with increasing N. As each term is independent, the summation over *i* can be parallelized nearly trivially. The work is divided in `ntasks` so that rank 0 does i=1, 2, ..., N / ntasks, rank 1 does i=N / ntasks + 1, N / ntasks + 2, ... , *etc.* (we assume that N is evenly divisible by the number of processes). Each tasks computes their own sum. Once finished with the calculation, all ranks (expect rank 0) send their partial sum to rank 0, which then calculates the final result and prints it out. 
 # Task
 Starting from the mpi parallel code [pi.cpp](cpu/pi.cpp), make a version that performs the calculation using  sycl for the local reduction similar to the [reduction with buffer](05-reduction/reduction_simple_buffer.cpp) or [reduction with usm](05-reduction/reduction_simple_usm.cpp) examples. 
 
