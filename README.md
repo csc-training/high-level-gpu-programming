@@ -30,9 +30,8 @@ part of the EuroCC training activities at CSC.
 | 09:00-12:00 | SYCL II (Soner) (advance features, shared memory)
 | 12:00-13:00 | Lunch break
 | 13:00-15:30 | SYCL III (Soner) (syclomatic,dependency and order of execution)
-| 15:00-15:20 | Coffee Break
-| 15:50-16:00 | Break
-| 16:00-16:45 | Exercises (simple exercises, heat equation, intro & cuda to sycl demo)   
+| 15:30-15:50 | Coffee Break
+| 15:50-16:45 | Exercises (simple exercises on Mahti & LUMI, heat equation, intro & cuda to sycl demo)   
 | 16:45-17:00 | Day 2 wrap-up
 
 ### Day 3 Friday 16.02, 9:00-17:00
