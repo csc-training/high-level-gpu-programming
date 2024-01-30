@@ -1,0 +1,5 @@
+a.out
+*.o
+heat
+heat_cuda
+heat_sycl
