@@ -1,6 +1,6 @@
 # High-Level GPU Programming
 
-Course material for the CSC course "High-Level GPU ProgrammingP". The course is
+Course material for the CSC course "High-Level GPU Programming". The course is
 part of the EuroCC training activities at CSC.
 
 ## Agenda
