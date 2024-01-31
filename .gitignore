@@ -1,5 +1,7 @@
 a.out
 *.o
+*.png
 heat
 heat_cuda
 heat_sycl
+heat_dpct
