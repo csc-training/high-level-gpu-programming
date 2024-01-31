@@ -78,12 +78,13 @@ int main(int argc, char** argv)
     MPI_Comm_size(intranodecomm, &nodeProcs);
     
     MPI_Comm_free(&intranodecomm);
-
     if (nodeProcs > devcount) {
         printf("Not enough GPUs for all processes in the node.\n");
         MPI_Abort(MPI_COMM_WORLD, -2);
     }
+
     queue q{gpu_devices[nodeRank],q_prof};
+   std::cout << nodeProcs << " MPI processes and "<< devcount << " GPUs per node. \n";
    
    if (0 == myid) {
       printf("Computing approximation to pi with N=%d\n", n);
@@ -142,4 +143,5 @@ int main(int argc, char** argv)
    // Free the allocated memory
    free(localpi, q);
    MPI_Finalize();
+
 }
