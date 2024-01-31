@@ -1,4 +1,3 @@
-
 // AdaptiveCpp compilation with cpu & nvidia targets: syclcc -O3 --hipsycl-targets="omp;cuda:sm_80" <code>.cpp 
 // AdaptiveCpp compilation with cpu & amd targets:    syclcc -O3 --hipsycl-targets="omp;hip:gfx90a" <code>.cpp 
 // OneAPI with cpu & nvidia targets:clang++ -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  <code>.cpp 
@@ -69,7 +68,22 @@ int main(int argc, char** argv)
     auto gpu_devices= device::get_devices(sycl::info::device_type::gpu);
     auto devcount=size( gpu_devices ); 
      // Assign the gpu to each task based on the mpi rank
-    queue q{gpu_devices[ntasks%devcount],q_prof};
+
+    MPI_Comm intranodecomm;
+    int nodeRank, nodeProcs;
+
+    MPI_Comm_split_type(MPI_COMM_WORLD, MPI_COMM_TYPE_SHARED, 0,  MPI_INFO_NULL, &intranodecomm);
+
+    MPI_Comm_rank(intranodecomm, &nodeRank);
+    MPI_Comm_size(intranodecomm, &nodeProcs);
+    
+    MPI_Comm_free(&intranodecomm);
+
+    if (nodeProcs > devcount) {
+        printf("Not enough GPUs for all processes in the node.\n");
+        MPI_Abort(MPI_COMM_WORLD, -2);
+    }
+    queue q{gpu_devices[nodeRank],q_prof};
    
    if (0 == myid) {
       printf("Computing approximation to pi with N=%d\n", n);
@@ -128,5 +142,4 @@ int main(int argc, char** argv)
    // Free the allocated memory
    free(localpi, q);
    MPI_Finalize();
-
 }
