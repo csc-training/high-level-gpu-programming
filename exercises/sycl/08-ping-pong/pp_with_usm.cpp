@@ -172,7 +172,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     if (devcount == 0) {
-        printf("Could now find any CUDA devices.\n");
+        printf("Could now find any GPU devices.\n");
         exit(EXIT_FAILURE);
     }
     if (nodeprocs > devcount) {
