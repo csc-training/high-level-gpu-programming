@@ -3,7 +3,7 @@ COMMONDIR=../common
 CXX=mpicxx
 CC=gcc
 NVCC=nvcc
-NVCCFLAGS=-g -O3 -I$(COMMONDIR)
+NVCCFLAGS=-g -O3 -arch=sm_80 -I$(COMMONDIR)
 CCFLAGS=-g -O3 -Wall -I$(COMMONDIR)
 LDFLAGS=
 LIBS=-lpng -lcudart
