@@ -1,7 +1,6 @@
 /* Setup routines for heat equation solver */
 
 #include <sycl/sycl.hpp>
-#include <dpct/dpct.hpp>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,6 +9,7 @@
 
 #include "heat.h"
 
+sycl::queue global_queue;
 
 #define NSTEPS 500  // Default number of iteration steps
 
@@ -180,18 +180,16 @@ void parallel_set_dimensions(parallel_data *parallel, int nx, int ny)
 
     MPI_Comm_free(&intranodecomm);
 
-    devCount = dpct::dev_mgr::instance().device_count();
+    auto gpu_devices = sycl::device::get_devices(sycl::info::device_type::gpu);
+    devCount = size(gpu_devices);
 
     if (nodeProcs > devCount) {
         printf("Not enough GPUs for all processes in the node.\n");
         MPI_Abort(MPI_COMM_WORLD, -2);
     }
 
-    /*
-    DPCT1093:0: The "nodeRank" device may be not the one intended for use.
-    Adjust the selected device if needed.
-    */
-    dpct::select_device(nodeRank);
+    // Assign the gpu to each task based on the mpi rank
+    global_queue = sycl::queue{gpu_devices[nodeRank], sycl::property::queue::in_order{}};
 }
 
 

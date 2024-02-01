@@ -1,7 +1,6 @@
 /* Main solver routines for heat equation solver */
 
 #include <sycl/sycl.hpp>
-#include <dpct/dpct.hpp>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -57,9 +56,7 @@ void evolve(field *curr, field *prev, double a, double dt)
                            (ny + 2 + blocksize - 1) / blocksize);
 
     {
-        dpct::has_capability_or_fail(dpct::get_in_order_queue().get_device(),
-                                     {sycl::aspect::fp64});
-        dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+        global_queue.submit([&](sycl::handler &cgh) {
             double *curr_devdata_ct0 = curr->devdata;
             double *prev_devdata_ct1 = prev->devdata;
 
@@ -71,7 +68,7 @@ void evolve(field *curr, field *prev, double a, double dt)
                              });
         });
     }
-    dpct::get_current_device().queues_wait_and_throw();
+    global_queue.wait_and_throw();
 }
 
 void enter_data(field *temperature1, field *temperature2)
@@ -81,14 +78,14 @@ void enter_data(field *temperature1, field *temperature2)
     datasize = (temperature1->nx + 2) * (temperature1->ny + 2) * sizeof(double);
 
     temperature1->devdata =
-        (double *)sycl::malloc_device(datasize, dpct::get_in_order_queue());
+        (double *)sycl::malloc_device(datasize, global_queue);
     temperature2->devdata =
-        (double *)sycl::malloc_device(datasize, dpct::get_in_order_queue());
+        (double *)sycl::malloc_device(datasize, global_queue);
 
-    dpct::get_in_order_queue()
+    global_queue
         .memcpy(temperature1->devdata, temperature1->data, datasize)
         .wait();
-    dpct::get_in_order_queue()
+    global_queue
         .memcpy(temperature2->devdata, temperature2->data, datasize)
         .wait();
 }
@@ -99,7 +96,7 @@ void update_host(field *temperature)
     size_t datasize;
 
     datasize = (temperature->nx + 2) * (temperature->ny + 2) * sizeof(double);
-    dpct::get_in_order_queue()
+    global_queue
         .memcpy(temperature->data, temperature->devdata, datasize)
         .wait();
 }
@@ -110,7 +107,7 @@ void update_device(field *temperature)
     size_t datasize;
 
     datasize = (temperature->nx + 2) * (temperature->ny + 2) * sizeof(double);
-    dpct::get_in_order_queue()
+    global_queue
         .memcpy(temperature->devdata, temperature->data, datasize)
         .wait();
 }

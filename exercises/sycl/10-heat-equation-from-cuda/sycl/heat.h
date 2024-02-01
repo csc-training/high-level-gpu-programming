@@ -1,6 +1,9 @@
 #ifndef __HEAT_H__
 #define __HEAT_H__
 
+#include <sycl/sycl.hpp>
+
+extern sycl::queue global_queue;
 
 /* Datatype for temperature field */
 typedef struct {
