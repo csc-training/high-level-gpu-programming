@@ -7,14 +7,14 @@ CXXFLAGS=`mpicxx --showme:compiler` -g -O3 -Wall -std=c++17 -O3 -fsycl -fsycl-ta
 LDFLAGS=`mpicxx --showme:link` -g -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80
 LIBS=-lpng
 
-EXE=heat_dpct
-OBJS=main.o core.o core_dpct.o setup.o utilities.o io.o
+EXE=heat_sycl
+OBJS=main.o core.o core_sycl.o setup.o utilities.o io.o
 OBJS_PNG=$(COMMONDIR)/pngwriter.o
 
 all: $(EXE)
 
 core.o: core.cpp heat.h
-core_dpct.o: core_dpct.cpp heat.h
+core_sycl.o: core_sycl.cpp heat.h
 utilities.o: utilities.cpp heat.h
 setup.o: setup.cpp heat.h
 io.o: io.cpp heat.h
