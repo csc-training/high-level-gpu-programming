@@ -82,12 +82,9 @@ void enter_data(field *temperature1, field *temperature2)
     temperature2->devdata =
         (double *)sycl::malloc_device(datasize, global_queue);
 
-    global_queue
-        .memcpy(temperature1->devdata, temperature1->data, datasize)
-        .wait();
-    global_queue
-        .memcpy(temperature2->devdata, temperature2->data, datasize)
-        .wait();
+    global_queue.memcpy(temperature1->devdata, temperature1->data, datasize);
+    global_queue.memcpy(temperature2->devdata, temperature2->data, datasize);
+    global_queue.wait();
 }
 
 /* Copy a temperature field from the device to the host */
@@ -96,9 +93,8 @@ void update_host(field *temperature)
     size_t datasize;
 
     datasize = (temperature->nx + 2) * (temperature->ny + 2) * sizeof(double);
-    global_queue
-        .memcpy(temperature->data, temperature->devdata, datasize)
-        .wait();
+    global_queue.memcpy(temperature->data, temperature->devdata, datasize);
+    global_queue.wait();
 }
 
 /* Copy a temperature field from the host to the device */
@@ -107,8 +103,6 @@ void update_device(field *temperature)
     size_t datasize;
 
     datasize = (temperature->nx + 2) * (temperature->ny + 2) * sizeof(double);
-    global_queue
-        .memcpy(temperature->devdata, temperature->data, datasize)
-        .wait();
+    global_queue.memcpy(temperature->devdata, temperature->data, datasize);
 }
 
