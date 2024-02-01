@@ -183,13 +183,17 @@ void parallel_set_dimensions(parallel_data *parallel, int nx, int ny)
     auto gpu_devices = sycl::device::get_devices(sycl::info::device_type::gpu);
     devCount = size(gpu_devices);
 
-    if (nodeProcs > devCount) {
+    if (devCount == 0) {
+        printf("No GPUs found.\n");
+        // Use any device
+        global_queue = sycl::queue{sycl::property::queue::in_order{}};
+    } else if (nodeProcs > devCount) {
         printf("Not enough GPUs for all processes in the node.\n");
         MPI_Abort(MPI_COMM_WORLD, -2);
+    } else {
+        // Assign the gpu to each task based on the mpi rank
+        global_queue = sycl::queue{gpu_devices[nodeRank], sycl::property::queue::in_order{}};
     }
-
-    // Assign the gpu to each task based on the mpi rank
-    global_queue = sycl::queue{gpu_devices[nodeRank], sycl::property::queue::in_order{}};
 }
 
 
