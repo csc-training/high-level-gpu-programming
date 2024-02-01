@@ -97,4 +97,6 @@ We also found above that device selector logic needs to be updated to avoid
 the need of `ONEAPI_DEVICE_SELECTOR` workaround.
 (furthermore, MPI-parallelized CPU-execution doesn't work with `ONEAPI_DEVICE_SELECTOR`).
 
+See `sycl/` for reference.
+
 
