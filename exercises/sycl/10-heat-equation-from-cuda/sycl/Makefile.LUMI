@@ -1,0 +1,35 @@
+COMMONDIR=../common
+
+CC=clang
+CXX=clang++
+CFLAGS=-g -O3 -Wall -I$(COMMONDIR) -I/appl/lumi/SW/LUMI-22.08/G/EB/libpng/1.6.37-cpeCray-22.08/include
+SYCLFLAGS=-fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a
+CXXFLAGS=$(CFLAGS) $(SYCLFLAGS) `CC --cray-print-opts=cflags`
+LDFLAGS=$(CFLAGS) $(SYCLFLAGS) -L/appl/lumi/SW/LUMI-22.08/G/EB/libpng/1.6.37-cpeCray-22.08/lib
+LIBS=`CC --cray-print-opts=libs` -lpng
+
+EXE=heat
+OBJS=main.o core.o core_acc.o setup.o utilities.o io.o pngwriter.o
+
+all: $(EXE)
+
+core.o: core.cpp heat.h
+core_acc.o: core_acc.cpp heat.h
+utilities.o: utilities.cpp heat.h
+setup.o: setup.cpp heat.h
+io.o: io.cpp heat.h
+main.o: main.cpp heat.h
+
+
+$(EXE): $(OBJS)
+	$(CXX) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+%.o: $(COMMONDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: clean
+clean:
+	-/bin/rm -f $(EXE) $(OBJS) a.out *.png *~
