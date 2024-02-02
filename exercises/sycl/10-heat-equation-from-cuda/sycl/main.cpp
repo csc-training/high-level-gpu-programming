@@ -5,7 +5,6 @@
 #include <string.h>
 #include <time.h>
 #include <mpi.h>
-#include <mpi-ext.h> /* Needed for CUDA-aware check */
 
 #include "heat.h"
 
@@ -29,12 +28,6 @@ int main(int argc, char **argv)
 
 
     MPI_Init(&argc, &argv);
-
-    if (1 != MPIX_Query_cuda_support()) {
-        printf("CUDA aware MPI required\n");
-        fflush(stdout);
-        MPI_Abort(MPI_COMM_WORLD, 5);
-    }
     initialize(argc, argv, &current, &previous, &nsteps, &parallelization);
 
     /* Output the initial field */
