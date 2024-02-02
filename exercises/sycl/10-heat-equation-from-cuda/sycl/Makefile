@@ -4,7 +4,7 @@ CC=clang
 CXX=clang++
 CFLAGS=-g -O3 -Wall -I$(COMMONDIR)
 CXXFLAGS=`mpicxx --showme:compiler` -g -O3 -Wall -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 -I$(COMMONDIR)
-LDFLAGS=`mpicxx --showme:link` -g -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80
+LDFLAGS=`mpicxx --showme:link` -g -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80
 LIBS=-lpng
 
 EXE=heat_sycl
