@@ -1,4 +1,3 @@
-
 #include <sycl/sycl.hpp>
 #include <ctime>
 #include <chrono>
