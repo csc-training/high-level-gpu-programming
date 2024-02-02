@@ -27,21 +27,7 @@ Compute Duration      : 0.365444 seconds
 ### Memory Statistics (from nsys)
 #### Using buffers
 ```
-CUDA Memory Operation Statistics (by time):
 
- Time(%)  Total Time (ns)  Count  Average (ns)  Minimum (ns)  Maximum (ns)  StdDev (ns)      Operation     
- -------  ---------------  -----  ------------  ------------  ------------  -----------  ------------------
-    61.9      105,269,192    404     260,567.3       210,687       376,319     37,628.5  [CUDA memcpy HtoD]
-    38.1       64,744,373    202     320,516.7       307,359       389,279     13,024.3  [CUDA memcpy DtoH]
-
-
-
-CUDA Memory Operation Statistics (by size):
-
- Total (MB)  Count  Average (MB)  Minimum (MB)  Maximum (MB)  StdDev (MB)      Operation     
- ----------  -----  ------------  ------------  ------------  -----------  ------------------
-  1,694.499    404         4.194         4.194         4.194        0.000  [CUDA memcpy HtoD]
-    847.249    202         4.194         4.194         4.194        0.000  [CUDA memcpy DtoH]
 ```
 
 ## Using USM, `malloc_shared`
@@ -50,19 +36,19 @@ CUDA Memory Operation Statistics (by size):
 
 CUDA Memory Operation Statistics (by time):
 
- Time(%)  Total Time (ns)  Count  Average (ns)  Minimum (ns)  Maximum (ns)  StdDev (ns)              Operation            
- -------  ---------------  -----  ------------  ------------  ------------  -----------  ---------------------------------
-    98.4          445,148     74       6,015.5         3,231        47,199      7,319.0  [CUDA Unified Memory memcpy HtoD]
-     1.6            7,167      2       3,583.5         2,367         4,800      1,720.4  [CUDA Unified Memory memcpy DtoH]
+ Time(%)  Total Time (ns)  Count   Average (ns)  Minimum (ns)  Maximum (ns)  StdDev (ns)              Operation            
+ -------  ---------------  ------  ------------  ------------  ------------  -----------  ---------------------------------
+   100.0       58,052,881  13,040       4,451.9         2,622        56,128      3,820.7  [CUDA Unified Memory memcpy HtoD]
+     0.0            6,655       2       3,327.5         2,207         4,448      1,584.6  [CUDA Unified Memory memcpy DtoH]
 
 
 
 CUDA Memory Operation Statistics (by size):
 
- Total (MB)  Count  Average (MB)  Minimum (MB)  Maximum (MB)  StdDev (MB)              Operation            
- ----------  -----  ------------  ------------  ------------  -----------  ---------------------------------
-      4.194     74         0.057         0.004         0.852        0.141  [CUDA Unified Memory memcpy HtoD]
-      0.066      2         0.033         0.004         0.061        0.041  [CUDA Unified Memory memcpy DtoH]
+ Total (MB)  Count   Average (MB)  Minimum (MB)  Maximum (MB)  StdDev (MB)              Operation            
+ ----------  ------  ------------  ------------  ------------  -----------  ---------------------------------
+    593.043  13,040         0.045         0.004         1.044        0.100  [CUDA Unified Memory memcpy HtoD]
+      0.066       2         0.033         0.004         0.061        0.041  [CUDA Unified Memory memcpy DtoH]
 ```
 ## The task
 1) Exercise test if moving the buffers outside of the for loop helps.
