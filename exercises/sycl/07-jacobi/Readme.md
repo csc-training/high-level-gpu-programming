@@ -1,7 +1,6 @@
 ## The task
- 1) a) Test if moving the buffers outside of the for loop helps.
-   b) Test the effect of using device pointers allocated via `malloc_device`
- 3) Test the codes on LUMI using rocprof for analysis
+ 1) Check the effect on performance when  using device pointers allocated via `malloc_device`.
+ 3) Test the codes on LUMI using `rocprof` for analysis.
 
 ### Timings
 
