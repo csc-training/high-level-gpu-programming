@@ -30,7 +30,21 @@ Compute Duration      : 0.365444 seconds
 ### Memory Statistics (from nsys)
 #### Using buffers
 ```
+CUDA Memory Operation Statistics (by time):
 
+ Time(%)  Total Time (ns)  Count  Average (ns)   Minimum (ns)  Maximum (ns)  StdDev (ns)       Operation     
+ -------  ---------------  -----  -------------  ------------  ------------  ------------  ------------------
+    64.3   39,958,457,360    404   98,907,072.7    80,076,865   141,251,921  19,554,201.0  [CUDA memcpy HtoD]
+    35.7   22,211,682,360    202  109,958,823.6   107,057,217   123,094,875   2,242,793.1  [CUDA memcpy DtoH]
+
+
+
+CUDA Memory Operation Statistics (by size):
+
+ Total (MB)   Count  Average (MB)  Minimum (MB)  Maximum (MB)  StdDev (MB)      Operation     
+ -----------  -----  ------------  ------------  ------------  -----------  ------------------
+ 413,696.000    404     1,024.000     1,024.000     1,024.000        0.000  [CUDA memcpy HtoD]
+ 206,848.000    202     1,024.000     1,024.000     1,024.000        0.000  [CUDA memcpy DtoH]
 ```
 
 ## Using USM, `malloc_shared`
