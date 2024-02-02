@@ -4,6 +4,3 @@ a.out
 *.qdrep
 *.sqlite
 heat
-heat_cuda
-heat_sycl
-heat_dpct

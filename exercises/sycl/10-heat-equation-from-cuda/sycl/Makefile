@@ -8,13 +8,13 @@ CXXFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:compiler`
 LDFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:link`
 LIBS=-lpng
 
-EXE=heat_sycl
-OBJS=main.o core.o core_sycl.o setup.o utilities.o io.o pngwriter.o
+EXE=heat
+OBJS=main.o core.o core_acc.o setup.o utilities.o io.o pngwriter.o
 
 all: $(EXE)
 
 core.o: core.cpp heat.h
-core_sycl.o: core_sycl.cpp heat.h
+core_acc.o: core_acc.cpp heat.h
 utilities.o: utilities.cpp heat.h
 setup.o: setup.cpp heat.h
 io.o: io.cpp heat.h

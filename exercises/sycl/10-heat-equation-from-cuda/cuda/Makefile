@@ -9,13 +9,13 @@ CXXFLAGS=$(CFLAGS)
 LDFLAGS=$(CFLAGS)
 LIBS=-lpng -lcudart
 
-EXE=heat_cuda
-OBJS=main.o core.o core_cuda.o setup.o utilities.o io.o pngwriter.o
+EXE=heat
+OBJS=main.o core.o core_acc.o setup.o utilities.o io.o pngwriter.o
 
 all: $(EXE)
 
 core.o: core.cpp heat.h
-core_cuda.o: core_cuda.cu heat.h
+core_acc.o: core_acc.cu heat.h
 utilities.o: utilities.cpp heat.h
 setup.o: setup.cpp heat.h
 io.o: io.cpp heat.h
