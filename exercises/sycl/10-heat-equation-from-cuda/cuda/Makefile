@@ -1,11 +1,12 @@
 COMMONDIR=../common
 
-CXX=mpicxx
 CC=gcc
+CXX=mpicxx
 NVCC=nvcc
-NVCCFLAGS=-g -O3 -arch=sm_80 -I$(COMMONDIR)
-CCFLAGS=-g -O3 -Wall -I$(COMMONDIR)
-LDFLAGS=
+CFLAGS=-g -O3 -Wall -I$(COMMONDIR)
+NVCCFLAGS=-g -O3 -arch=sm_80
+CXXFLAGS=$(CFLAGS)
+LDFLAGS=$(CFLAGS)
 LIBS=-lpng -lcudart
 
 EXE=heat_cuda
@@ -22,13 +23,13 @@ main.o: main.cpp heat.h
 
 
 $(EXE): $(OBJS)
-	$(CXX) $(CCFLAGS) $(OBJS) -o $@ $(LDFLAGS) $(LIBS)
+	$(CXX) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
 
 %.o: %.cpp
-	$(CXX) $(CCFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 %.o: $(COMMONDIR)/%.c
-	$(CC) $(CCFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 %.o: %.cu
 	$(NVCC) $(NVCCFLAGS) -c $< -o $@
