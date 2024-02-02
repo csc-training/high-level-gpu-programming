@@ -9,8 +9,7 @@ LDFLAGS=
 LIBS=-lpng -lcudart
 
 EXE=heat_cuda
-OBJS=main.o core.o core_cuda.o setup.o utilities.o io.o
-OBJS_PNG=$(COMMONDIR)/pngwriter.o
+OBJS=main.o core.o core_cuda.o setup.o utilities.o io.o pngwriter.o
 
 all: $(EXE)
 
@@ -22,13 +21,13 @@ io.o: io.cpp heat.h
 main.o: main.cpp heat.h
 
 
-$(EXE): $(OBJS) $(OBJS_PNG)
-	$(CXX) $(CCFLAGS) $(OBJS) $(OBJS_PNG) -o $@ $(LDFLAGS) $(LIBS)
+$(EXE): $(OBJS)
+	$(CXX) $(CCFLAGS) $(OBJS) -o $@ $(LDFLAGS) $(LIBS)
 
 %.o: %.cpp
 	$(CXX) $(CCFLAGS) -c $< -o $@
 
-%.o: %.c
+%.o: $(COMMONDIR)/%.c
 	$(CC) $(CCFLAGS) -c $< -o $@
 
 %.o: %.cu
@@ -36,4 +35,4 @@ $(EXE): $(OBJS) $(OBJS_PNG)
 
 .PHONY: clean
 clean:
-	-/bin/rm -f $(EXE) $(OBJS) $(OBJS_PNG) a.out *.png *~
+	-/bin/rm -f $(EXE) $(OBJS) a.out *.png *~

@@ -9,8 +9,7 @@ LDFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:link`
 LIBS=-lpng
 
 EXE=heat_sycl
-OBJS=main.o core.o core_sycl.o setup.o utilities.o io.o
-OBJS_PNG=$(COMMONDIR)/pngwriter.o
+OBJS=main.o core.o core_sycl.o setup.o utilities.o io.o pngwriter.o
 
 all: $(EXE)
 
@@ -22,15 +21,15 @@ io.o: io.cpp heat.h
 main.o: main.cpp heat.h
 
 
-$(EXE): $(OBJS) $(OBJS_PNG)
-	$(CXX) $(LDFLAGS) $(OBJS) $(OBJS_PNG) $(LIBS) -o $@
+$(EXE): $(OBJS)
+	$(CXX) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-%.o: %.c
+%.o: $(COMMONDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
 clean:
-	-/bin/rm -f $(EXE) $(OBJS) $(OBJS_PNG) a.out *.png *~
+	-/bin/rm -f $(EXE) $(OBJS) a.out *.png *~
