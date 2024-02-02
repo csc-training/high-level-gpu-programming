@@ -1,6 +1,8 @@
 a.out
 *.o
 *.png
+*.qdrep
+*.sqlite
 heat
 heat_cuda
 heat_sycl
