@@ -58,8 +58,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    auto start = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-
     //# Define queue with default device for offloading computation
     sycl::property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}};
     //queue q{property::queue::enable_profiling{}};
@@ -67,11 +65,10 @@ int main(int argc, char *argv[]) {
     //queue q{property::queue::enable_profiling{}};
     //queue q();
     //queue q{property::queue::enable_profiling{}, property::queue::in_order()};
-    event e;
+
     std::cout << "Offload Device        : " << q.get_device().get_info<info::device::name>() << "\n";
     std::cout << "max_work_group_size   : " << q.get_device().get_info<info::device::max_work_group_size>() << "\n";
     std::cout << "Configuration         : MATRIX_SIZE= " << nx << "x" << ny << "\n";
-    auto kernel_duration=0.0;
     std::cout << " [0][0] = " << matrix_u[0] << "\n";
     std::cout << "Warm up the device  \n";
 
@@ -81,7 +78,7 @@ int main(int argc, char *argv[]) {
         buffer<float, 1> unew(matrix_unew.data(), range<1>(nx*ny));
 
         //# Submit command groups to execute on device
-        e = q.submit([&](handler &h){
+        q.submit([&](handler &h){
             //# Create accessors to copy buffers to the device
             auto U = u.get_access<access::mode::read>(h);
              auto UNEW= unew.get_access<access::mode::write>(h);
@@ -113,7 +110,7 @@ int main(int argc, char *argv[]) {
         buffer<float, 1> unew(matrix_unew.data(), range<1>(nx*ny));
         
         //# Submit command groups to execute on device
-        e = q.submit([&](handler &h){
+        q.submit([&](handler &h){
             
             //# Create accessors to copy buffers to the device
             auto U = unew.get_access<access::mode::read>(h);
@@ -139,6 +136,12 @@ int main(int argc, char *argv[]) {
             });
         });
     }
+    q.wait();
+
+    
+    auto start = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    event e;
+    auto kernel_duration=0.0;
 
     for(int iter=0;iter<niter; iter++)
     {       
@@ -229,4 +232,3 @@ int main(int argc, char *argv[]) {
     }
 
 }
-
