@@ -1,4 +1,3 @@
-
 //==============================================================
 // Matrix Multiplication: DPC++ Basic Parallel Kernel
 //==============================================================
@@ -56,7 +55,6 @@ int main(int argc, char *argv[]) {
     const int mx=M, my=M;
     const int niter=100;
     const double factor =0.5;
-    auto start = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 
     //# Define queue with default device for offloading computation
     sycl::property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}};
@@ -83,16 +81,15 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    event e;
     std::cout << "Offload Device        : " << q.get_device().get_info<info::device::name>() << "\n";
     std::cout << "max_work_group_size   : " << q.get_device().get_info<info::device::max_work_group_size>() << "\n";
     std::cout << "Configuration         : MATRIX_SIZE= " << nx << "x" << ny << "\n";
-    auto kernel_duration=0.0;
+
     std::cout << " [0][0] = " << matrix_u[0] << "\n";
 
     std::cout << "Warm up the device  \n";
     
-    e = q.submit([&](handler &h){
+    q.submit([&](handler &h){
         
         //# Define size for ND-Range and work-group size
         range<2> global_size(nx,ny);
@@ -114,8 +111,10 @@ int main(int argc, char *argv[]) {
         });
     }); 
     q.wait();
-
-
+    
+    auto start = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    event e;
+    auto kernel_duration=0.0;
     for(int iter=0;iter<niter; iter++){
         e = q.submit([&](handler &h){
             
