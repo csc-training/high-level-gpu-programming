@@ -1,3 +1,7 @@
+## The task
+1) a) Test if moving the buffers outside of the for loop helps.
+   b) Test the effect of using device pointers allocated via `malloc_device`
+3) Test the codes on LUMI using rocprof for analysis
 
 ### Timings
 
@@ -50,6 +54,3 @@ CUDA Memory Operation Statistics (by size):
     593.043  13,040         0.045         0.004         1.044        0.100  [CUDA Unified Memory memcpy HtoD]
       0.066       2         0.033         0.004         0.061        0.041  [CUDA Unified Memory memcpy DtoH]
 ```
-## The task
-1) Exercise test if moving the buffers outside of the for loop helps.
-2) Test the codes on LUMI using rocprof for analysis
