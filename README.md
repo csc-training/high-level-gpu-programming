@@ -72,9 +72,10 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 
 - [Hipfort exercise](hipfort)
 
-### Optimization
+### Memory Optimization
 
-- [Matrix Transpose](optimization/01-matrix_transpose)
+- [Jacobi Iterations]([exercises/sycl/07-jacobi)
+- [Dense matrix matrix multiplication]([exercises/sycl/04-matrix-matrix-mul)
 
 ### Multi-GPU programming and HIP+MPI
 
