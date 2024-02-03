@@ -58,3 +58,6 @@ q.submit([&](handler &h)
 
      });
 ```
+
+
+This [folder](../05-reduction/) contains high-level variants of the reduction. Check the performance of the 3 versions. Keep in mind that the performance can depens on the workgroup size as well! 
