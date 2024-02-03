@@ -1,6 +1,6 @@
 # Jacobi Iterations with Unified Shared Memory
 
-Using is elegant and simple. Buffers locks the data so that only one kernel at the time can access it and manges using SYCL where data is at specific moment (CPU or GPU).  We saw tha in the case of Jacobi iterations the buffers are created and destroeyd every time step which results in very low performance. 
+Using buffer is elegant and simple. Buffers lock the data so that only one kernel at the time can access it and manges using SYCL where data is at specific moment (CPU or GPU).  We saw tha in the case of Jacobi iterations the buffers are created and destroeyd every time step which results in very low performance. 
 
 In this specific problem there is no need to transfer the data to CPU every time step. Tipically one needs to check for convergence after doing many iterations. What we need is to initailize the data on CPU transfer it to GPU perform a given number of steps and then check the state. 
 One way to achive is by controlling the pointers allocations in a manner similar to CUDA or HIP. We can allocate data on GPU using the `malloc_device()` device method or `malloc_shared()`. In former the data to which pointer points  is only accesable from GPU, while in the latter the data resides on CPU or GPU depending on the performed operations. The cuda or the rocm  backends will take care of the data movement. 
