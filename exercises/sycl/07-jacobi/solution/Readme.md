@@ -5,7 +5,7 @@ Using buffer is elegant and simple. Buffers lock the data so that only one kerne
 In this specific problem there is no need to transfer the data to CPU every time step. Tipically one needs to check for convergence after doing many iterations. What we need is to initailize the data on CPU transfer it to GPU perform a given number of steps and then check the state. 
 One way to achive is by controlling the pointers allocations in a manner similar to CUDA or HIP. We can allocate data on GPU using the `malloc_device()` device method or `malloc_shared()`. In former the data to which pointer points  is only accesable from GPU, while in the latter the data resides on CPU or GPU depending on the performed operations. The cuda or the rocm  backends will take care of the data movement. 
 
-The solution uses `malloc_shared` to allocate the arrays. The initialization is done on the CPU and the data resides on the CPU until the offloading starts. The data is automatically transfered to the GPU for processing. Because the CPU does not need the data there is no reason to have transfers until all iterations are performed. When running this code we note that we have very similar ecxecution time for the kernel, but now the total compute time is much smaller (from 62 s to 0.365). 
+The solution uses `malloc_shared` to allocate the arrays. The initialization is done on the CPU and the data resides on the CPU until the offloading starts. The data is automatically transfered to the GPU for processing. Because the CPU does not need the data there is no reason to have transfers until all iterations are performed. When running this code we note that we have very similar execution time for the kernel ( around 0.36s), but now the total compute time is much smaller (from 62 s to 0.365). 
 
 ```
 ./j_simple_usm_shared -n 16000
@@ -17,7 +17,7 @@ Warm up the device
 Kernel Execution Time : 0.359838 seconds
 Compute Duration      : 0.365444 seconds
 ```
-Doing the same performance with `nsys` or `rocprof` we now see that the time spent in trasnfering data decreased to 0.058 s and the total size of transfered data is 593 MB, once at the beginning. 
+Doing the same performance analysis with `nsys` or `rocprof` we now see that the time spent in transfering data decreased to 0.058 s and the total size of transfered data is 593 MB, once at the beginning. 
 
 ```
 CUDA Memory Operation Statistics (by time):
