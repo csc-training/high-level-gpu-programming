@@ -17,7 +17,7 @@ using namespace sycl;
 int main(int argc, char *argv[]) {
 
     size_t N = 1024;
-    size_t M = 2;
+    size_t M = 16;
     int VERIFY = 0;
     int PRINT_OUTPUT_MATRIX = 0;
 
