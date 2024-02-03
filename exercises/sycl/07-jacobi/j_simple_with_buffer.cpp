@@ -58,9 +58,9 @@ int main(int argc, char *argv[]) {
     }
 
     //# Define queue with default device for offloading computation
-    sycl::property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}};
+    sycl::property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}}; // we enable profiling and ensure that the kernels are executed in the order of submission
     //queue q{property::queue::enable_profiling{}};
-    queue q{default_selector{},q_prof};
+    queue q{default_selector{},q_prof}; // selects automatically the best device available
     //queue q{property::queue::enable_profiling{}};
     //queue q();
     //queue q{property::queue::enable_profiling{}, property::queue::in_order()};
