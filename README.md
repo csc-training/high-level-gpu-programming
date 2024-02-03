@@ -17,19 +17,19 @@ part of the EuroCC training activities at CSC.
 | 10:50-11:20 | GPU memory hierarchy
 | 11:25-12:00 | Refresher of C++ concepts
 | 12:00-13:00 | Lunch break
-| 13:00-13:30 | Mahti and LUMI  Computing Platforms (login & edit files, Slurm, SYCL installation & usage)
-| 13:30-15:00 | SYCL I(a)  (Soner) 
+| 13:00-13:30 | Mahti and LUMI  Computing Platforms (login & edit files, Slurm, SYCL  usage)
+| 13:30-15:00 | SYCL I(a)
 | 15:00-15:20 | Coffee break
-| 13:00-16:45 | SYCL I(b) (Soner) 
+| 13:00-16:45 | SYCL I(b)
 | 16:45-17:00 | Day 1 wrap-up (CVA)
 
 ### Day 2, Thursday 15.02, 9:00-17:00
 
 | Time | Topic |
 | ---- | ----- |
-| 09:00-12:00 | SYCL II (Soner) (advance features, shared memory)
+| 09:00-12:00 | SYCL II
 | 12:00-13:00 | Lunch break
-| 13:00-15:30 | SYCL III (Soner) (syclomatic,dependency and order of execution)
+| 13:00-15:30 | SYCL III 
 | 15:30-15:50 | Coffee Break
 | 15:50-16:45 | Exercises (simple exercises on Mahti & LUMI, heat equation, intro & cuda to sycl demo)   
 | 16:45-17:00 | Day 2 wrap-up
@@ -38,10 +38,9 @@ part of the EuroCC training activities at CSC.
 
 | Time | Topic |
 | ---- | ----- |
-| 09:00-9:30  | Kokkos (JH)
-| 09:30-11:00 | Kokkos exercises (JH)
-| 11:00-12:00 | Interoperability with third-party libraries,  and multi-gpu, multi-node programming
-| 12:00-13:00 | Lunch break
+| 09:00-9:30  | Kokkos 
+| 09:30-11:00 | Kokkos exercises
+| 11:00-12:00 | Interoperability with third-party libraries  and mpi
 | 13:00-16:45 | Bring your own code
 | 16:45-17:00 | Day 3 wrap-up & Course closing
 
@@ -49,7 +48,7 @@ part of the EuroCC training activities at CSC.
 Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 ## Exercises
 
-[General instructions](exercise-instructions.md)
+[General instructions](Exercise_Instructions.md)
 
 ### Introduction and GPU kernels
 
