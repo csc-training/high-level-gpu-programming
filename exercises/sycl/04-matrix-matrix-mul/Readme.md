@@ -57,5 +57,5 @@ const int i = item.get_global_id(0);
 
 A more detailed explanation can be found in this [video](https://youtu.be/vyfVDyk7EH0?si=s49ntuUaE2-A37AG) and [CUDA User's Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html). 
 You can check the performance of the code against the `mkl` library on Intel DevCloud, or against CUDA or HIP libraries on Mahti and LUMI. 
-**Note** In many problems the performance dependens on the size of the work group! So for each version of the code different values of `M` need to be tested. 
-         On GPUs the size of the work groups is limited to 1024 so the maximum size for M is 32!
+
+**Note** In many problems the performance dependens on the size of the work group! So for each version of the code different values of `M` need to be tested ! On GPUs the size of the work groups is limited to 1024 so the maximum size for M is 32!
