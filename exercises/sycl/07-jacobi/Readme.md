@@ -1,12 +1,16 @@
-## The task
- 1) Check the effect on performance when  using device pointers allocated via `malloc_device`.
- 3) Test the codes on LUMI using `rocprof` for analysis.
+# Memory optimization I
 
-### Timings
+GPUs are a specialized parallel hardware for floating point operations. The high performance of GPUs comes masive parallism by using many "small" gpu cores to perform the same operation on different of the data. It is critical to keep these gpu cores occupied at all time and provide them the data to be processed. 
+For problem sizes a GPU  application  can run only on the GPU. The CPU would initialized the data, offload  all work to the GPU, and then at the end collect the data for further analysis. In this case there is data transfer between CPU and GPU at the beginning and at the end.  However is most applications today can not fit into the memory of a GPU, and many cases not even in a node.  It is extremely important to be aware of how the data is moved between CPU and GPU and minimize these transfers. 
+In order to exemplify the importance of this we consider the simple [Jacobi iterations](j_simple_with_buffer.cpp) in which we try to solve a problem by in many steps an approximate of the solution until the convergence criteria is reached. In this first implementation we focused on elegance and productivity. The application innitializes the data on the CPU and then uses buffers to offload the operations to the GPUs. In the application we measure the total time to perform a specific number iterations via C++ chronos library and also the effective time spent in actual computation on the GPU using `sycl::event`.
+In order to test the code we executed the code on a nvidia GPU we ran the with quite large system size:
 
-#### Using buffers 
+## Timings and basic performance analysis
 ```
 ./j_simple_buffer -n 16000
+```
+The application reported a quite small time spent in executing kernels about 0.369 s. However the total time spent to execute all iterations was 63.132 s.
+```
 Offload Device        : NVIDIA A100-SXM4-40GB
 max_work_group_size   : 1024
 Configuration         : MATRIX_SIZE= 16000x16000
@@ -16,19 +20,13 @@ Kernel Execution Time : 0.368924 seconds
 Compute Duration      : 62.1323 seconds
 ```
 
-#### Using USM, `malloc_shared`
+In this case we suspect that having the buffers created and destroyed every time step results in data being transfered between CPU and GPU. More information can be obtained using a performance analys tool. Since this is a code running on nvidia GPUs, using cuda as backend we can use the cuda toolkit performance anaylis tools included. We can get a lots of info by using [`nsys`](https://docs.csc.fi/computing/nsys/).
+
 ```
-./j_simple_usm_shared -n 16000
-Offload Device        : NVIDIA A100-SXM4-40GB
-max_work_group_size   : 1024
-Configuration         : MATRIX_SIZE= 16000x16000
- [0][0] = 8000
-Warm up the device  
-Kernel Execution Time : 0.359838 seconds
-Compute Duration      : 0.365444 seconds
+nsys profile -t nvtx,cuda -o results --stats=true --force-overwrite true ./j_simple_buffer -n 16000
 ```
-### Memory Statistics (from nsys)
-#### Using buffers
+From the output we only selected only some statistics related to the memory movements:
+
 ```
 CUDA Memory Operation Statistics (by time):
 
@@ -46,24 +44,12 @@ CUDA Memory Operation Statistics (by size):
  413,696.000    404     1,024.000     1,024.000     1,024.000        0.000  [CUDA memcpy HtoD]
  206,848.000    202     1,024.000     1,024.000     1,024.000        0.000  [CUDA memcpy DtoH]
 ```
+We note in the upper table that a lot of time (more than 62 s) executing cuda memory copy operations, while the lower panel we note that we had 606 memory operations and further more more than 600 GB of data moved around. The size of the problem is `2x976`MB. We can conclude that whole data was moved every iteration. 
 
-## Using USM, `malloc_shared`
+# The task
+The exercise is to reduce this data movement. The [solution](solution/j_simple_with_usm_sharedm.cpp) shoews only one way to solve this problem using unified shared memory. But you can try to experiment with moving the buffer declaration outside of the loop over iterations. Use the application timings and also the profilers to get the needed information. You can use Mahti or LUMI for this. 
 
+On LUMI `rocm` is used as a backend. We can use `rocprof` to obtained similar information to the one given by `nsys` using:
 ```
-
-CUDA Memory Operation Statistics (by time):
-
- Time(%)  Total Time (ns)  Count   Average (ns)  Minimum (ns)  Maximum (ns)  StdDev (ns)              Operation            
- -------  ---------------  ------  ------------  ------------  ------------  -----------  ---------------------------------
-   100.0       58,052,881  13,040       4,451.9         2,622        56,128      3,820.7  [CUDA Unified Memory memcpy HtoD]
-     0.0            6,655       2       3,327.5         2,207         4,448      1,584.6  [CUDA Unified Memory memcpy DtoH]
-
-
-
-CUDA Memory Operation Statistics (by size):
-
- Total (MB)  Count   Average (MB)  Minimum (MB)  Maximum (MB)  StdDev (MB)              Operation            
- ----------  ------  ------------  ------------  ------------  -----------  ---------------------------------
-    593.043  13,040         0.045         0.004         1.044        0.100  [CUDA Unified Memory memcpy HtoD]
-      0.066       2         0.033         0.004         0.061        0.041  [CUDA Unified Memory memcpy DtoH]
+rocprof --stats --hip-trace --hsa-trace ./j_simple_buffer -n 16000
 ```
