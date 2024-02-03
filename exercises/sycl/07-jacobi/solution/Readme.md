@@ -17,7 +17,7 @@ Warm up the device
 Kernel Execution Time : 0.359838 seconds
 Compute Duration      : 0.365444 seconds
 ```
-Doing the same performance with `nsys` or `rocprof` we now see that the time spent in trrasnfering data decreased to 0.058 s and the total size of transfered data is 593 MB, once at the beginning. 
+Doing the same performance with `nsys` or `rocprof` we now see that the time spent in trasnfering data decreased to 0.058 s and the total size of transfered data is 593 MB, once at the beginning. 
 
 ```
 CUDA Memory Operation Statistics (by time):
