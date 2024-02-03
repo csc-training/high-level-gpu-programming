@@ -28,7 +28,7 @@ In this case we suspect that having the buffers created and destroyed every time
 ```
 nsys profile -t nvtx,cuda -o results --stats=true --force-overwrite true ./j_simple_buffer -n 16000
 ```
-From the output we only selected only some statistics related to the memory movements:
+From the output we selected only some statistics related to the memory movements:
 
 ```
 CUDA Memory Operation Statistics (by time):
