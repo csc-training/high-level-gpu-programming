@@ -22,5 +22,40 @@ Dense matrix operations are example of problems were optimizing  memory accesses
                 }
             });
 ```
+We spot several things wrong in this approach. First the construct `matrix_c[i*N+j] += ...` implies that for each value of `k` we have a read and write to the GPU memory. Second all work items with identical `i` index will load from the memory the same data `matrix_a[i*N+k]`, while  all work items with the same `j` load the same data `matrix_b[k*N+j]`. Also the `matrix_a[i*N+k]` access is not coaleseced. If we consider the internal coordinate of a work item inside a group, it is between `0`and `M-1`. If `i` is the same for all work-item in the sub-group they are doing one memory operations which loads a block of 64B or 128B, but only need one element from it, while is `i` different the accesses are spaced in memory which results in extra inefficient operations.  Similarly with the `matrix_b[k*N+j]` access. All work-items in a sub-group access the same element, but the memory operations load blocks. There is some limited chaching done automatically by the GPU, but the performance is not guarantied for all applications.
 
+## The Task
 
+In this exercise you need to improve the performance of the kernel only. This can be done gradually. First eliminate the redundant memory accesses by using a local  temporary variable. The new code would look like this:
+```
+
+                for (int k = 0; k < N; k++) {
+                    temp += matrix_a[i*N+k] * matrix_b[k*N+j];
+                }
+```
+
+Check the performance change. 
+
+Further improvements can be done. We can define two tiles on the local share memoryy, one for the `matrix_a` and one for `matrix_b`. Each block first loads using coalesced accesses a tile of size `MxM` in  the local share memory. Then the matrix-matrix multiplication is done using this saved tiles.
+```
+const int i = item.get_global_id(0);
+                const int j = item.get_global_id(1);
+                const int x = item.get_local_id(0);
+                const int y = item.get_local_id(1);
+                float temp=0.f;
+                int k;
+                for (int t = 0; t < N; t+=M) {
+                     // save a tile locally for fast access by all threads in a group (block in cuda/hip)
+                     A_tile[x][y] = matrix_a[i * N + (t + y)]; 
+                     B_tile[x][y] = matrix_b[(t + x) * N + j];
+                     item.barrier(access::fence_space::local_space); // barrier within the group
+                     for (k = 0; k < M; k++) {
+                          temp += A_tile[x][k] * B_tile[k][y];
+                     }
+                }
+```
+
+A more detailed explanation can be found in this [video](https://youtu.be/vyfVDyk7EH0?si=s49ntuUaE2-A37AG) and [CUDA User's Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html). 
+You can check the performance of the code against the `mkl` library on Intel DevCloud, or against CUDA or HIP libraries on Mahti and LUMI. 
+**Note** In many problems the performance dependens on the size of the work group! So for each version of the code different values of `M` need to be tested. 
+         On GPUs the size of the work groups is limited to 1024 so the maximum size for M is 32!
