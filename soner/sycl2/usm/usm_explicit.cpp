@@ -12,17 +12,25 @@ int main() {
   queue q;
   std::cout << "Device : " << q.get_device().get_info<info::device::name>() << "\n";
 
-  //# USM allocation using malloc_shared
-  int *data = static_cast<int *>(malloc_shared(N * sizeof(int), q));
-
-  //# Initialize data array
+  //# initialize data on host
+  int *data = static_cast<int *>(malloc(N * sizeof(int)));
   for (int i = 0; i < N; i++) data[i] = i;
 
-  //# Modify data array on device
-  q.parallel_for(range<1>(N), [=](id<1> i) { data[i] *= 2; }).wait();
+  //# Explicit USM allocation using malloc_device
+  int *data_device = malloc_device<int>(N, q);
+
+  //# copy mem from host to device
+  q.memcpy(data_device, data, sizeof(int) * N).wait();
+
+  //# update device memory
+  q.parallel_for(range<1>(N), [=](id<1> i) { data_device[i] *= 2; }).wait();
+
+  //# copy mem from device to host
+  q.memcpy(data, data_device, sizeof(int) * N).wait();
 
   //# print output
   for (int i = 0; i < N; i++) std::cout << data[i] << "\n";
-  free(data, q);
+  free(data_device, q);
+  free(data);
   return 0;
 }
