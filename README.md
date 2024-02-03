@@ -76,6 +76,7 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
 - [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
+- [Reductions](exercises/sycl/06-reduction-direct)
 
 ### Multi-GPU programming and HIP+MPI
 
