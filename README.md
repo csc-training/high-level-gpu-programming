@@ -74,8 +74,8 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 
 ### Memory Optimization
 
-- [Jacobi Iterations]([exercises/sycl/07-jacobi)
-- [Dense matrix matrix multiplication]([exercises/sycl/04-matrix-matrix-mul)
+- [Jacobi Iterations](exercises/sycl/07-jacobi)
+- [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
 
 ### Multi-GPU programming and HIP+MPI
 
