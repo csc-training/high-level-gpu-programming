@@ -49,7 +49,7 @@ CUDA Memory Operation Statistics (by size):
 We note in the upper table that a lot of time (more than 62 s) executing cuda memory copy operations, while the lower panel we note that we had 606 memory operations and further more more than 600 GB of data moved around. The size of the problem is `2x976`MB. We can conclude that whole data was moved every iteration. 
 
 # The task
-The exercise is to reduce this data movement. The [solution](solution/j_simple_with_usm_sharedm.cpp) shoews only one way to solve this problem using unified shared memory. But you can try to experiment with moving the buffer declaration outside of the loop over iterations. Use the application timings and also the profilers to get the needed information. You can use Mahti or LUMI for this. 
+The exercise is to reduce this data movement. The [solution](solution/j_simple_with_usm_sharedm.cpp) shows only one way to solve this problem using unified shared memory. But you can try to experiment with moving the buffer declaration outside of the loop over iterations. Use the application timings and also the profilers to get the needed information. You can use Mahti or LUMI for this. 
 
 On LUMI `rocm` is used as a backend. We can use `rocprof` to obtained similar information to the one given by `nsys` using:
 ```
