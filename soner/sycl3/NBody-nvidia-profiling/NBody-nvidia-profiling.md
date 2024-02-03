@@ -94,3 +94,14 @@ s       dt      kenergy     time (s)    GFLOPS
 Built target run
 ```
 
+<br>
+
+### After you have generated the report, e.g. report1.nsys-rep, download the file and start
+
+```bash
+nsys-ui
+```
+
+### Then you can open the file report1.nsys-rep. It should look like the pic below!
+
+![](pics/nsys-pic1.png)
