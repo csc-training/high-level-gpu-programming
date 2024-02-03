@@ -33,17 +33,16 @@ int main()
         queue q;
         // Create a buffer buf for the hostVector
         // YOUR CODE GOES HERE
-        
-	
-	q.submit( [&] (handler& h)
+        buffer buf(hostVector);
+        q.submit( [&] (handler& h)
          {
         // Create an accessor a for buf
         // and write a h.parallel_for in which the indices
         // are written to a and thereby also to buf
         // YOUR CODE GOES HERE
-         
-	 
-	 } );
+            accessor a(buf, h, write_only);
+            h.parallel_for(N, [=] (id<1> i) { a[i] = i; } );
+         } );
 
     }
 
