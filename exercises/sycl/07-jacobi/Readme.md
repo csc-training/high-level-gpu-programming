@@ -12,7 +12,7 @@ In order to test the code we executed the code on a nvidia GPU we ran the with q
 ```
 ./j_simple_buffer -n 16000
 ```
-The application reported a quite small time spent in executing kernels about 0.369 s. However the total time spent to execute all iterations was 63.132 s.
+The application reported a quite small time spent in executing kernels about 0.369 s. However the total time spent to execute all iterations was around 62 s.
 ```
 Offload Device        : NVIDIA A100-SXM4-40GB
 max_work_group_size   : 1024
