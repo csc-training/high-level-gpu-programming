@@ -68,6 +68,7 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 - [Reductions](exercises/sycl/06-reduction-direct)
 
 ### Kokkos
+- [Kokkos](/exercises/kokkos)
 
 ### SYCL and MPI
 
