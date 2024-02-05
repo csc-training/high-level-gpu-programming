@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
 
 # Kokkos memory management
 - Kokkos supports using raw pointers as well as buffers (Kokkos Views)
-- With raw pointers, one can simple allocate memory by 
+- With raw pointers, one can simply allocate memory by 
 ```
 Kokkos::kokkos_malloc(n * sizeof(int)); // n is the size of the allocation in ints
 ```

@@ -33,7 +33,8 @@
 ## SYCL and outside libraries
 - SYCL & MPI
 - SYCL & CUDA/HIP libraries
-## KOKKOS
+## Kokkos Core
+- Short intro to inline building and programming
 
 ## Possible exercises:
 - selecting device in a node with several GPUs
