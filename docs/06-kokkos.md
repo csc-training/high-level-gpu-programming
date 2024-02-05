@@ -62,6 +62,12 @@ build: $(KOKKOS_LINK_DEPENDS) $(KOKKOS_CPP_DEPENDS) hello.cpp
 
 </small>
 
+<small>
+
+- Kokkos docs: [https://kokkos.org/kokkos-core-wiki/building.html#raw-makefile](https://kokkos.org/kokkos-core-wiki/building.html#raw-makefile)
+
+</small>
+
 # Kokkos programming
 - Kokkos code starts with Kokkos initialization and ends with finalization,
 <small>
@@ -142,7 +148,7 @@ where `Kokkos::SharedSpace` maps to any potentially available memory of "Unified
 </small>
 <small>
 
-* Kokkos docs: [https://kokkos.org/kokkos-core-wiki/API/core/c_style_memory_management.html](<small>)
+* Kokkos docs: [https://kokkos.org/kokkos-core-wiki/API/core/c_style_memory_management.html](https://kokkos.org/kokkos-core-wiki/API/core/c_style_memory_management.html)
 
 </small>
 
