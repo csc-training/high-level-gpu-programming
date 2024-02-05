@@ -138,10 +138,6 @@ int main(int argc, char *argv[]) {
             dev_c[i*N+j] = 0.f;
     }
 
-    // Transfer info from CPU to GPU
-    /* q.memcpy(dev_a, matrix_a.data(), sizeof(float)*N*N);
-    q.memcpy(dev_b, matrix_b.data(), sizeof(float)*N*N);
-    q.wait();  */
     
         //# scalar multipliers for oneMKL
         float alpha = 1.f, beta = 1.f;
