@@ -31,7 +31,7 @@ part of the EuroCC training activities at CSC.
 | 12:00-13:00 | Lunch break
 | 13:00-15:30 | SYCL III 
 | 15:30-15:50 | Coffee Break
-| 15:50-16:45 | Exercises (simple exercises on Mahti & LUMI, heat equation, intro & cuda to sycl demo)   
+| 15:50-16:45 | Exercises (on Mahti & LUMI )   
 | 16:45-17:00 | Day 2 wrap-up
 
 ### Day 3 Friday 16.02, 9:00-17:00
@@ -41,7 +41,11 @@ part of the EuroCC training activities at CSC.
 | 09:00-9:30  | Kokkos 
 | 09:30-11:00 | Kokkos exercises
 | 11:00-12:00 | Interoperability with third-party libraries  and mpi
-| 13:00-16:45 | Bring your own code
+| 12:00-13:00 | Lunch break
+| 13:00-14:00 | Heat equation, cuda to sycl demo
+| 14:00-15:00 | Exercises & Bring your own 
+| 15:30-15:50 | Coffee Break
+| 13:00-16:45 | Exercises & Bring your own
 | 16:45-17:00 | Day 3 wrap-up & Course closing
 
 
@@ -50,27 +54,12 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 
 [General instructions](Exercise_Instructions.md)
 
-### Introduction and GPU kernels
+### SYCL 
 
 - [Hello world](kernels/01-hello-world)
 - [Error checking](kernels/02-error-checking)
 - [Kernel saxpy](kernels/03-kernel-saxpy)
 - [Kernel copy2d](kernels/04-kernel-copy2d)
-
-### Streams, events, and synchronization
-
-- [Understanding asynchronity using events](streams/01-event-record)
-- [Investigating streams and events](streams/02-concurrency)
-
-### Memory allocations, access, and unified memory
-
-- [Memory management strategies](memory/01-prefetch)
-- [The stream-ordered memory allocator and memory pools](memory/02-mempools)
-- [Unified memory and structs](memory/03-struct)
-
-### Fortran and HIP
-
-- [Hipfort exercise](hipfort)
 
 ### Memory Optimization
 
@@ -78,17 +67,20 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 - [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
 - [Reductions](exercises/sycl/06-reduction-direct)
 
-### Multi-GPU programming and HIP+MPI
+### Kokkos
+
+### SYCL and MPI
+
+- [Peer to peer device access](multi-gpu/01-p2pcopy)
+- [Vector sum on two GPUs without MPI](multi-gpu/02-vector-sum)
+- [Ping-pong with multiple GPUs and MPI](multi-gpu/03-mpi)
+  
+### SYCL interoperability
 
 - [Peer to peer device access](multi-gpu/01-p2pcopy)
 - [Vector sum on two GPUs without MPI](multi-gpu/02-vector-sum)
 - [Ping-pong with multiple GPUs and MPI](multi-gpu/03-mpi)
 
-### Code design, conditional compilation, lambdas, hipify
-
-- [Host-device lambda functions and general kernels](lambdas/01-lambda)
-- [Reductions with host-device lambdas and hipCUB](lambdas/02-reduction)
-- [Monte Carlo simulation with hipRAND library](lambdas/03-hipify)
 
 ### Syclomatic
 - [Heat equation with CUDA](bonus/heat-equation)
