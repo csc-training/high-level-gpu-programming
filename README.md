@@ -43,9 +43,9 @@ part of the EuroCC training activities at CSC.
 | 11:00-12:00 | Interoperability with third-party libraries  and mpi
 | 12:00-13:00 | Lunch break
 | 13:00-14:00 | Heat equation, cuda to sycl demo
-| 14:00-15:00 | Exercises & Bring your own 
+| 14:00-15:00 | Exercises & Bring your own code
 | 15:30-15:50 | Coffee Break
-| 13:00-16:45 | Exercises & Bring your own
+| 13:00-16:45 | Exercises & Bring your own code
 | 16:45-17:00 | Day 3 wrap-up & Course closing
 
 
