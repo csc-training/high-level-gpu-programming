@@ -120,7 +120,7 @@ std::cout << "Device: " << q.get_device().get_info<info::device::name>() << "\n"
 ```
 
 ## Exercise 1
-1. Inspect the code in lab1/gpu_sample.cpp file showing different device selectors in use.
+1. Inspect the code in sycl1-lab/gpu_sample.cpp file showing different device selectors in use.
 
 2. On Intel Developer Cloud machine, please make sure that the environment is set:
 
