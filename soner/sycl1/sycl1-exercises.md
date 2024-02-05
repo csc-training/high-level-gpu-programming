@@ -135,6 +135,46 @@ icpx -fsycl gpu_sample.cpp -o gpu_sample
 
 5. Use the default queue constructor and check what happens at runtime in that case.
 
+### Queue
+Queue submits command groups to be executed by the SYCL runtime. Queue is a mechanism where work is
+submitted to a device.A queue map to one device and multiple queues can be mapped to the same device.
+
+```C++
+q.submit([&](handler& h)
+{
+    //COMMAND GROUP CODE
+});
+```
+
+### Kernel
+The kernel class encapsulates methods and data for executing code on the device when a command group is
+instantiated. Kernel object is not explicitly constructed by the user and is constructed when a kernel dispatch
+function, such as parallel_for, is called
+
+
+```C++
+q.submit([&](handler& h)
+{
+    h.parallel_for(range<1>(N), [=](id<1> i)
+    {
+        A[i] = B[i] + C[i]);
+    });
+});
+```
+
+### Choosing where device kernels run
+Work is submitted to queues and each queue is associated with exactly one device (e.g. a specific GPU, CPU or
+FPGA). You can decide which device a queue is associated with (if you want) and have as many queues as desired
+for dispatching work in heterogeneous systems.
+
+| Target Device                                               | Queue              | 
+| ------------------------------------------------------------| ------------------ |
+| Create queue targeting any device:                          | queue()            |
+| Create queue targeting a pre-configured classes of devices: | queue(cpu_selector_v); queue(gpu_selector_v); queue(accelerator_selector_v); queue(default_selector_v); |
+| Create queue targeting specific device (custom criteria):   | queue(custom_selector);    |
+
+![](pics/queue-1.png)
+
 
 
 ```C++
