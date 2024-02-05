@@ -110,6 +110,12 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+<small>
+
+* The Kokkos API is accessed through `Kokkos_Core.hpp` header file
+
+</small>
+
 # Kokkos memory management (malloc-based)
 - Kokkos supports using raw pointers as well as buffers (Kokkos Views)
 - With raw pointers, one can simply allocate and deallocate memory by 
