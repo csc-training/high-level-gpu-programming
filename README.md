@@ -56,10 +56,7 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 
 ### SYCL 
 
-- [Hello world](kernels/01-hello-world)
-- [Error checking](kernels/02-error-checking)
-- [Kernel saxpy](kernels/03-kernel-saxpy)
-- [Kernel copy2d](kernels/04-kernel-copy2d)
+- 
 
 ### Memory Optimization
 
@@ -71,18 +68,13 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 - [Kokkos](/exercises/kokkos)
 
 ### SYCL and MPI
-
-- [Peer to peer device access](multi-gpu/01-p2pcopy)
-- [Vector sum on two GPUs without MPI](multi-gpu/02-vector-sum)
-- [Ping-pong with multiple GPUs and MPI](multi-gpu/03-mpi)
+- [Ping-pong with multiple GPUs and MPI](exercises/sycl/08-ping-pong)
+- [Pi computing with multiple GPU and MPI](exercises/sycl/11-pi/)
   
 ### SYCL interoperability
 
-- [Peer to peer device access](multi-gpu/01-p2pcopy)
-- [Vector sum on two GPUs without MPI](multi-gpu/02-vector-sum)
-- [Ping-pong with multiple GPUs and MPI](multi-gpu/03-mpi)
-
+- [SYCL and 3rd party libraries](exercises/sycl/09-interoperability/)
 
 ### Syclomatic
-- [Heat equation with CUDA](bonus/heat-equation)
+- [Heat equation from CUDA to SYCL](exercises/sycl/10-heat-equation-from-cuda/)
  
