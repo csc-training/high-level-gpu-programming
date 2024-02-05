@@ -110,22 +110,63 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-# Kokkos memory management
+# Kokkos memory management (malloc-based)
 - Kokkos supports using raw pointers as well as buffers (Kokkos Views)
-- With raw pointers, one can simply allocate memory by 
-```
-Kokkos::kokkos_malloc(n * sizeof(int)); // n is the size of the allocation in ints
-```
-- For Kokkos Views, an optimal data layout is determined at compile time depending on the computer architecture
-- A 1-dimensional view of type int* can be created by
-```
-Kokkos::View<int*> a("a", n); // "a" is a label, and n is the size of the allocation in ints 
-```
+- With raw pointers, one can simply allocate and deallocate memory by 
+
 <small>
+
+```
+int* ptr = (int*) Kokkos::kokkos_malloc<Kokkos::SharedSpace>(n * sizeof(int));
+...
+Kokkos::kokkos_free<Kokkos::SharedSpace>(ptr);
+```
+
+</small>
+
+where `Kokkos::SharedSpace` maps to any potentially available memory of "Unified Shared Memory" type, ie,
+
+<small>
+
+* Cuda -> CudaUVMSpace
+* HIP -> HIPManagedSpace
+* SYCL -> SYCLSharedUSMSpace
+* Backends running on host -> HostSpace
+
+</small>
+<small>
+
+* Kokkos docs: [https://kokkos.org/kokkos-core-wiki/API/core/c_style_memory_management.html](<small>)
+
+</small>
+
+
+# Kokkos memory management (View-based)
+- For Kokkos Views, an optimal data layout is determined at compile time depending on the computer architecture
+- A 1-dimensional view of type int* into default and host memory spaces can be created by
+
+<small>
+
+```
+Kokkos::View<int*>  dev_array("dev_array", n); // "dev_array" is a label, and n is the size of the allocation in ints 
+.
+.
+Kokkos::View<int*, Kokkos::HostSpace>  host_array("host_array", n); // same as above, but allocates to host space
+```
+
+</small>
+
+* Memory copies between host and device spaces are handled explicitly:
+
+<small>
+
+```
+Kokkos::deep_copy(dev_array, host_array); // a copy from host to device
+```
 - Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/API/core/View.html](https://kokkos.github.io/kokkos-core-wiki/API/core/View.html)
 </small>
 
-# Kokkos parallel execution
+# Kokkos parallel execution 1
 - Kokkos provides three different parallel operations: parallel_for, parallel_reduce, and parallel_scan 
   - The parallel_for operation is used to execute a loop in parallel
   - The parallel_reduce operation is used to execute a loop in parallel and reduce the results to a single value
@@ -140,13 +181,36 @@ Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
 - Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/API/core/ParallelDispatch.html](https://kokkos.github.io/kokkos-core-wiki/API/core/ParallelDispatch.html)
 </small>
 
+# Kokkos parallel execution 2
+* The following executes a simple reduction loop with i ranging from 0 to n-1 where `lsum` is a local sum variable and `sum` is the final global sum variable:
+
+<small>
+
+```
+Kokkos::parallel_reduce(n, KOKKOS_LAMBDA(const int i, int &lsum) {
+  lsum += i;
+}, sum);
+```
+
+</small>
+
+* Sum reduction is the default reduction operation, and if other reduction operations are desired, this must be indicated in the `parallel_reduce` call
+* Kernel launches are asynchronous with host, use `Kokkos::fence()` to synchronize device and host execution
+
+<small>
+- Kokkos docs: [https://kokkos.org/kokkos-core-wiki/API/core/parallel-dispatch/parallel_reduce.html#](https://kokkos.org/kokkos-core-wiki/API/core/parallel-dispatch/parallel_reduce.html#)
+</small>
+
+
+
+
 # Run Kokkos in simple steps
 1. Create a folder with source file and Makefile, eg, `hello.cpp` and `Makefile`
 2. Execute `git clone https://github.com/kokkos/kokkos.git` (in the same folder if using the Makefile shown at earlier page)
 3. Run `make`
 4. Run executable with, eg, `./hello` or `srun ./hello`
 <br><br><br>
-- **No separate step to manually compile and link Kokkos is required!**
+- **With inline build strategy, no separate step to manually compile and link Kokkos is required!**
 
 # Summary
 - Kokkos is a portable GPU programming ecosystem supporting CUDA, HIP, SYCL, HPX, OpenMP, and C++ threads
