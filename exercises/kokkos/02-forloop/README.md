@@ -7,7 +7,7 @@ for (unsigned i = 0; i < n; i++){
   b[i] = 1;
 }
 ```
-At the end, the program should evaluate a second loop (without Kokkos) to print out each `c[i]` to see the results are correct. 
+At the end, the program should evaluate a verification loop (without Kokkos) to print out each `c[i]` to see the results are correct. 
 
 In addition to `Kokkos::initialize()` and `Kokkos::finalize`, you will need `Kokkos::parallel_for` and `Kokkos::fence` in this exercise. Furthermore, two different memory management strategies are investigated here:
 
