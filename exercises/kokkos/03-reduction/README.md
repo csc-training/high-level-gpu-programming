@@ -7,7 +7,7 @@ Here, the purpose is to write a simple program using Kokkos that evaluates a red
 
 2. Then just create a source file and Makefile and type `make`. Hint! You can use the Makefile from the solution folder as a reference and just change the Kokkos path and the file name.
 
-3. Run on Lumi or Mahti by `srun ./executable`
+3. Run on Lumi or Mahti by `srun ./executable` (add required flags according to the underlying system and user, eg, --account=XXX, --partition=YYY, etc.)
 
 # Example solution
 An example Kokkos implementation (.cpp) is given in the solution folder. However, the intention is to try solving the exercise first without looking into this.

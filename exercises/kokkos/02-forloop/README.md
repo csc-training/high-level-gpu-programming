@@ -1,6 +1,15 @@
 # For loop exercise
 
-Here, the purpose is to write a simple program using Kokkos that evaluates a loop from `i = 0` to `ì = 5`. The loop calculates `c[i] = a[i] * b[i]` for all `i` on a GPU. After this, the program should evaluate a second loop (without Kokkos) to print out each `c[i]` to see the results are correct. In addition to `Kokkos::initialize()` and `Kokkos::finalize`, you will need `Kokkos::parallel_for` and `Kokkos::fence` in this exercise. Furthermore, two different memory management strategies are investigated here:
+Here, the purpose is to write a simple program using Kokkos that evaluates a loop from `i = 0` to `ì = 5`. The loop calculates `c[i] = a[i] * b[i]` for all `i` on a GPU. Initialize the arrays `a` and `b`, eg, as follows:
+```
+for (unsigned i = 0; i < n; i++){
+  a[i] = i;
+  b[i] = 1;
+}
+```
+At the end, the program should evaluate a second loop (without Kokkos) to print out each `c[i]` to see the results are correct. 
+
+In addition to `Kokkos::initialize()` and `Kokkos::finalize`, you will need `Kokkos::parallel_for` and `Kokkos::fence` in this exercise. Furthermore, two different memory management strategies are investigated here:
 
 ## Case 1: Raw pointers with Unified Memory
 `Kokkos::kokkos_malloc` and `Kokkos::kokkos_free` are needed here.
@@ -14,7 +23,7 @@ Here, the purpose is to write a simple program using Kokkos that evaluates a loo
 
 2. Then just create a source file and Makefile and type `make`. Hint! You can use the Makefile from the solution folder as a reference and just change the Kokkos path and the file name.
 
-3. Run on Lumi or Mahti by `srun ./executable`
+3. Run on Lumi or Mahti by `srun ./executable` (add required flags according to the underlying system and user, eg, --account=XXX, --partition=YYY, etc.)
 
 # Example solution
 Example Kokkos implementations (.cpp) are given in the solution folders. However, the intention is to try solving the exercise first without looking into these.
