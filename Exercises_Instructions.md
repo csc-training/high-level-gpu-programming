@@ -1,46 +1,24 @@
 # General exercise instructions
 
-## Working with the summerschool repository
+## Getting the materials
 
-We recommend that you work with your own personal **fork** of the summerschool 
-git-repository. That way you can easily commit and push your own solutions
+All course materials, slides and hands-out are available in the github repository. They can be downloaded with the command
+
+```
+https://github.com/csc-training/higher-level-gpu-programming.git
+```
+
+If you have a GitHub account you can also **Fork** this repository and clone
+then your fork. That way you can easily commit and push your own solutions
 to exercises.
-
-Before starting out, synchronize your fork with "Sync fork" in the github web-GUI.
-
-We also recommend that you create a separate branch for your own work, see "Using local workstation" or "Using supercomputers" below for details.
-
-Once forked to yourself, you can sync with the original repository (in case of updates) by running:
-```
-git pull https://github.com/csc-training/summerschool.git
-```
 
 ### Repository structure
 
 The exercise assignments are provided in various `README.md`s.
-For most of the exercises, skeleton codes are provided both for
-Fortran and C/C++ in the corresponding subdirectory. Some exercise
-skeletons have sections marked with “TODO” for completing the
-exercises. In addition, all of the exercises have exemplary full codes 
-(that can be compiled and run) in the `solutions` folder. Note that these are 
-seldom the only or even the best way to solve the problem.
+For most of the exercises, some skeleton codes are provided as starting point. In addition, all of the exercises have exemplary full codes 
+(that can be compiled and run) in the `solutions` folder. **Note that these are 
+seldom the only or even the best way to solve the problem.**
 
-## Using local workstation
-
-In case you have working parallel program development environment in your laptop
-(Fortran or C/C++ compiler, MPI development library, etc.) you may use that for
-exercises. Note, however, that no support for installing MPI environment can be
-provided during the course. Otherwise, you can use CSC supercomputers for
-carrying out the exercises.
-
-Clone your personal fork in appropriate directory:
-```
-git clone git@github.com:<my-github-id>/summerschool.git
-```
-Create a branch:
-```
-git checkout -b hpcss23
-```
 
 ## Using supercomputers
 
