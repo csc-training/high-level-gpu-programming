@@ -10,14 +10,15 @@ lang:     en
 - Kokkos is a C++ performance portability ecosystem developed primarily at Sandia National Laboratories since 2011
 - It provides an abstraction layer for various parallel programming models like CUDA, HIP, SYCL, HPX, OpenMP, and C++ threads
 - The ecosystem includes three main components, ie, Kokkos Core, Kokkos Kernels, and Kokkos Tools for GPU program development
-- Kokkos (like SYCL) heavily utilizes modern C++ features like lambdas and templates
+- Kokkos (like SYCL) heavily utilizes modern C++ features like lambdas/functors and templates
 
 
 # Kokkos Core component
-- Kokkos Core is a programming model for parallel algorithms on shared memory many-core architectures, providing computation abstractions, policies, and execution/memory spaces
-- The developer implements the algorithms using these generic abstractions, policies, and execution/memory spaces provided by Kokkos
-- The code is optimized and compiled to the target architecture based on the chosen settings and features
-- Kokkos Core offers also some architecture-specific features, but they break portability
+- Kokkos Core is a programming model for parallel algorithms on shared memory many-core architectures
+- The model provides abstractions, such as execution spaces, patterns and policies, as well as memory spaces, layouts and traits
+- The developer implements the algorithms using these abstractions which allows Kokkos to map and optimize the code for the desired target architectures
+- Kokkos Core offers also some architecture-specific features for further optimization, but this breaks the portability of the code
+
 
 
 # Kokkos Kernels component (not covered in more detail)
@@ -32,9 +33,9 @@ lang:     en
 - A developer can use these tools for performance profiling and debugging to evaluate their algorithmic design and implementation, and to identify areas for improvement
 
 # Kokkos Compilation
-- Usage of cross-platform portability libraries could require compiling multiple instances if different projects on the same system require different compilation settings
+- Usage of cross-platform portability libraries could require module/package maintainers to compile and offer multiple instances if different projects on the same system require different compilation settings (when used as an installed package)
 - For instance, with Kokkos, one project might prefer CUDA as the default execution space, while another requires a CPU
-- Kokkos supports inline building of the Kokkos library with the user project, by specifying Kokkos compilation settings and including the Kokkos Makefile in the user Makefile
+- In addition to package install, Kokkos supports inline building of the Kokkos library with the user project, by specifying Kokkos compilation settings and including the Kokkos Makefile in the user Makefile
 <small>
 - Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/building.html](https://kokkos.github.io/kokkos-core-wiki/building.html)
 </small>
@@ -155,7 +156,7 @@ where `Kokkos::SharedSpace` maps to any potentially available memory of "Unified
 
 # Kokkos memory management (View-based)
 - For Kokkos Views, an optimal data layout is determined at compile time depending on the computer architecture
-- A 1-dimensional view of type int* into default and host memory spaces can be created by
+- A 1-dimensional `View` of type `int*` into default and host memory spaces can be created by
 
 <small>
 
@@ -179,10 +180,10 @@ Kokkos::deep_copy(dev_array, host_array); // a copy from host to device
 </small>
 
 # Kokkos parallel execution 1
-- Kokkos provides three different parallel operations: parallel_for, parallel_reduce, and parallel_scan 
-  - The parallel_for operation is used to execute a loop in parallel
-  - The parallel_reduce operation is used to execute a loop in parallel and reduce the results to a single value
-  - The parallel_scan operation implements a prefix scan
+- Kokkos provides three different parallel operations: `parallel_for`, `parallel_reduce`, and `parallel_scan` 
+  - The `parallel_for` operation is used to execute a loop in parallel
+  - The `parallel_reduce` operation is used to execute a loop in parallel and reduce the results to a single value
+  - The `parallel_scan` operation implements a prefix scan
 - The following executes a simple for loop with `i` ranging from `0` to `n-1`:
 ```
 Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
@@ -194,7 +195,7 @@ Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
 </small>
 
 # Kokkos parallel execution 2
-* The following executes a simple reduction loop with i ranging from 0 to n-1 where `lsum` is a local sum variable and `sum` is the final global sum variable:
+* The following executes a simple reduction loop with `i` ranging from `0` to `n-1` where `lsum` is a local sum variable and `sum` is the final global sum variable (`sum` need not be accessible from the device):
 
 <small>
 
@@ -220,14 +221,14 @@ Kokkos::parallel_reduce(n, KOKKOS_LAMBDA(const int i, int &lsum) {
 1. Create a folder with source file and Makefile, eg, `hello.cpp` and `Makefile`
 2. Execute `git clone https://github.com/kokkos/kokkos.git` (in the same folder if using the Makefile shown at earlier page)
 3. Run `make`
-4. Run executable with, eg, `./hello` or `srun ./hello`
+4. Run executable with, eg, `./hello` or `srun ./hello` with appropriate args
 <br><br><br>
 - **With inline build strategy, no separate step to manually compile and link Kokkos is required!**
 
 # Summary
 - Kokkos is a portable GPU programming ecosystem supporting CUDA, HIP, SYCL, HPX, OpenMP, and C++ threads
 - The ecosystem includes three main components, ie, Kokkos Core, Kokkos Kernels, and Kokkos Tools for GPU program development
-- Kokkos (like SYCL) heavily utilizes modern C++ features like lambdas and templates for loop construction and memory management
+- Kokkos (like SYCL) utilizes modern C++ features like lambdas/functors and templates for loop construction and memory management
 - Kokkos is not a very popular choice for parallel programming, and therefore, learning and using Kokkos can be more difficult compared to more established programming models such as CUDA/HIP or OpenMP
 <small>
 - See Kokkos docs for more: [https://kokkos.github.io/kokkos-core-wiki/index.html](https://kokkos.github.io/kokkos-core-wiki/index.html)
