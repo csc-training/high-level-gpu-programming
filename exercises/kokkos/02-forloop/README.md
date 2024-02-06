@@ -26,4 +26,4 @@ In addition to `Kokkos::initialize()` and `Kokkos::finalize`, you will need `Kok
 3. Run on Lumi or Mahti by `srun ./executable` (add required flags according to the underlying system and user, eg, --account=XXX, --partition=YYY, etc.)
 
 # Example solution
-Example Kokkos implementations (.cpp) are given in the solution folders. However, the intention is to try solving the exercise first without looking into these.
+Example Kokkos implementations (.cpp) are given in the solution folders (based on [ENCCS material](https://enccs.github.io/gpu-programming/10-portable-kernel-models/) ). However, the intention is to try solving the exercise first without looking into these.

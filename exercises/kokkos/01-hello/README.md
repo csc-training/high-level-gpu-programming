@@ -8,3 +8,6 @@ Here, the purpose of this exercise is to just understand the simplistic Kokkos h
 2. Return to `/path/higher-level-gpu-programming/exercises/kokkos/01-hello/` and just type `make` to compile.
 
 3. Run on Lumi or Mahti by `srun ./executable`  (add required flags according to the underlying system and user, eg, --account=XXX, --partition=YYY, etc.)
+
+# Refs
+The exercise code is based on [ENCCS material](https://enccs.github.io/gpu-programming/10-portable-kernel-models/).

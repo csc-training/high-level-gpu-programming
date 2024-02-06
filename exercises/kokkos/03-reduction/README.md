@@ -10,4 +10,4 @@ Here, the purpose is to write a simple program using Kokkos that evaluates a red
 3. Run on Lumi or Mahti by `srun ./executable` (add required flags according to the underlying system and user, eg, --account=XXX, --partition=YYY, etc.)
 
 # Example solution
-An example Kokkos implementation (.cpp) is given in the solution folder. However, the intention is to try solving the exercise first without looking into this.
+An example Kokkos implementation (.cpp) is given in the solution folder (based on [ENCCS material](https://enccs.github.io/gpu-programming/10-portable-kernel-models/) ). However, the intention is to try solving the exercise first without looking into this.
