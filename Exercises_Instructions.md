@@ -22,16 +22,22 @@ seldom the only or even the best way to solve the problem.**
 
 ## Using supercomputers
 
-Exercises can be carried out using the [LUMI](https://docs.lumi-supercomputer.eu/)  supercomputer.
+Exercises can be carried out using the [LUMI](https://docs.lumi-supercomputer.eu/)  supercomputer, [Mahti](https://docs.csc.fi/computing/systems-mahti/), and [Intel DevCloud](https://console.cloud.intel.com/).
 
 LUMI can be accessed via ssh using the provided username and ssh key pair:
 ```
 ssh -i <path-to-private-key> <username>@lumi.csc.fi
 ```
+Mahti can be accessed via ssh using the provided username and CSC password:
+
+```
+ssh  <username>@mahti.csc.fi
+```
+The Intel DevCloud can be acces via the [web interface](https://console.cloud.intel.com/).
 
 ### Disk areas
 
-All the exercises in the supercomputers should be carried out in the
+All the exercises in the supercomputers have to be carried out in the
 **scratch** disk area. The name of the scratch directory can be
 queried with the command `lumi-workspaces`. As the base directory is
 shared between members of the project, you should create your own
