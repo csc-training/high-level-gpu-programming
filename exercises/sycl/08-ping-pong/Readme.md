@@ -9,7 +9,7 @@ On Mahti one needs to load the specific cuda aware openmpi module (if using Inte
 ```
 module load openmpi/4.1.2-cuda
 ```
-or manually link it (if using Aaaptive Cpp).
+or manually link it (if using Adaptive Cpp).
 On LUMI the GPU aware MPI can be used by setting an environment variable:
 ```
 export MPICH_GPU_SUPPORT_ENABLED=1
