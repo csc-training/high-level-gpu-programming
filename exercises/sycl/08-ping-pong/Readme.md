@@ -5,10 +5,11 @@ This code, while trivial, serves as an example of associating MPI tasks with ava
 
 # Compilation
 In order for this code to function correctly one needs to use GPU aware MPI. 
-On Mahti one needs to load the spefic cuda aware openmpi module:
+On Mahti one needs to load the specific cuda aware openmpi module (if using Intel onAPI):
 ```
 module load openmpi/4.1.2-cuda
 ```
+or manually link it (if using Aaaptive Cpp).
 On LUMI the GPU aware MPI can be used by setting an environment variable:
 ```
 export MPICH_GPU_SUPPORT_ENABLED=1
