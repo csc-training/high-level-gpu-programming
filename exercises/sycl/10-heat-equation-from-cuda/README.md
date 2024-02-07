@@ -4,7 +4,7 @@ Using the Intel syclomatic tool to convert [the heat equation from CUDA](https:/
 
 Before starting, please ensure that the environment is correct (Mahti):
 
-    . /scratch/project_2008874/cristian/intel/oneapi/setvars.sh --include-intel-llvm
+    . /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
     ml cuda/11.5.0 openmpi/4.1.2-cuda
 
 

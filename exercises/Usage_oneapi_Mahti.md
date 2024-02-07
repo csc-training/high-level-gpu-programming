@@ -1,0 +1,22 @@
+# Using oneAPI on Mahti
+
+Set the environments paths:
+
+    . /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
+    ml cuda/11.5.0 openmpi/4.1.2-cuda
+
+Compile for nvidia and cpu targets:
+
+    clang++ -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  <sycl_code>.cpp
+
+Run as an usual gpu program:
+
+    srun  --time=00:15:00 --partition=gputest --account=project_2008874 --nodes=1 --ntasks-per-node=1  --cpus-per-task=1 --gres=gpu:a100:1  ./a.out
+
+
+## The Intel® DPC++ Compatibility Tool
+
+The Intel® DPC++ Compatibility Tool (syclomatic) is included in the oneAPI basekit. For migrating cuda to sycl use (for example):
+
+    dpct --in-root=./ src/vector_add.cu
+
