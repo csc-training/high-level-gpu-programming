@@ -20,3 +20,4 @@ The Intel® DPC++ Compatibility Tool (syclomatic) is included in the oneAPI base
 
     dpct --in-root=./ src/vector_add.cu
 
+See [the heat equation exercise](sycl/10-heat-equation-from-cuda/) for a complete example.
