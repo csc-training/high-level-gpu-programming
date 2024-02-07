@@ -2,7 +2,7 @@
 
 Load cuda:
 
-     module load cuda
+    module load cuda
 
 Download the oneAPI basekit:
 
@@ -19,5 +19,5 @@ Get the cuda plugin (the link below might be changed in the future):
 
 Install:
 
-     ./oneapi-for-nvidia-gpus-2024.0.1-cuda-12.0-linux.sh -y --extract-folder /scratch/project_2008874/$USER/oneapi_tmp/ --install-dir /scratch/project_2008874/$USER/intel/oneapi
+    ./oneapi-for-nvidia-gpus-2024.0.1-cuda-12.0-linux.sh -y --extract-folder /scratch/project_2008874/$USER/oneapi_tmp/ --install-dir /scratch/project_2008874/$USER/intel/oneapi
 

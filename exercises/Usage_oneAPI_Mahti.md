@@ -11,7 +11,7 @@ Compile for nvidia and cpu targets:
 
 Run as an usual gpu program:
 
-    srun  --time=00:15:00 --partition=gputest --account=project_2008874 --nodes=1 --ntasks-per-node=1  --cpus-per-task=1 --gres=gpu:a100:1  ./a.out
+    srun --partition=gputest --account=project_2008874 --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 --time=00:15:00 ./a.out
 
 
 ## The Intel® DPC++ Compatibility Tool
