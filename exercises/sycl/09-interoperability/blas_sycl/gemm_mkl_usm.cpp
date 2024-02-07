@@ -6,8 +6,7 @@
 // SPDX-License-Identifier: MIT
 // =============================================================
 
-// clang++ -std=c++17 -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64  gemm_mkl_us
-m.cpp
+// clang++ -std=c++17 -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64  gemm_mkl_usm.cpp
 
 // This code will only work with cpu targets because of the 
 #include <sycl/sycl.hpp>
@@ -142,15 +141,11 @@ int main(int argc, char *argv[]) {
         //# transpose status of matrices for oneMKL
         oneapi::mkl::transpose transA = oneapi::mkl::transpose::nontrans;
         oneapi::mkl::transpose transB = oneapi::mkl::transpose::nontrans;
-        std::cout << "GG : "  << "\n";
         
         //# Submit MKL library call to execute on device
         blas::gemm(q, transA, transB, N, N, N, alpha, dev_b, N, dev_a, N, beta, dev_c, N);
-        //c.get_access<access::mode::read>();
-        //e.wait();
+        
     q.wait(); 
-    //auto kernel_duration = (e.get_profiling_info<info::event_profiling::command_end>() - e.get_profiling_info<info::event_profiling::command_start>());
-    //std::cout << "Kernel Execution Time : " << kernel_duration / 1e+9 << " seconds" << "\n";
     
     auto duration = std::chrono::high_resolution_clock::now().time_since_epoch().count() - start;
     std::cout << "Compute Duration      : " << duration / 1e+9 << " seconds\n";
