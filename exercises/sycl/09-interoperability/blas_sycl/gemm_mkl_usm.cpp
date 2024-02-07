@@ -69,8 +69,7 @@ int main(int argc, char *argv[]) {
             matrix_d[i*N+j] = 0.f;
     }
     //# Define queue with default device for offloading computation
-    //queue q{property::queue::enable_profiling{}};
-    queue q{};
+    queue q{property::queue::in_order{}};
 
     // First we warm-up the device
     std::cout << "Warm-up first" << "\n"; 
@@ -105,7 +104,7 @@ int main(int argc, char *argv[]) {
                C[i*N+j]  = temp;
             });
         });
-    } 
+    } // warm-up done
 
     //# Initialize matrices with values
     v1 = 2.f;
@@ -120,9 +119,6 @@ int main(int argc, char *argv[]) {
     
     auto start = std::chrono::high_resolution_clock::now().time_since_epoch().count();
     
-    
-    //event e;
-    //const std::vector<sycl::event> dep;
     std::cout << "Offload Device        : " << q.get_device().get_info<info::device::name>() << "\n";
     std::cout << "max_work_group_size   : " << q.get_device().get_info<info::device::max_work_group_size>() << "\n";
     std::cout << "Configuration         : MATRIX_SIZE= " << N << "x" << N << "\n";
