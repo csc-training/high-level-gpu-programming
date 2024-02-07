@@ -6,9 +6,10 @@
 // SPDX-License-Identifier: MIT
 // =============================================================
 
-// dpcpp -std=c++17 -DMKL_ILP64 -I$MKLROOT/include -L$MKLROOT/lib/intel64 -lmkl_sycl -lmkl_intel_ilp64 -lmkl_sequential -lmkl_core -lsycl -lOpenCL -lpthread -lm -ldl -O3  SYCL_7_matrix_matrix_mkl.cpp
+// clang++ -std=c++17 -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64  gemm_mkl_us
+m.cpp
 
-// This code compiles, but creashes at the mkl call.
+// This code will only work with cpu targets because of the 
 #include <sycl/sycl.hpp>
 #include <ctime>
 #include <chrono>
