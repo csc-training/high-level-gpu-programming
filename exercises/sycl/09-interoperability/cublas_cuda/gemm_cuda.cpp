@@ -94,6 +94,7 @@ int main(int argc, char *argv[]) {
     // End timing
     auto duration = std::chrono::high_resolution_clock::now() - start;
     double elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(duration).count();
+    std::cout << "\n Execute in " << elapsed_seconds << " s\n";
 
     // Copy result back to host
     cudaMemcpy(matrix_c.data(), dev_c, N*N*sizeof(float), cudaMemcpyDeviceToHost);
