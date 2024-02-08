@@ -1,7 +1,7 @@
 //==============================================================
 // Matrix Multiplication: DPC++ MKL
 //==============================================================
-// Copyright © 2021 Intel Corporation
+// This code built using snippets of code from Intel trainings
 //
 // SPDX-License-Identifier: MIT
 // =============================================================
