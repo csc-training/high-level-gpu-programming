@@ -73,4 +73,5 @@ q.submit([&](handler &cgh) {
    }).wait();
 This method allows to enqueue into the SYCL queue the work done by calling an external library. The `cuda/hip stream` information can be extracted from an `in-order` queue via the `get_native_queue()` method. Using this one can sumbit kernels on a queue, make an asychronous call to cuBlas, and continue the work with the results by submitting more kernels to the same queue. This equivalent to submitting work to the same cuda/hip stream.
 
+## Integrating the different approches into the same code. 
 
