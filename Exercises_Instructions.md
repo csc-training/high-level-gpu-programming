@@ -19,14 +19,11 @@ For most of the exercises, some skeleton codes are provided as starting point. I
 (that can be compiled and run) in the `solutions` folder. **Note that these are 
 seldom the only or even the best way to solve the problem.**
 
-
 ## Using supercomputers
 
-
-### Anatomy of supercomputer
- ![](docs/img/cluster_diagram.jpeg){.center width=80%}
-
 Exercises can be carried out using the [LUMI](https://docs.lumi-supercomputer.eu/)  supercomputer, [Mahti](https://docs.csc.fi/computing/systems-mahti/), and [Intel DevCloud](https://console.cloud.intel.com/).
+
+ ![](docs/img/cluster_diagram.jpeg)
 
 LUMI can be accessed via ssh using the provided username and ssh key pair:
 ```
