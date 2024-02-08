@@ -17,8 +17,8 @@ part of the EuroCC training activities at CSC.
 | 12:00-13:00  | Lunch break
 | 13:00-13:30  | Mahti and LUMI Computing Platforms (login & edit files, Slurm, SYCL usage)
 | 13:30-15:00  | SYCL I(a)
-| 15:00-15:20  | Coffee break
-| 15:20-16:45  | SYCL I(b)
+| 15:00-15:30  | Coffee break
+| 15:30-16:45  | SYCL I(b)
 | 16:45-17:00  | Day 1 wrap-up
 
 ### Day 2, Thursday 15.2.
