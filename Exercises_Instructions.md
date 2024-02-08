@@ -22,6 +22,10 @@ seldom the only or even the best way to solve the problem.**
 
 ## Using supercomputers
 
+
+### Anatomy of supercomputer
+ ![](img/cluster_diagram.jpeg){.center width=80%}
+
 Exercises can be carried out using the [LUMI](https://docs.lumi-supercomputer.eu/)  supercomputer, [Mahti](https://docs.csc.fi/computing/systems-mahti/), and [Intel DevCloud](https://console.cloud.intel.com/).
 
 LUMI can be accessed via ssh using the provided username and ssh key pair:
