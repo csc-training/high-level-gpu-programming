@@ -7,44 +7,44 @@ part of the EuroCC training activities at CSC.
 
 ### Day 1
 
-| Time | Topic |
-| ---- | ----- |
-| 09:00-09:15 | Welcome
-| 09:15-10:00 | Introduction to GPUs
-| 10:00-10:40 | GPU parallel programming model
-| 10:40-11:20 | GPU memory hierarchy
-| 11:20-12:00 | Refresher of C++ concepts
-| 12:00-13:00 | Lunch break
-| 13:00-13:30 | Mahti and LUMI Computing Platforms (login & edit files, Slurm, SYCL usage)
-| 13:30-15:00 | SYCL I(a)
-| 15:00-15:20 | Coffee break
-| 15:20-16:45 | SYCL I(b)
-| 16:45-17:00 | Day 1 wrap-up
+| Time         | Topic |
+| ----         | ----- |
+| 09:00-09:15  | Welcome
+| 09:15-10:00  | Introduction to GPUs
+| 10:00-10:40  | GPU parallel programming model
+| 10:40-11:20  | GPU memory hierarchy
+| 11:20-12:00  | Refresher of C++ concepts
+| 12:00-13:00  | Lunch break
+| 13:00-13:30  | Mahti and LUMI Computing Platforms (login & edit files, Slurm, SYCL usage)
+| 13:30-15:00  | SYCL I(a)
+| 15:00-15:20  | Coffee break
+| 15:20-16:45  | SYCL I(b)
+| 16:45-17:00  | Day 1 wrap-up
 
 ### Day 2, Thursday 15.02, 9:00-17:00
 
-| Time | Topic |
-| ---- | ----- |
-| 09:00-12:00 | SYCL II
-| 12:00-13:00 | Lunch break
-| 13:00-15:30 | SYCL III
-| 15:30-15:50 | Coffee Break
-| 15:50-16:45 | Exercises (on Mahti & LUMI )   
-| 16:45-17:00 | Day 2 wrap-up
+| Time         | Topic |
+| ----         | ----- |
+| 09:00-12:00  | SYCL II
+| 12:00-13:00  | Lunch break
+| 13:00-15:30  | SYCL III
+| 15:30-15:50  | Coffee Break
+| 15:50-16:45  | Exercises (on Mahti & LUMI )   
+| 16:45-17:00  | Day 2 wrap-up
 
 ### Day 3 Friday 16.02, 9:00-17:00
 
-| Time | Topic |
-| ---- | ----- |
+| Time         | Topic |
+| ----         | ----- |
 | 09:00-09:30  | Kokkos
-| 09:30-11:00 | Kokkos exercises
-| 11:00-12:00 | Interoperability with third-party libraries and mpi
-| 12:00-13:00 | Lunch break
-| 13:00-14:00 | Heat equation, cuda to sycl demo
-| 14:00-15:30 | Exercises & Bring your own code
-| 15:30-15:50 | Coffee Break
-| 15:50-16:45 | Exercises & Bring your own code
-| 16:45-17:00 | Day 3 wrap-up & Course closing
+| 09:30-11:00  | Kokkos exercises
+| 11:00-12:00  | Interoperability with third-party libraries and mpi
+| 12:00-13:00  | Lunch break
+| 13:00-14:00  | Heat equation, cuda to sycl demo
+| 14:00-15:30  | Exercises & Bring your own code
+| 15:30-15:50  | Coffee Break
+| 15:50-16:45  | Exercises & Bring your own code
+| 16:45-17:00  | Day 3 wrap-up & Course closing
 
 
 Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
