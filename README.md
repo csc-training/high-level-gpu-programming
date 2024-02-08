@@ -5,7 +5,7 @@ part of the EuroCC training activities at CSC.
 
 ## Agenda
 
-### Day 1
+### Day 1, Wednesday 14.2.
 
 | Time         | Topic |
 | ----         | ----- |
@@ -21,7 +21,7 @@ part of the EuroCC training activities at CSC.
 | 15:20-16:45  | SYCL I(b)
 | 16:45-17:00  | Day 1 wrap-up
 
-### Day 2, Thursday 15.02, 9:00-17:00
+### Day 2, Thursday 15.2.
 
 | Time         | Topic |
 | ----         | ----- |
@@ -32,7 +32,7 @@ part of the EuroCC training activities at CSC.
 | 15:50-16:45  | Exercises (on Mahti & LUMI )   
 | 16:45-17:00  | Day 2 wrap-up
 
-### Day 3 Friday 16.02, 9:00-17:00
+### Day 3, Friday 16.2.
 
 | Time         | Topic |
 | ----         | ----- |
