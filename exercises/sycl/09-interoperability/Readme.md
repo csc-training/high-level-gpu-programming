@@ -14,4 +14,23 @@ Take the example of dense matrix-matrix multimplication. We saw the [memory opti
 
 For more general cases an optimized library is needed and it depends on the target hardware with wich the queue is associated.
 
-### Intel Hardware with oneMKL
+### Intel Hardware with oneMKL and oneAPI
+The oneMKL libraries have SYCL interface. They take as argument the SYCL queues and they support both buffers and USM pointers. In some way this is the easiestway. To multiply two matrices just use this:
+```
+    //# transpose status of matrices for oneMKL
+    oneapi::mkl::transpose transA = oneapi::mkl::transpose::nontrans, transB = oneapi::mkl::transpose::nontrans;
+    oneapi::mkl::blas::gemm(q, transA, transB, N, N, N, alpha, dev_b, N, dev_a, N, beta, dev_c, N);
+```
+Where `dev_a` and `dev_b` contain the input data and the results is saved in `dev_c`. These pointers are allocated via USM calls. This call is asynchronous and if the data is needed imediatly the `q.wait()`  call is needed. The SYCL queue which is given as argument needs to be associated with a CPU or an Intel GPU (spir targets). 
+In addition to this the proper header needs to be included:
+```
+#include "oneapi/mkl.hpp"
+```
+
+Compiling the code requires some extra flags for linking to the MKL library:
+```
+-I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64
+```
+Where `MKLROOT` is an environment variable which is set during the initial set up of the oneAPI.
+
+### Nvidia and AMD hardware
