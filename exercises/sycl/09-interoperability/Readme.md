@@ -34,3 +34,43 @@ Compiling the code requires some extra flags for linking to the MKL library:
 Where `MKLROOT` is an environment variable which is set during the initial set up of the oneAPI.
 
 ### Nvidia and AMD hardware
+In the case non-Intel hardware the specific libraries need to be called. For Nvidia GPUs we use cuBlas, while for AMD hipBlas. Calling directly this library  depends on the SYCL implementation. 
+
+#### Using oneAPI
+If you are lucky someone set the [mkl interfaces](https://oneapi-src.github.io/oneMKL/create_new_backend.html). Then the oneMKL calls will call directly the cuda/hip libraries when the cuda/hip backend is enabled. Otherwise we the use `host_task` method to enqueu a libray call on a specific queue:
+```
+  q.submit([&](handler &h) {
+     h.host_task([=](sycl::interop_handle ih) {
+       // Set the correct cuda context & stream
+       cuCtxSetCurrent(ih.get_native_context<backend::ext_oneapi_cuda>());
+       auto cuStream = ih.get_native_queue<backend::ext_oneapi_cuda>();
+       cublasSetStream(handle, cuStream);
+
+       // Call generalised matrix-matrix multiply
+       CHECK_ERROR(cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N,N,
+                               N, &alpha, dev_a, N, dev_b, N, &beta,
+                               dev_c, N));
+       cuStreamSynchronize(cuStream);
+     });
+   }).wait();
+```
+This option is functionally correct, but due to the way the `host_task` is designed, this means that all work before the `ccuBlas` call needs to be finished before the actually call. And then also note the `cuStreamSynchronize()`  call in the `host_task` which means that the program waits for the work to be done before continuing. 
+
+### Using AdaptiveCpp
+The alternative to the `host_task` is the `hipSYCL_enqueue_custom_operation()`. As the name suggests this is only available in the AdaptiveCpp (formerly known as hipsycl) implementation. Below is an example:
+
+```
+q.submit([&](handler &cgh) {
+     cgh.hipSYCL_enqueue_custom_operation([=](sycl::interop_handle &ih) {
+       // Set the correct  stream
+       auto cuStream = ih.get_native_queue<sycl::backend::cuda>();
+       cublasSetStream(handle, cuStream);
+       // Call generalised matrix-matrix multiply
+       CHECK_ERROR(cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N,N,
+                               N, &alpha, dev_a, N, dev_b, N, &beta,
+                               dev_c, N));
+     });
+   }).wait();
+This method allows to enqueue into the SYCL queue the work done by calling an external library. The `cuda/hip stream` information can be extracted from an `in-order` queue via the `get_native_queue()` method. Using this one can sumbit kernels on a queue, make an asychronous call to cuBlas, and continue the work with the results by submitting more kernels to the same queue. This equivalent to submitting work to the same cuda/hip stream.
+
+
