@@ -21,3 +21,9 @@ Install:
 
     ./oneapi-for-nvidia-gpus-2024.0.1-cuda-12.0-linux.sh -y --extract-folder /scratch/project_2008874/$USER/oneapi_tmp/ --install-dir /scratch/project_2008874/$USER/intel/oneapi
 
+## References
+
+* [Intel oneAPI installation guide](https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/2024-0/install-with-command-line.html)
+* [Intel oneAPI download page](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&distributions=offline)
+* [Codeplay oneAPI for NVIDIA GPUs](https://developer.codeplay.com/products/oneapi/nvidia/2024.0.1/guides/get-started-guide-nvidia)
+
