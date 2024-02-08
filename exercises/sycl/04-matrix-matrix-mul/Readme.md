@@ -38,6 +38,12 @@ Check the performance change.
 
 Further improvements can be done. We can define two tiles on the local share memoryy, one for the `matrix_a` and one for `matrix_b`. Each block first loads using coalesced accesses a tile of size `MxM` in  the local share memory. Then the matrix-matrix multiplication is done using this saved tiles.
 ```
+            //# Create local accessors. They use the memory closer to the chip.
+            //# In SYCL called local memory. On nvidia and AMD thw so-called shared memory
+            accessor<float, 2, access::mode::read_write, access::target::local> A_tile(range<2>(M, M), h);
+            accessor<float, 2, access::mode::read_write, access::target::local> B_tile(range<2>(M, M), h);
+            //# Parallel Compute Matrix Multiplication
+            h.parallel_for(nd_range<2>{global_size, work_group_size}, [=](nd_item<2> item){
                 const int i = item.get_global_id(0);
                 const int j = item.get_global_id(1);
                 const int x = item.get_local_id(0);
