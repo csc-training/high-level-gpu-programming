@@ -1,5 +1,5 @@
 //==============================================================
-// Matrix Multiplication: DPC++ MKL
+// Matrix Multiplication: MKL, CUBLAS
 //==============================================================
 // This code built using snippets of code from Intel trainings
 //
