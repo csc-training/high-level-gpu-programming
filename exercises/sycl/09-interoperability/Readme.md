@@ -10,3 +10,8 @@ Similarly, for AMD hardware, the [ROCm/HIP](https://rocm.docs.amd.com/projects/H
 At the moment there is no unified interface to select automatically the needed library based on the device with which each queue is associated. Furthermore some libraries such as cu/hipBlas or cu/hipFFT require a gpu stream submit the work in an asynchronous way and integrate the call with previous ans subsenquent kernels. However in general a SYCL queue is not necesseraly associated with given stream. The SYCL standard defines the queue behaviour, but it is up to the `SYCL implementation` how that is mapped to the `cuda/hip stream`. 
 
 ## Matrix-Matrix multiplication example
+Take the example of dense matrix-matrix multimplication. We saw the [memory optimization exercise](../04-matrix-matrix-mul/) how we can improve the performance. This direct programming is acceptable if the operation is only a very small percentage of the total computating time or if only a few cases (system sizes) are needed and optimization is done for those specific cases. 
+
+For more general cases an optimized library is needed and it depends on the target hardware with wich the queue is associated.
+
+### Intel Hardware with oneMKL
