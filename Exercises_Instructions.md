@@ -73,6 +73,7 @@ Also other popular editors such as emacs and vim are available.
 Mahti and LUMI have several programming environments. For training, we recommend that you use the two SYCL implementations:
 
 ### Intel oneAPI compilers
+oneAPI is a collection of tool and library supporting a wide range of programming languange and parallel programming paradigms. It includes a SYCL implementation which supports all  Intel devices (CPUs, FPGAs, and GPUs) and has SYCL plug-ins for targeting Nvidia and AMD GPUs.
 In order to use the intel SYCL compiler one has to  set the environment varibles first:
 
 on Mahti:
@@ -95,134 +96,63 @@ on LUMI
 ```
 icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a  <sycl_code>.cpp
 ```
-Where `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` ells the compiler to generate code for both CPU and GPU SYCL devices.
-### AdaptiveCpp
+Where `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` instructs the compiler to generate optimized code for both CPU and GPU SYCL devices.
 
+### AdaptiveCpp
+This is another SYCL  implementation with support for many type of devices. NO sepcial set-up is needed 
 on Mahti:
 ```
-/projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 enumerate_devices.cpp
+/projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
 ```
 
 on LUMI:
 ```
  /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3  enumerate_devices.cpp
 ```
+AdaptiveCpp was set-up so that on Mahti the `acpp` compiler will generate code for CPU and Nvidia GPUs, while on LUMI for CPU nd AMD GPUs.
 
 ### MPI
+MPI (Message Passing Interface) is a standardized and portable message-passing standard designed for parallel computing architectures. It allows communication between processes running on separate nodes in a distributed memory environment. MPI plays a pivotal role in the world of High-Performance Computing (HPC), this is why is important to know we could combine SYCL and MPI.
 
-Compilation of the MPI programs can be performed with the `CC`, `cc`, or `ftn`
-wrapper commands:
+The SYCL implementation do not know anything about MPI. Intel oneAPI contains mpi wrappers, however they were not configure for Mahti and LUMI. Both Mahti and LUMI provide wrappers that can compile applications which use MPI, but they can not compile SYCL codes. We can however extract the MPI related flags and add them to the SYCL compilers.
+
+For exampl on Mahti in order to use CUDA-aware MPI we would first load the modules:
 ```
-CC -o my_mpi_exe test.cpp
+module load cuda
+module load openmpi/4.1.2-cuda
 ```
-or
+The environment would be setup for compiling a CUDA code which use GPU to GPU communications. We can inspect the `mpiCC` wrapper:
 ```
-cc -o my_mpi_exe test.c
+$ mpiCC -showme
+/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/bin/g++ -I/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/include -I/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/include/openmpi -I/appl/spack/syslibs/include -pthread -L/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/lib -L/appl/spack/syslibs/lib -Wl,-rpath,/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib/gcc/x86_64-pc-linux-gnu/11.2.0 -Wl,-rpath,/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 -Wl,-rpath -Wl,/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/lib -Wl,-rpath -Wl,/appl/spack/syslibs/lib -lmpi
 ```
-or
+We note that underneath `mpiCC` is calling `g++` with a lots of MPI related flags. Those can be used for case
 ```
-ftn -o my_mpi_exe test.f90
+export MPI_FLAGS="-I/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/include -I/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/include/openmpi -I/appl/spack/syslibs/include -pthread -L/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/lib -L/appl/spack/syslibs/lib -Wl,-rpath,/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib/gcc/x86_64-pc-linux-gnu/11.2.0 -Wl,-rpath,/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 -Wl,-rpath -Wl,/appl/spack/v017/install-tree/gcc-11.2.0/openmpi-4.1.2-bylozw/lib -Wl,-rpath -Wl,/appl/spack/syslibs/lib -lmpi"
 ```
-
-The wrapper commands include automatically all the flags needed for building
-MPI programs.
-
-### OpenMP (threading with CPUs)
-
-Pure OpenMP (as well as serial) programs can also be compiled with the `CC`,
-`cc`, and `ftn` wrapper commands. OpenMP is enabled with the
-`-fopenmp` flag:
+Now we can compile the SYCL+MPI codes:
 ```
-CC -o my_exe test.cpp -fopenmp
+icpx ${MPI_FLAGS} -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 <sycl__mpi_code>.cpp
 ```
-or
+or 
 ```
-cc -o my_exe test.c -fopenmp
+/projappl/project_2008874/AdaptiveCpp/bin/acpp ${MPI_FLAGS}b-O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_mpi_code>.cpp
 ```
-or
+Similarly on LUMI. First we set up the envinronment:
 ```
-ftn -o my_exe test.f90 -fopenmp
-```
-
-When code uses also MPI, the wrapper commands include automatically all the flags needed for
-building MPI programs.
-
-### HDF5
-
-In order to use HDF5 in CSC supercomputers, you need the load the HDF5 module with MPI I/O support.
-The appropriate module in **Lumi** is
-```
-module load cray-hdf5-parallel/1.12.2.1
-```
-
-No special flags are needed for compiling and linking, the compiler wrappers take care of them automatically.
-
-Usage in local workstation may vary.
-
-### OpenMP offloading
-
-On **Lumi**, the following modules are required:
-
-```bash
-module load LUMI/22.08
-module load partition/G 
-module load cce/15.0.1
-module load rocm/5.3.3
-```
-
-On **Lumi**, to compile your program, use
-```bash
-CC -fopenmp <source.cpp>
-```
-
-
-### HIP
-
-Use the following modules :
-
-```bash
 module load LUMI/22.08
 module load partition/G
-module load cce/15.0.1
 module load rocm/5.3.3
+module load cce/16.0.1
 ```
-
-To compile your program, use:
-```bash
-CC -xhip <source.cpp>
+We also activate the GPU-aware MPI via:
 ```
-### HIPFORT 
-The following modules are required:
-```bash
-
-module load LUMI/22.08
-module load partition/G
-module load cce/15.0.1
-module load rocm/5.3.3
+export MPICH_GPU_SUPPORT_ENABLED=1
 ```
-
-Because the default `HIPFORT` installation only supports gfortran,  we use a custom installation  prepared in the summer school project. This package provide Fortran modules compatible with the Cray Fortran compiler as well as direct use of hipfort with the Fortran Cray Compiler wrapper (ftn). 
-
-The package was installed via:
-```bash
-git clone https://github.com/ROCmSoftwarePlatform/hipfort.git
-cd hipfort;
-mkdir build;
-cd build;
-cmake -DHIPFORT_INSTALL_DIR=<path-to>/HIPFORT -DHIPFORT_COMPILER_FLAGS="-ffree -eZ" -DHIPFORT_COMPILER=ftn -DHIPFORT_AR=${CRAY_BINUTILS_BIN_X86_64}/ar -DHIPFORT_RANLIB=${CRAY_BINUTILS_BIN_X86_64}/ranlib  ..
-make -j 64 
-make install
 ```
-
-We will use the Cray 'ftn' compiler wrapper as you would do to compile any fortran code plus some additional flags:
-```bash
-export HIPFORT_HOME=/project/project_465000536/appl/HIPFORT
-ftn -I$HIPFORT_HOME/include/hipfort/amdgcn "-DHIPFORT_ARCH=\"amd\"" -L$HIPFORT_HOME/lib -lhipfort-amdgcn $LIB_FLAGS -c <fortran_code>.f90 
-CC -xhip -c <hip_kernels>.cpp
-ftn  -I$HIPFORT_HOME/include/hipfort/amdgcn "-DHIPFORT_ARCH=\"amd\"" -L$HIPFORT_HOME/lib -lhipfort-amdgcn $LIB_FLAGS -o main <fortran_code>.o hip_kernels.o
+icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a
 ```
-This option gives enough flexibility for calling HIP libraries from Fortran or for a mix of OpenMP/OpenACC offloading to GPUs and HIP kernels/libraries.
-
+**Not Sure** Yet
 ## Running in LUMI
 
 ### Pure MPI
