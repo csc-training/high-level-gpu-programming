@@ -36,7 +36,7 @@ ssh  <username>@mahti.csc.fi
 ```
 The Intel DevCloud can be acces via the [web interface](https://console.cloud.intel.com/).
 
-### Projects 
+### Disk area 
 
 The  (computing and storage)  resources can be accessed on on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2008874` on Mahti and `project_462000456` on LUMI. 
 
@@ -56,6 +56,7 @@ cd /scratch/project_2008874
 mkdir -p $USER
 cd $USER
 ```
+The `scratch` area has quota of 2TB per project. More than enough for the training. In addition to this other areas are disks areas available. The `projappl/project_xyz` area is faster and can be used for storing the project applications (should not be used for data storage) and on LUMI the so called `flash/project_xyz` disk area can be used for IO intensive runs. 
 
 ### Working with git
 
