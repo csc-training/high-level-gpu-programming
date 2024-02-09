@@ -78,18 +78,24 @@ In order to use the intel SYCL compiler one has to  set the environment varibles
 on Mahti:
 ```
 . /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
+module load cuda # This is needed for compiling sycl code for nvidia gpus
 ```
 
 on LUMI:
 ```
 . /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
 ```
-With the environment set-up we can compile and run the SYCL codes. The flags `-fsycl` needs to be added to indicate that 
+After this one can load other modules that might be needed for compiling the codes. With the environment set-up we can compile and run the SYCL codes. 
+
+On Mahti:
+```
+icpx   -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 <sycl_code>.cpp
+```
+on LUMI
 ```
 icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a  <sycl_code>.cpp
 ```
-
-After this one can load other modules that might be needed for compiling the codes.
+Where `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` ells the compiler to generate code for both CPU and GPU SYCL devices.
 ### AdaptiveCpp
 
 on Mahti:
