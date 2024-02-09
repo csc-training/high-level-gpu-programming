@@ -84,6 +84,10 @@ on LUMI:
 ```
 . /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
 ```
+With the environment set-up we can compile and run the SYCL codes. The flags `-fsycl` needs to be added to indicate that 
+```
+icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a  <sycl_code>.cpp
+```
 
 After this one can load other modules that might be needed for compiling the codes.
 ### AdaptiveCpp
