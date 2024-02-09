@@ -36,15 +36,23 @@ ssh  <username>@mahti.csc.fi
 ```
 The Intel DevCloud can be acces via the [web interface](https://console.cloud.intel.com/).
 
-### Disk areas
+### Projects 
 
-All the exercises in the supercomputers have to be carried out in the
-**scratch** disk area. The name of the scratch directory can be
-queried with the command `lumi-workspaces`. As the base directory is
-shared between members of the project, you should create your own
+The  (computing and storage)  resources can be accessed on on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2008874` on Mahti and `project_462000456` on LUMI. 
+
+All the exercises in the supercomputers have to be carried out in the**scratch** disk area. The name of the scratch directory can be queried with the commands `csc-workspaces` on Mahti and `lumi-workspaces` onLUMI. As the base directory is shared between members of the project, you should create your own
 directory:
+
+on Mahti
 ```
-cd /scratch/project_465000536/
+cd /scratch/project_2008874
+mkdir -p $USER
+cd $USER
+```
+
+on LUMI
+```
+cd /scratch/project_2008874
 mkdir -p $USER
 cd $USER
 ```
