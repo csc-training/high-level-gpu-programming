@@ -1,215 +1,212 @@
 ---
-title:  C++ refresher 
-subtitle: High-Level GPU Programming 
+title:    C++ Refresher
+subtitle: High-Level GPU Programming
 author:   CSC Training
 date:     2024-02
 lang:     en
 ---
 
-# C++ refresher{.section}
+# C++ Refresher (for those familiar with C){.section}
 
 # Anatomy of a SYCL code
 
 <small>
 ```cpp
+#include <sycl/sycl.hpp>
 using namespace sycl;
 
-constexpr access::mode sycl_read = access::mode::read; constexpr access::mode sycl_write = access::mode::write;
+template <typename T>
+void axpy(queue &q, const T &a, const std::vector<T> &x, std::vector<T> &y) {
+  range<1> N{x.size()};
+  buffer x_buf(x.data(), N);
+  buffer y_buf(y.data(), N);
 
-template <typename T, size_t N>
-void simple_vadd(const std::array<T, N> &A, const std::array<T, N> &B, std::array<T, N> &C) {
-  queue deviceQueue{property::queue::enable_profiling{}};
-  range<1> numOfItems{N};
-  buffer<T, 1> bufferA(A.data(), numOfItems); buffer<T, 1> bufferB(B.data(), numOfItems); buffer<T, 1> bufferC(C.data(), numOfItems);
+  q.submit([&](handler &h) {
+    auto x = x_buf.template get_access<access::mode::read>(h);        // accessor x(x_buf, h, read_only);
+    auto y = y_buf.template get_access<access::mode::read_write>(h);  // accessor y(y_buf, h, read_write);
 
-  deviceQueue.submit([&](handler &cgh) {
-    auto accessorA = bufferA.template get_access<sycl_read>(cgh); auto accessorB = bufferB.template get_access<sycl_read>(cgh);
-    auto accessorC = bufferC.template get_access<sycl_write>(cgh);
-
-    cgh.parallel_for<class SimpleVadd<T>>(numOfItems,[=](id<1> wiID) {
-      accessorC[wiID] = accessorA[wiID] + accessorB[wiID];
+    h.parallel_for(N, [=](id<1> i) {
+      y[i] += a * x[i];
     });
   });
-  deviceQueue.wait();
+  q.wait_and_throw();
 }
 ```
 </small>
 
 - SYCL and Kokkos are modern C++ with classes, templates, lambdas, ...
 
+
 # Namespaces
 
-- a way of organizing names (variables, functions, classes, etc.).
-- access a name declared in a namespace: `my_namespace::my_variable`.
-- the `using` directive` makes names available without the  `::` operator.
-- for a specific name: `using my_namespace::my_function;`.
-- for all names: `using namespace my_namespace;`.
-- for `std`: `using namespace std;`.
-- for `sycl`: `using namespace sycl;`.
+- Namespace is a way of organizing variables, functions, classes, etc.
+
+
+```cpp
+// Fully qualified name
+sycl::queue q{};
+
+// Using names from the namespace
+using namespace sycl;
+queue q{};
+```
 
 # Templates
 
-- allows writing generic programs
-- entity that defines a family of classes, functions, variables, aliases, or concepts that can be parameterized 
-```
-template <class T>
-T max (T a, T b) { // function template definition inside declaration
+- Templates allow writing generic functions and classes
+
+```cpp
+template <typename T>
+T max(T a, T b) {
   return (a > b) ? a : b;
 }
+
+int a = 1, b = 2;
+int c = max(a, b);
+
+double x = 3.4, y = 5.6;
+double z = max(x, y);
 ```
-- `std::vector<float> A(N)`
-- promotes code reusability and flexibility.
-- support generic programming paradigms
-
-# Raw pointers
-
-- fundamental elements that store memory addresses of another variable. 
-- **definition**: `float *ptrA = nullptr;`
-- direct manipulation of memory.
-- do not manage ownership or lifespan automatically.
-- **allocation**: `ptrA= new float;`
-- **deallocation**: `delete ptrA;`
-- perform operations on pointers: `ptrA+N;` (shifts  by `N*sizeof(float)`).
-
-# Classes
-
-- composite data types which allows grouping of variables.
--  members are be **public** or **private**
-
-<div class="column">
-<small>
-```cpp
-class particle {
-private:
-    double x;
-    double y;
-public:
-    double *mass;
-    int *charge;
-    friend void set_function(particle &par, double newX, double newY); 
-    void set_position(double newX, double newY) {
-        x = newX;
-        y = newY;
-    }
-    double get_x_position() { return x; }
-};
-
-```
-</small>
-</div>
 
 
+# Pointers and references
 
-<div class="column">
-<small>
-```cpp
-void set_function(particle &par, double newX, double newY) {
-    par.x = newX;
-    par.y = newY;
-}
-
-
-...
-particle par_i; 
-par_i.set_position(5.0,6.0);  
-// or
-set_function(par_i,5.0,6.0); 
-double my_x=par_i.get_x_position(); 
-par_i.mass=9.10938e-31;
-```
-</small>
-</div>
-
-- classes can  have *constructors* and *destructors*
-
-# Derived classes
-
-- **classes** can have members other **classes**.
-- inherit properties and behaviors.
-- withing classes  everything is private by default.
-
+- Pointer: Memory address of another variable (as in C)
 
 ```cpp
-// Class inheritance (private by default)
-class base_class {...};
+void foo1(int *a) { *a = 42; }
 
-class derived_class : base_class {...};
+int *x = new int[1];
+foo1(x);
+std::cout << *x << std::endl;
+delete[] x;
 ```
 
-- increases the code reusability 
-- promotes a clean organization of the code.
+- Reference: Alias of another variable
+
+```cpp
+void foo2(int &a) { a = 42; }
+
+int y;
+int &z = y;
+foo2(z);
+std::cout << y << std::endl;
+```
+
+# `auto`
+
+- `auto` can be used in variable declaration if the compiler can deduce the type during compilation
+
+```cpp
+auto a = 5;
+
+auto queue_event = queue.submit([&](handler& h) {...});
+```
+
 
 # Lambdas
 
-- anonymous function objects.
-- a concise way to define small, unnamed functions inline 
-- useful for short-lived tasks or as arguments to other functions.
-- `[ capture clause ] (parameters) -> return-type { body }`
-```cpp
-int b = 6;
-auto add = [](int a, int *b) -> int { return a + b[0]; };
-int sum = add(5, &b);
+- Anonymous function objects
+- Syntax: `[ captures ] (parameters) -> return-type { body }`
 
+```cpp
+int a = 1;
+auto add = [=](int b) -> int { return a + b; };
+int sum = add(2);  // 3
+
+auto set = [&](int b) { a = b; };
+set(5);  // a = 5
+
+sum = add(2); // 3 or 7?
 ```
+
+
+
+# Classes
+
+- Composite data type grouping variables and functions
+
+<div class="column">
+<small>
+```cpp
+template <typename T>
+class Particle {
+private:
+    T x, y;
+
+public:
+    Particle(T x, T y) {
+        this->x = x;
+        this->y = y;
+    }
+
+    void move(T dx, T dy) {
+        x += dx;
+        y += dy;
+    }
+
+    void print() {
+        std::cout << x << " " << y << std::endl;
+    }
+};
+```
+</small>
+</div>
+
+<div class="column">
+<small>
+```cpp
+Particle<double> p{1.2, 3.4};
+p.print();
+p.move(5.6, 7.8);
+p.print();
+```
+</small>
+</div>
 
 
 # Functors
 
-- objects that behave as functions.
-- can be encapsulated within classes.
-- can be passed as an argument to another function.
+- Objects that behave as functions
 
-<small>
 ```cpp
-  
-// Define the functor
-class Add {
+class Adder {
+private:
+    const int constant;
 public:
-    int operator()(int a, int b) {return a + b;}
+    Adder(int c) : constant{c} {}
+    int operator()(int a) { return constant + a; }
 };
-void use_functor(Add add, int a, int b) {
-    int sum = add(a, b);
-    std::cout << "The sum is: " << sum << std::endl;
-}
 
+Adder add{5};
+int sum = add(2);
+std::cout << "The sum is: " << sum << std::endl;
 ```
-</small>
-
-- can be used to achieve generic programming.
-- allow us to write code that is more reusable, expressive, and efficient.
 
 # Error Handling
 
-- errors are handled via exceptions. 
-- an unusual condition that results in an interruption in the flow of the program.
-- C++ exceptions can cleanly separates the detection from  the handling.
-- C++ exceptions can handle both *synchronous* and *asynchronous* errors.
+- Errors are handled via C++ exceptions
 
-<small>
 ```cpp
-
 int main() {
   int x, y;
-  cout << "Enter two numbers: ";
-  cin >> x >> y;
+  std::cout << "Enter two numbers: ";
+  std::cin >> x >> y;
 
   try {
-    if (y == 0) {
-      throw "Division by zero error"; // throw an exception
-    }
-    cout << "x / y = " << x / y << endl; // this may cause an exception
-  }
-  catch (const char* msg) {
-    cerr << "Error: " << msg << endl; // catch and handle the exception
+    if (y == 0) throw "Division by zero error";
+    std::cout << "x / y = " << x / y << std::endl;
+  } catch (const char* msg) {
+    std::cerr << "Error: " << msg << std::endl;
   }
   return 0;
 }
-
 ```
-</small>
+
 
 # Summary
 
-- SYCL and Kokkos are modern C++  aiming towards generic parallel programming. 
-- classes, templates, lambdas, functors
-- reusable, expressive, and efficient.
+- SYCL and Kokkos are modern C++ aiming towards generic parallel programming
+- Classes, templates, lambdas, ...
+- Reusable, expressive, and efficient code
+
