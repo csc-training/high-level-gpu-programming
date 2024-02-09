@@ -58,32 +58,6 @@ cd $USER
 ```
 The `scratch` area has quota of 2TB per project. More than enough for the training. In addition to this other areas are disks areas available. The `projappl/project_xyz` area is faster and can be used for storing the project applications (should not be used for data storage) and on LUMI the so called `flash/project_xyz` disk area can be used for IO intensive runs. 
 
-### Working with git
-
-In order to push code to your own fork, you need to add your SSH public key in LUMI to
-your github account. The SSH key can be added via "Settings"->"SSH and GPG keys"->"New SSH key", by copy-pasting output of the following command:
-```
-cat $HOME/.ssh/id_rsa.pub
-```
-
-Once succesfull, make sure you in your personal workspace in **scratch** area `/scratch/project_465000536/$USER`, clone the repository, and a create a branch:
-```
-git clone git@github.com:<my-github-id>/summerschool.git
-git checkout -b hpcss23
-```
-
-If you haven't used git before in LUMI, you need to add also your identity:
-```
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-```
-
-Default editor for commit messages is *vim*, if you prefer something else you can add
-to the file `$HOME/.bashrc` *e.g.*
-```
-export EDITOR=nano
-```
-
 ### Editors
 
 For editing program source files you can use e.g. *nano* editor:
@@ -96,18 +70,32 @@ Also other popular editors such as emacs and vim are available.
 
 ## Compilation
 
-LUMI has several programming environments. For summerschool, we recommend that you use
-the special summerschool modules:
+Mahti and LUMI have several programming environments. For training, we recommend that you use the two SYCL implementations:
+
+### Intel oneAPI compilers
+In order to use the intel SYCL compiler one has to  set the environment varibles first:
+
+on Mahti:
 ```
-module use /project/project_465000536/modules
+. /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
 ```
-For CPU programming use:
+
+on LUMI:
 ```
-module load hpcss/cpu
+. /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
 ```
-For GPU programming use:
+
+After this one can load other modules that might be needed for compiling the codes.
+### AdaptiveCpp
+
+on Mahti:
 ```
-module load hpcss/gpu
+/projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 enumerate_devices.cpp
+```
+
+on LUMI:
+```
+ /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3  enumerate_devices.cpp
 ```
 
 ### MPI
