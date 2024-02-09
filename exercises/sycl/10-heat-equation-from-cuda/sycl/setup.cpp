@@ -167,6 +167,7 @@ void parallel_set_dimensions(parallel_data *parallel, int nx, int ny)
     nx_local = nx / parallel->size;
     if (nx_local * parallel->size != nx) {
         printf("Cannot divide grid evenly to processors\n");
+        fflush(stdout);
         MPI_Abort(MPI_COMM_WORLD, -2);
     }
 
@@ -189,6 +190,7 @@ void parallel_set_dimensions(parallel_data *parallel, int nx, int ny)
         global_queue = sycl::queue{sycl::property::queue::in_order{}};
     } else if (nodeProcs > devCount) {
         printf("Not enough GPUs for all processes in the node.\n");
+        fflush(stdout);
         MPI_Abort(MPI_COMM_WORLD, -2);
     } else {
         // Assign the gpu to each task based on the mpi rank

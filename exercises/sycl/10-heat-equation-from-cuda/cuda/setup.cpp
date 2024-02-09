@@ -166,6 +166,7 @@ void parallel_set_dimensions(parallel_data *parallel, int nx, int ny)
     nx_local = nx / parallel->size;
     if (nx_local * parallel->size != nx) {
         printf("Cannot divide grid evenly to processors\n");
+        fflush(stdout);
         MPI_Abort(MPI_COMM_WORLD, -2);
     }
 
@@ -183,6 +184,7 @@ void parallel_set_dimensions(parallel_data *parallel, int nx, int ny)
 
     if (nodeProcs > devCount) {
         printf("Not enough GPUs for all processes in the node.\n");
+        fflush(stdout);
         MPI_Abort(MPI_COMM_WORLD, -2);
     }
 
