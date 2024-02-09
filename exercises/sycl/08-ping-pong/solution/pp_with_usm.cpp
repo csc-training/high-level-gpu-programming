@@ -22,12 +22,15 @@ using namespace sycl;
 
 class add_kernel {
   int* h_usm;
+  int N; 
 
 public:
-  add_kernel(int* h) : h_usm(h) {}
+  add_kernel(int* h, int n) : h_usm(h), N(n) {}
 
   void operator()(nd_item<1> idx) const {
-    h_usm[idx.get_global_id(0)]++;
+    if(idx.get_global_id(0)<N){
+        h_usm[idx.get_global_id(0)]++;
+    }
   }
 };
 
@@ -72,7 +75,7 @@ void GPUtoGPUtestmanual(int id, int *da, int *ha, const int N, const int M, doub
         MPI_Recv(ha, N, MPI_INT, 0, 11, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         q.memcpy(da, ha, N * sizeof(int)).wait();
         q.submit([&] (handler& h){
-            h.parallel_for(nd_range<1>(static_cast<size_t>(N),static_cast<size_t>(M)), add_kernel(da));
+            h.parallel_for(nd_range<1>(static_cast<size_t>(M*((N-1+M)/M)),static_cast<size_t>(M)), add_kernel(da,N));
             });
         q.wait_and_throw();
         q.memcpy(ha, da, N * sizeof(int)).wait();
@@ -97,7 +100,7 @@ void GPUtoGPUtestGPUAware(int id, int *da, const int N, const int M, double *tim
 
         MPI_Recv(da, N, MPI_INT, 0, 11, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         q.submit([&] (handler& h){
-            h.parallel_for(nd_range<1>(static_cast<size_t>(N),static_cast<size_t>(M)), add_kernel(da));
+            h.parallel_for(nd_range<1>(static_cast<size_t>(M*((N-1+M)/M)),static_cast<size_t>(M)), add_kernel(da,N));
             });
         q.wait_and_throw();
         MPI_Send(da, N, MPI_INT, 0, 12, MPI_COMM_WORLD);
@@ -183,6 +186,7 @@ int main(int argc, char *argv[])
     queue q{gpu_devices[id],q_prof};
     std::cout << "Rank #" << id << " runs on: " << machine_name  << "\n";
     ShowDevice(q);
+    MPI_Barrier(MPI_COMM_WORLD);
     int N = atoi(argv[1]);
     
     double GPUtime,CPUtime;
