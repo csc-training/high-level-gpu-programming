@@ -138,6 +138,9 @@ or
 ```
 /projappl/project_2008874/AdaptiveCpp/bin/acpp ${MPI_FLAGS}b-O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_mpi_code>.cpp
 ```
+A more elegant way is shown in the Makefile of the [heat equation exrcise](exercises/sycl/10-heat-equation-from-cuda
+/sycl/).
+
 Similarly on LUMI. First we set up the envinronment:
 ```
 module load LUMI/22.08
@@ -152,190 +155,98 @@ export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a
 ```
-**Not Sure** Yet
-## Running in LUMI
+**No Working Yet**
 
-### Pure MPI
+## Running applications in supercomputers
+Programs need to be executed via the batch job system. 
+```
+sbatch job.sh
+```
+The `job.sh` file contains all the necessary information (number of nodes, tasks per node, cores per taks, number of gpus per node, etc.)  for the `slurm` to execute the program.
 
-Programs need to be executed via the batch job system. Simple job running with 4 MPI tasks can be submitted with the following batch job script:
+### Running on Mahti 
+
+#### CPU applications
 ```
 #!/bin/bash
 #SBATCH --job-name=example
-#SBATCH --account=project_465000536
-#SBATCH --partition=standard
-#SBATCH --reservation=summerschool_standard
+#SBATCH --account=project_2008874
+#SBATCH --partition=medium
+#SBATCH --reservation=hlgp-cpu-f2024
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1  
 
-srun my_mpi_exe
+srun my_cpu_exe
 ```
 
 Save the script *e.g.* as `job.sh` and submit it with `sbatch job.sh`.
 The output of job will be in file `slurm-xxxxx.out`. You can check the status of your jobs with `squeue -u $USER` and kill possible hanging applications with
 `scancel JOBID`.
 
-The reservation `summerschool` is available during the course days and it
-is accessible only with the training user accounts.
+The reservation `hlgp-cpu-f2024` for parition `medium` is available during the training days and it
+is accessible only if the users are part of `project_2008874`.
 
-### Pure OpenMP
+Some applications use MPI, in this case the number of node and number of tasks per node will have to be adjusted accordingly.
 
-For pure OpenMP programs one should use only one node and one MPI task per nodesingle tasks and specify the number of cores reserved
-for threading with `--cpus-per-task`:
-```
-#!/bin/bash
-#SBATCH --job-name=example
-#SBATCH --account=project_465000536
-#SBATCH --partition=standard
-#SBATCH --reservation=summerschool_standard
-#SBATCH --time=00:05:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=4
-
-# Set the number of threads based on --cpus-per-task
-export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-srun my_omp_exe
-```
-
-### Hybrid MPI+OpenMP
-
-For hybrid MPI+OpenMP programs it is recommended to specify explicitly number of nodes, number of
-MPI tasks per node (pure OpenMP programs as special case with one node and one task per node),
-and number of cores reserved for threading. The number of nodes is specified with `--nodes`
-(for most of the exercises you should use only a single node), number of MPI tasks **per node**
-with `--ntasks-per-node`, and number of cores reserved for threading with `--cpus-per-task`.
-The actual number of threads is specified with `OMP_NUM_THREADS` environment variable.
-Simple job running with 4 MPI tasks and 4 OpenMP threads per MPI task can be submitted with
-the following batch job script:
-```
-#!/bin/bash
-#SBATCH --job-name=example
-#SBATCH --account=project_465000536
-#SBATCH --partition=standard
-#SBATCH --reservation=summerschool_standard
-#SBATCH --time=00:05:00
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=32
-#SBATCH --cpus-per-task=4
-# Set the number of threads based on --cpus-per-task
-export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-srun my_exe
-```
-
-
-### GPU programs
+#### GPU applications
 
 When running GPU programs, few changes need to made to the batch job
-script. The `partition` is are now different, and one must also request explicitly given number of GPUs per node with the
-`--gpus-per-node=8` option. As an example, in order to use a
+script. The `partition` is are now different, and one must also request explicitly given number of GPUs per node. As an example, in order to use a
 single GPU with single MPI task and a single thread use:
 ```
 #!/bin/bash
 #SBATCH --job-name=example
-#SBATCH --account=project_465000536
-#SBATCH --partition=standard-g
-#SBATCH --reservation=summerschool_standard-g
-#SBATCH --gpus-per-node=8
+#SBATCH --account=project_2008874
+#SBATCH --partition=gpu_medium
+#SBATCH --reservation=hlgp-gpu-f2024-wed
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --time=00:05:00
+#SBATCH --gres=gpu:a100:1
+
+srun my_gpu_exe
+```
+The reservation `hlgp-gpu-f2024-wed` is valid on Wednesday, 15:00 to 17:00. On Thursday we will use `hlgp-gpu-f2024-thu` , while on Friday `hlgp-gpu-f2024-fri`. 
+
+
+### Running on LUMI
+
+LUMI is similar to Mahti.
+
+#### CPU applications
+
+```
+#!/bin/bash
+#SBATCH --job-name=example
+#SBATCH --account=project_462000456
+#SBATCH --partition=standard
+#SBATCH --reservation=hlgp-cpu-f2024
+#SBATCH --time=00:05:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1  
+
+srun my_cpu_exe
+```
+
+
+#### GPU applications
+
+```
+#!/bin/bash
+#SBATCH --job-name=example
+#SBATCH --account=project_462000456
+#SBATCH --partition=standard-g
+#SBATCH --reservation=hlgp-gpu-f2024
+#SBATCH --time=00:05:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1 
+#SBATCH --gpus-per-node=1 
 
 srun my_gpu_exe
 ```
 
-## Running in local workstation
-
-In most MPI implementations parallel program can be started with the `mpiexec` launcher:
-```
-mpiexec -n 4 ./my_mpi_exe
-```
-
-In most workstations, programs build with OpenMP use as many threads as there are CPU cores
-(note that this might include also "logical" cores with simultaneous multithreading). A pure OpenMP
-program can be normally started with specific number of threads with
-```bash
-OMP_NUM_THREADS=4 ./my_exe
-```
-and a hybrid MPI+OpenMP program e.g. with
-```
-OMP_NUM_THREADS=4 mpiexec -n 2 ./my_exe
-```
-
-## Debugging
-
-See [the MPI debugging exercise](mpi/debugging),
-[CSC user guide](https://docs.csc.fi/computing/debugging/), and
-[LUMI documentation](https://docs.lumi-supercomputer.eu/development/)
-for possible debugging options.
-
-## Performance analysis with TAU and Omniperf
-```
-# Create installation directory
-mkdir -p .../appl/tau
-cd .../appl/tau
-
-# Download TAU
-wget https://www.cs.uoregon.edu/research/tau/tau_releases/tau-2.32.tar.gz
-tar xvf tau-2.32.tar.gz
-mv tau-2.32 2.32
-
-# Go to TAU directory
-cd 2.32
-
-./configure -bfd=download -otf=download -unwind=download -dwarf=download -iowrapper -cc=cc -c++=CC -fortran=ftn -pthread -mpi -phiprof -papi=/opt/cray/pe/papi/6.0.0.15/
-make -j 64
-
-./configure -bfd=download -otf=download -unwind=download -dwarf=download -iowrapper -cc=cc -c++=CC -fortran=ftn -pthread -mpi -papi=/opt/cray/pe/papi/6.0.0.15/ -rocm=/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/ -rocprofiler=/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/rocprofiler
-make -j 64
-
-./configure -bfd=download -otf=download -unwind=download -dwarf=download -iowrapper -cc=cc -c++=CC -fortran=ftn -pthread -mpi -papi=/opt/cray/pe/papi/6.0.0.15/ -rocm=/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/ -roctracer=/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/roctracer
-make -j 64
-```
-
-`TAU` and `Omniperf` can be used to do performance analysis. 
-In order to use TAU one only has to load the modules needed to run the application be ran and set the paths to the TAU install folder:
-```
-export TAU=/project/project_465000536/appl/tau/2.32/craycnl
-export PATH=$TAU/bin:$PATH
-```
-Profiling mpi code:
-```
-srun --cpus-per-task=1 --account=project_465000536 --nodes=1 --ntasks-per-node=4 --partition=standard --time=00:05:00 --reservation=summerschool_standard tau_exec -ebs ./mandelbrot
-```
-In order to to see the `paraprof` in browser use `vnc`:
-```
-module load lumi-vnc
-start-vnc
-```
-Visualize:
-```
-paraprof
-```
-Tracing:
-
-```
-export TAU_TRACE=1
-srun --cpus-per-task=1 --account=project_465000536 --nodes=1 --ntasks-per-node=4 --partition=standard --time=00:05:00 --reservation=summerschool_standard tau_exec -ebs ./mandelbrot
-tau_treemerge.pl
-tau_trace2json tau.trc tau.edf -chrome -ignoreatomic -o app.json
-```
-
-Copy `app.json`  to local computer, open ui.perfett.dev and then load the `app.json` file.
-## Omniperf
-```
-https://amdresearch.github.io/omniperf/installation.html#client-side-installation
-```
-In order to use omniperf load the following modules:
-```
-module use /project/project_465000536/Omni/omniperf/modulefiles
-module load omniperf
-module load cray-python
-srun -p standard-g --gpus 1 -N 1 -n 1 -c 1 --time=00:30:00 --account=project_465000536 omniperf profile -n workload_xy --roof-only --kernel-names  -- ./heat_hip
-omniperf analyze -p workloads/workload_xy/mi200/ > analyse_xy.txt
-```
-In additition to this one has to load the usual modules for running GPUs. Keep in mind the the above installation was done with `rocm/5.3.3`.
-It is useful add to the compilation of the application to be analysed the follwing `-g -gdwarf-4`.
-
-More information about TAU can be found in [TAU User Documentation](https://www.cs.uoregon.edu/research/tau/docs/newguide/), while for Omniperf at [Omniperf User Documentation](https://github.com/AMDResearch/omniperf)
+Some exercises have additional instructions.
