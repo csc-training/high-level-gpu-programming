@@ -107,7 +107,7 @@ on Mahti:
 
 on LUMI:
 ```
- /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3  enumerate_devices.cpp
+ /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3 <sycl_code>.cpp
 ```
 AdaptiveCpp was set-up so that on Mahti the `acpp` compiler will generate code for CPU and Nvidia GPUs, while on LUMI for CPU nd AMD GPUs.
 
