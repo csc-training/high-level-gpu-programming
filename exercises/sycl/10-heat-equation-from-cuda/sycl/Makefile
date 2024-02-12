@@ -4,7 +4,7 @@ CC=clang
 CXX=clang++
 CFLAGS=-g -O3 -Wall -I$(COMMONDIR)
 SYCLFLAGS=-fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80
-CXXFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:compiler`
+CXXFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:compile`
 LDFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:link`
 LIBS=-lpng
 
