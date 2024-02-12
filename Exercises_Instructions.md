@@ -107,6 +107,7 @@ on Mahti:
 
 on LUMI:
 ```
+export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so
  /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3 <sycl_code>.cpp
 ```
 AdaptiveCpp was set-up so that on Mahti the `acpp` compiler will generate code for CPU and Nvidia GPUs, while on LUMI for CPU nd AMD GPUs.
@@ -138,13 +139,14 @@ or
 ```
 /projappl/project_2008874/AdaptiveCpp/bin/acpp ${MPI_FLAGS}b-O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_mpi_code>.cpp
 ```
-A more elegant way is shown in the Makefile of the [heat equation exrcise](exercises/sycl/10-heat-equation-from-cuda
+A more elegant way is shown in the Makefile of the [heat equation exercise](exercises/sycl/10-heat-equation-from-cuda
 /sycl/).
 
-Similarly on LUMI. First we set up the envinronment:
+Similarly on LUMI. First we set up the envinronment as indicated above,  then load the modules :
 ```
 module load LUMI/22.08
 module load partition/G
+#module load Boost/1.79.0-cpeCray-22.08 # This is needed only for AdaptiveCpp
 module load rocm/5.3.3
 module load cce/16.0.1
 ```
@@ -152,10 +154,16 @@ We also activate the GPU-aware MPI via:
 ```
 export MPICH_GPU_SUPPORT_ENABLED=1
 ```
+Now compile with intel compilers:
+
 ```
-icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a
+icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
 ```
-**No Working Yet**
+Or with AdaptiveCpp:
+```
+export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so
+/projappl/project_462000456/AdaptiveCpp/bin/acpp -O3  `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
+```
 
 ## Running applications in supercomputers
 Programs need to be executed via the batch job system. 
