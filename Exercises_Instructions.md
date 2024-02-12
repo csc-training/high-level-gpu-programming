@@ -249,4 +249,4 @@ srun my_cpu_exe
 srun my_gpu_exe
 ```
 
-Some exercises have additional instructions.
+**NOTE** Some exercises have additional instructions of how to run!
