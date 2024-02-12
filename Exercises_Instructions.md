@@ -15,8 +15,8 @@ to exercises.
 ### Repository structure
 
 The exercise assignments are provided in various `README.md`s.
-For most of the exercises, some skeleton codes are provided as starting point. In addition, all of the exercises have exemplary full codes 
-(that can be compiled and run) in the `solutions` folder. **Note that these are 
+For most of the exercises, some skeleton codes are provided as starting point. In addition, all of the exercises have exemplary full codes
+(that can be compiled and run) in the `solutions` folder. **Note that these are
 seldom the only or even the best way to solve the problem.**
 
 ## Using supercomputers
@@ -36,9 +36,9 @@ ssh  <username>@mahti.csc.fi
 ```
 The Intel DevCloud can be acces via the [web interface](https://console.cloud.intel.com/).
 
-### Disk area 
+### Disk area
 
-The  (computing and storage)  resources can be accessed on on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2008874` on Mahti and `project_462000456` on LUMI. 
+The  (computing and storage)  resources can be accessed on on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2008874` on Mahti and `project_462000456` on LUMI.
 
 All the exercises in the supercomputers have to be carried out in the **scratch** disk area. The name of the scratch directory can be queried with the commands `csc-workspaces` on Mahti and `lumi-workspaces` onLUMI. As the base directory is shared between members of the project, you should create your own
 directory:
@@ -56,7 +56,7 @@ cd /scratch/project_2008874
 mkdir -p $USER
 cd $USER
 ```
-The `scratch` area has quota of 1-2TB per project. More than enough for the training. In addition to this other areas are disks areas available. The `projappl/project_xyz` area is faster and can be used for storing the project applications (should not be used for data storage) and on LUMI the so called `flash/project_xyz` disk area can be used for IO intensive runs. 
+The `scratch` area has quota of 1-2TB per project. More than enough for the training. In addition to this other areas are disks areas available. The `projappl/project_xyz` area is faster and can be used for storing the project applications (should not be used for data storage) and on LUMI the so called `flash/project_xyz` disk area can be used for IO intensive runs.
 
 ### Editors
 
@@ -66,7 +66,7 @@ For editing program source files you can use e.g. *nano* editor:
 nano prog.f90
 ```
 (`^` in nano's shortcuts refer to **Ctrl** key, *i.e.* in order to save file and exit editor press `Ctrl+X`)
-Also other popular editors such as emacs and vim are available. 
+Also other popular editors such as emacs and vim are available.
 
 ## Compilation
 
@@ -86,7 +86,7 @@ on LUMI:
 ```
 . /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
 ```
-After this one can load other modules that might be needed for compiling the codes. With the environment set-up we can compile and run the SYCL codes. 
+After this one can load other modules that might be needed for compiling the codes. With the environment set-up we can compile and run the SYCL codes.
 
 On Mahti:
 ```
@@ -99,7 +99,7 @@ icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend
 Where `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` instructs the compiler to generate optimized code for both CPU and GPU SYCL devices.
 
 ### AdaptiveCpp
-This is another SYCL  implementation with support for many type of devices. NO sepcial set-up is needed 
+This is another SYCL  implementation with support for many type of devices. NO sepcial set-up is needed
 on Mahti:
 ```
 /projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
@@ -135,7 +135,7 @@ Now we can compile the SYCL+MPI codes:
 ```
 icpx ${MPI_FLAGS} -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 <sycl__mpi_code>.cpp
 ```
-or 
+or
 ```
 /projappl/project_2008874/AdaptiveCpp/bin/acpp ${MPI_FLAGS}b-O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_mpi_code>.cpp
 ```
@@ -166,13 +166,13 @@ export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib
 ```
 
 ## Running applications in supercomputers
-Programs need to be executed via the batch job system. 
+Programs need to be executed via the batch job system.
 ```
 sbatch job.sh
 ```
 The `job.sh` file contains all the necessary information (number of nodes, tasks per node, cores per taks, number of gpus per node, etc.)  for the `slurm` to execute the program.
 
-### Running on Mahti 
+### Running on Mahti
 
 #### CPU applications
 ```
@@ -184,7 +184,7 @@ The `job.sh` file contains all the necessary information (number of nodes, tasks
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1  
+#SBATCH --cpus-per-task=1
 
 srun my_cpu_exe
 ```
@@ -216,7 +216,7 @@ single GPU with single MPI task and a single thread use:
 
 srun my_gpu_exe
 ```
-The reservation `hlgp-gpu-f2024-wed` is valid on Wednesday, 15:00 to 17:00. On Thursday we will use `hlgp-gpu-f2024-thu` , while on Friday `hlgp-gpu-f2024-fri`. 
+The reservation `hlgp-gpu-f2024-wed` is valid on Wednesday, 15:00 to 17:00. On Thursday we will use `hlgp-gpu-f2024-thu` , while on Friday `hlgp-gpu-f2024-fri`.
 
 
 ### Running on LUMI
@@ -234,7 +234,7 @@ LUMI is similar to Mahti.
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1  
+#SBATCH --cpus-per-task=1
 
 srun my_cpu_exe
 ```
@@ -251,8 +251,8 @@ srun my_cpu_exe
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1 
-#SBATCH --gpus-per-node=1 
+#SBATCH --cpus-per-task=1
+#SBATCH --gpus-per-node=1
 
 srun my_gpu_exe
 ```
