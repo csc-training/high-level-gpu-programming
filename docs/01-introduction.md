@@ -29,6 +29,7 @@ lang:     en
       accelerators during the last few years
 - Promises
     - Very high performance per node
+    - More FLOPS/Watt
 - Usually major rewrites of programs required
 
 
