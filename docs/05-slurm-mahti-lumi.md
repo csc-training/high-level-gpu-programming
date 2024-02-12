@@ -1,5 +1,5 @@
 ---
-title:  Working in CSC supercomputers
+title:  Working on CSC supercomputers
 subtitle: High-Level GPU Programming 
 author:   CSC Training
 date:     2024-02
@@ -9,7 +9,7 @@ lang:     en
 # Outline
 
 - Connecting to supercomputers
-- Directory structure in CSC supercomputers
+- Directory structure for CSC supercomputers
 - Module system
 - Building applications with `make`
 - Running applications via batch job system
@@ -24,8 +24,8 @@ Some information provided here is specific to LUMI, Mahti, and Puhti, some more 
 ssh <my_user_id>@lumi.csc.fi
 ```
 - With **ssh keys** one can login without password
-    - Automatically setup for LUMI
-    - In Mahti and Puhti need to create and setup manually
+    - Automatically set up for LUMI
+    - For Mahti and Puhti need to create and setup manually
 
 ```
 ssh-keygen -o -a 100 -t ed25519 # Not needed if key exists
@@ -33,7 +33,7 @@ ssh-copy-id <my_user_id>@mahti.csc.fi
 ```
 
 
-# Directory structure in CSC supercomputers
+# Directory structure for CSC supercomputers
 
 - All the CSC supercomputers have separate file systems
     - Files need to be explicitly copied between LUMI, Mahti and Puhti
