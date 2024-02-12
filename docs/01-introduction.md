@@ -10,13 +10,13 @@ lang:     en
 
 # High Performance Computing through the ages
 
-<div class="column" width=20%>
+<div class="column">
 
 ![](img/top500-perf-dev.png){.center width=70%}
 </div>
 
-<div class="column" width=80%> 
-![](img/microprocessor-trend-data.png){.center width=170%}
+<div class="column"> 
+![](img/microprocessor-trend-data.png){.center width=100%}
 </div>
 
 
@@ -91,7 +91,7 @@ lang:     en
 
 # Using GPUs
 
-<div class="column" width=20%>
+<div class="column">
 
 
 
@@ -104,12 +104,12 @@ lang:     en
 4. Use direct GPU programming
     - CUDA, HIP, **SYCL**, **Kokkos**,...
 </div>
-<div class="column" width=80%>
-Easier, more limited
+<div class="column">
+**Easier, more limited**
 
 ![](img/arrow.png){width=10% }
 
-More difficult, more opportunities
+**More difficult, more opportunities**
 
 </div>
 
