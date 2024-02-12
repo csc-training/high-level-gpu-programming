@@ -167,6 +167,13 @@ sbatch job.sh
 ```
 The `job.sh` file contains all the necessary information (number of nodes, tasks per node, cores per taks, number of gpus per node, etc.)  for the `slurm` to execute the program.
 
+### Useful environment variables
+
+Use [`SYCL_PI_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.html#sycl-pi-trace-options) to enable runtime tracing (e.g. device discovery):
+
+    export SYCL_PI_TRACE=1
+
+
 ### Running on Mahti
 
 #### CPU applications
