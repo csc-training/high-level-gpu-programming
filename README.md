@@ -50,7 +50,7 @@ part of the EuroCC training activities at CSC.
 Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 ## Exercises
 
-[General instructions](Exercise_Instructions.md)
+[General instructions](Exercises_Instructions.md)
 
 ### SYCL 
 
