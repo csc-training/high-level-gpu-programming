@@ -65,7 +65,7 @@ build: $(KOKKOS_LINK_DEPENDS) $(KOKKOS_CPP_DEPENDS) hello.cpp
 
 <small>
 
-- Kokkos docs: [https://kokkos.org/kokkos-core-wiki/building.html#raw-makefile](https://kokkos.org/kokkos-core-wiki/building.html#raw-makefile)
+- Kokkos docs: [https://kokkos.org/kokkos-core-wiki/ProgrammingGuide/Compiling.html#using-kokkos-gnu-makefile-system](https://kokkos.org/kokkos-core-wiki/ProgrammingGuide/Compiling.html#using-kokkos-gnu-makefile-system)
 
 </small>
 
