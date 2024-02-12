@@ -1,7 +1,7 @@
 FACTORY=slidefactory.sif
 OPTIONS=
 
-SRC=$(wildcard *.md)
+SRC=$(wildcard ??-*.md)
 HTML=$(patsubst %.md,%.html,$(SRC))
 PDF=$(patsubst %.md,%.pdf,$(SRC))
 
