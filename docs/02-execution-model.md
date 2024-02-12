@@ -41,7 +41,7 @@ void axpy_(int n, double a, double *x, double *y)
 
 <div class="column">
 
-On a accelerator:
+On an accelerator:
 
 - no loop 
 - we create instances of the same function, **kernels**
@@ -100,9 +100,9 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 <div align="center"><small>Scheme of a SIMD unit in an AMD GPU.</small></div>
 </div>
-- the work-items are physically locked in sub-groups
-- the size is locked  by hardware, 64 for AMD and 32 for Nvidia GPUs.
-- an instruction is executed by all items in the sub-group (in 4 cycles).
+- the work-items are physically locked into sub-groups
+- the size is locked by hardware, currently 64 for AMD and 32 for Nvidia.
+- an instruction is executed by all items in the sub-group.
 - in the case of branching, each branch has to be handled separetely.
 - memory accesses are done per sub-group.
 
@@ -118,12 +118,12 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 </div>
 
 <div class="column">
-![](img/CU2.png){.center width=26%}
+![](img/CU2.png){.center width=24%}
 
 <div align="center"><small>Compute Unit in an AMD GPU.</small></div>
 </div>
 - the work-items are divided in groups of fixed size.
-- the hardware gives the maximum size, 1024 in GPUS or 8912 in CPUs.
+- size limited by hardware, 1024 for some GPUS or 8912 for some CPUs.
 - each work-group is assign to a CU and it can not be split. 
 - synchronization and data exchange is possible inside a group.
 
@@ -147,14 +147,14 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 - a grid of threads is created on a specific device to perform the work. 
 - each work-item executes the same kernel
-- each work-item processes different elements of the data. 
+- each work-item typically processes different elements of the data. 
 - there is no global synchronization or data exchange.
 
 # Summary
 - GPUs are hardware with high degree of parallelism.
 - many threads execute the same instruction (SIMD).
 - there is a hierarchy of the work-items (*work-groups*, *sub-groups*).
-- all items in the sub-group execute the same instruction (in 4 cycles).
+- all items in the sub-group execute the same instruction.
 - branching in a *sub-group* should be avoided
 - memory accesses are done per *sub-group*.
 
