@@ -17,7 +17,7 @@ lang:     en
 - the fastest form of memory.
 - private to each thread.
 - local variables and intermidiate results, `double x=sin(id);`
-- no cost at reading, but a write & read has 24 cycles latency.
+- no cost at reading, write & read is costlier (eg, 24-cycle latency).
 - lifetime of the kernel.
 
 </div>
@@ -39,7 +39,7 @@ lang:     en
 
 ![](img/work_group.png){.center width=25%}
 
-<div align="center"><small>Local share memory accessesible at work-group level.</small></div>
+<div align="center"><small>Local shared memory accessible at work-group level.</small></div>
 
 </div>
 
@@ -48,8 +48,8 @@ lang:     en
 
 <div align="center"><small>Compute Unit in an AMD GPU.</small></div>
 </div>
-- very fast memory, latency of 6 cycles.
-- accesable by all work-items in a group.
+- very fast memory, latency of eg. 6 cycles.
+- accessible by all work-items in a group.
 - user programmable cache.
 - lifetime of the work-group.
 
@@ -61,7 +61,7 @@ lang:     en
 
 ![](img/Grid_threads.png){.center width=37%}
 
-<div align="center"><small>Global memory can be accesses by the whole grid.</small></div>
+<div align="center"><small>Global memory can be accessed by the whole grid.</small></div>
 
 </div>
 
@@ -70,9 +70,9 @@ lang:     en
 
 <div align="center"><small>AMD Instinct MI100 architecture. (source: AMD)</small></div>
 </div>
-- slow, latency of 600-700 cycles.
-- accessable by all work-items in a grid.
-- can be controled by host (via pointer operations).
+- slow, latency of eg. 600-700 cycles.
+- accessible by all work-items in a grid.
+- can be controlled by host (via pointer operations).
 - lifetime of the program.
 
 
@@ -83,7 +83,7 @@ lang:     en
 
 ![](img/sub_group.png){.center width=17%}
 
-<div align="center"><small>Memory access is done per sub-groups.</small></div>
+<div align="center"><small>Memory access is done per sub-group.</small></div>
 
 </div>
 
@@ -93,8 +93,8 @@ lang:     en
 <div align="center"><small>Compute Unit in an AMD GPU.</small></div>
 </div>
 
-- the work-items are physically locked in sub-groups 64 or 32 in GPUs.
-- an instruction is executed by all items in the sub-group (in 4 cycles).
+- the work-items are physically locked in sub-groups (typically 64 or 32).
+- an instruction is executed by all items in the sub-group (eg, 4 cycles).
 - memory accesses are done per sub-group in contiguous blocks.
 - threads in a sub-group should operate on elements close to each other.
 - local shared memory can be used to improve the memory accesses.
