@@ -34,6 +34,7 @@ Parameter Defaults
 - set_tstep 	Default time delta is 0.1
 - set_sfreq 	Default sample frequency is 1
 <br>
+
 It is possible to use command linearguments for
 ```
 int main(int argc, char** argv)
@@ -64,12 +65,12 @@ int main(int argc, char** argv)
 }
 ```
 ### so with command line arguments one can set npart and nsteps by
-```bash
+```
 ./main.x.gpu 16000 10  
 ```
 
 ### example output with the default parameters
-```bash
+```
 ===============================
 Initialize Gravity Simulation
 Target Device: Intel(R) Gen9
