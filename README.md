@@ -46,7 +46,7 @@ part of the EuroCC training activities at CSC.
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
-The lectures in this repository are published under  ![]([docs/img/cluster_diagram.jpeg](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png)) [CC](https://creativecommons.org/licenses/by-nc/4.0/)
+The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercise are based on Intel copyrighted work and they have their own license.  
 
 Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 ## Exercises
@@ -54,15 +54,17 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 [General instructions](Exercises_Instructions.md)
 
 ### SYCL Essentials
-
-- 
+- [Intel DevCloud Intructions](exercises/sycl-optimization-performance-c2s/sycl1/1_Intel_Devcloud_20240203.pdf)
+- [SYCL Basics](exercises/sycl-optimization-performance-c2s/sycl1/Readme.md)
 
 ### SYCL Performance and Optimization
-
+- [Unified Shared Memory](exercises/sycl-optimization-performance-c2s/sycl2/Readme.md)
+- [Profiling on Nvidia platform](exercises/sycl-optimization-performance-c2s/sycl3/NBody-nvidia-profiling/Readme.md)
+- 
 ### SYCL Migrate from CUDA to SYCL
+- [CUDA to SYCL migration](exercises/sycl-optimization-performance-c2s/sycl3/Readme.md)
 
 ### Memory Optimization
-
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
 - [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
 - [Reductions](exercises/sycl/06-reduction-direct)
