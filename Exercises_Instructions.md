@@ -110,7 +110,7 @@ setenv("CUDA_HOME","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb"
 setenv("CUDA_INSTALL_ROOT","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb")
 append_path("LIBRARY_PATH","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb/lib64/stubs")
 ```
-The we execute `module load cuda`, it will effectively modify the above environment variables. Now we can execute directly the cuda specifc commands such `nvcc` (cuda compiler)  or `nsys`(cuda profiler). 
+When we execute `module load cuda`, it will effectively modify the above environment variables. Now we can execute directly the cuda specifc commands such `nvcc` (cuda compiler)  or `nsys`(cuda profiler). 
 
 ## Compilation
 
