@@ -1,5 +1,6 @@
 // We use built-in sycl::reduction mechanism in this example.
 // The manual implementation of the reduction kernel can be found in folder 06-reduction
+// This works with oneAPI, but not with AdaptiveCpp (it uses non-standard iplementation)
 #include <sycl/sycl.hpp>
 
 using namespace sycl;
