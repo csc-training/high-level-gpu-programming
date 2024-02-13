@@ -85,10 +85,36 @@ module avail #List all available modules
 module spider mod #Search for module **mod**
 module show mod # Get information about module **mod**
 ```
+Check for example the default cuda module on Mahti:
+```
+$ module show cuda
+--------------------------------------------------------------------------------------------------------------------------
+   /appl/spack/v017/modulefiles/linux-rhel8-x86_64/gcc/11.2.0/cuda/11.5.0.lua:
+--------------------------------------------------------------------------------------------------------------------------
+whatis("Name : cuda")
+whatis("Version : 11.5.0")
+whatis("Target : zen2")
+whatis("Short description : CUDA is a parallel computing platform and programming model invented by NVIDIA. It enables dramatic increases in computing performance by harnessing the power of the graphics processing unit (GPU).")
+help([[CUDA is a parallel computing platform and programming model invented by
+NVIDIA. It enables dramatic increases in computing performance by
+harnessing the power of the graphics processing unit (GPU). Note: This
+package does not currently install the drivers necessary to run CUDA.
+These will need to be installed manually. See:
+https://docs.nvidia.com/cuda/ for details.]])
+prepend_path("CPATH","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb/include")
+prepend_path("LIBRARY_PATH","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb/lib64")
+prepend_path("LD_LIBRARY_PATH","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb/lib64")
+prepend_path("PATH","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb/bin")
+prepend_path("CMAKE_PREFIX_PATH","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb/")
+setenv("CUDA_HOME","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb")
+setenv("CUDA_INSTALL_ROOT","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb")
+append_path("LIBRARY_PATH","/appl/spack/v017/install-tree/gcc-11.2.0/cuda-11.5.0-mg4ztb/lib64/stubs")
+```
+The we execute `module load cuda`, it will effectively modify the above environment variables. Now we can execute directly the cuda specifc commands such `nvcc` (cuda compiler)  or `nsys`(cuda profiler). 
 
 ## Compilation
 
-Mahti and LUMI have several programming environments. For training, we recommend that you use one of the two SYCL implementations.
+SYCL is not part of the module system at the moment. The SYCL compilers were build for this training. We recommend that you use one of the two SYCL implementations.
 
 ### Intel oneAPI compilers
 oneAPI is a collection of tool and library supporting a wide range of programming languange and parallel programming paradigms. It includes a SYCL implementation which supports all  Intel devices (CPUs, FPGAs, and GPUs) and has SYCL plug-ins for targeting Nvidia and AMD GPUs.
@@ -240,7 +266,7 @@ Some applications use MPI, in this case the number of node and number of tasks p
 #### GPU applications
 
 When running GPU programs, few changes need to made to the batch job
-script. The `partition` is are now different, and one must also request explicitly given number of GPUs per node. As an example, in order to use a
+script. The `partition` is now different, and one must also request explicitly a given number of GPUs per node. As an example, in order to use a
 single GPU with single MPI task and a single thread use:
 ```
 #!/bin/bash
@@ -295,5 +321,5 @@ srun my_cpu_exe
 
 srun my_gpu_exe
 ```
-
+Similarly to Mahti, on LUMI we have 2 cpu nodes reservered for us, and as well 2 gpu nodes. 
 **NOTE** Some exercises have additional instructions of how to run!
