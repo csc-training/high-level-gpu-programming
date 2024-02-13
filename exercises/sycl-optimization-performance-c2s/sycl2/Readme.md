@@ -1,7 +1,5 @@
 # SYCL2 LAB 
-We will be working on Mahti and or Lumi, this is up to you!
-You are all responsible for the jobscripts, Christian put examples for this on Github.
-You can of course work interactively.
+We will be working on [Mahti and or Lumi](https://github.com/csc-training/high-level-gpu-programming/blob/main/Exercises_Instructions.md), this is up to you!
 <br>
 For all the exercises you have to write some code, compile the program and then run the program.
 There are suggested solutions but don't look at them to early.
