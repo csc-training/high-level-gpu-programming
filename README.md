@@ -16,8 +16,7 @@ part of the EuroCC training activities at CSC.
 | 11:20-12:00  | [Refresher of C++ concepts](04-cpp-concepts.pdf)
 | 12:00-13:00  | Lunch break
 | 13:00-13:30  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
-| 13:30-15:00  | [SYCL I](exercises/sycl-optimization-performance-c2s/sycl1
-/sycl_1_sonersteiner_helsinki_FINAL.pdf)(a)
+| 13:30-15:00  | [SYCL I](exercises/sycl-optimization-performance-c2s/sycl1/sycl_1_sonersteiner_helsinki_FINAL.pdf)(a)
 | 15:00-15:30  | Coffee break
 | 15:30-16:45  | SYCL I(b)
 | 16:45-17:00  | Day 1 wrap-up
