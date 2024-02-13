@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
     }
 
     //Check how many gpus per node are present
-    property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}};
+    property_list q_prof{sycl::property::queue::in_order{}};
     auto gpu_devices= device::get_devices(sycl::info::device_type::gpu);
     auto devcount=size( gpu_devices ); 
 
