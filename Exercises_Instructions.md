@@ -70,7 +70,7 @@ Also other popular editors such as emacs and vim are available.
 
 ## Compilation
 
-Mahti and LUMI have several programming environments. For training, we recommend that you use the two SYCL implementations:
+Mahti and LUMI have several programming environments. For training, we recommend that you use one of the two SYCL implementations.
 
 ### Intel oneAPI compilers
 oneAPI is a collection of tool and library supporting a wide range of programming languange and parallel programming paradigms. It includes a SYCL implementation which supports all  Intel devices (CPUs, FPGAs, and GPUs) and has SYCL plug-ins for targeting Nvidia and AMD GPUs.
@@ -80,11 +80,18 @@ on Mahti:
 ```
 . /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
 module load cuda # This is needed for compiling sycl code for nvidia gpus
+module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI 
 ```
 
 on LUMI:
 ```
 . /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
+
+module load LUMI/22.08
+module load partition/G
+module load rocm/5.3.3
+module load cce/16.0.1
+export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 After this one can load other modules that might be needed for compiling the codes. With the environment set-up we can compile and run the SYCL codes.
 
@@ -96,18 +103,31 @@ on LUMI
 ```
 icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a <sycl_code>.cpp
 ```
-Where `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` instructs the compiler to generate optimized code for both CPU and GPU SYCL devices.
+Where `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` is used to instruct the compiler to generate optimized code for both CPU and GPU SYCL devices.
 
 ### AdaptiveCpp
-This is another SYCL  implementation with support for many type of devices. NO sepcial set-up is needed
+This is another SYCL  implementation with support for many type of devices. No special set-up is needed, expect from loading the modules related to the backend (cuda or rocm).
+
 on Mahti:
+```
+module load cuda # This is needed for compiling sycl code for nvidia gpus
+module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI
+```
 ```
 /projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
 ```
-
 on LUMI:
 ```
+module load LUMI/22.08
+module load partition/G
+module load rocm/5.3.3
+module load cce/16.0.1
+export MPICH_GPU_SUPPORT_ENABLED=1
+export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-22.08/G/EB/Boost/1.79.0-cpeCray-22.08/lib:$LD_LIBRARY_PATH
 export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so
+```
+
+```
  /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3 <sycl_code>.cpp
 ```
 AdaptiveCpp was set-up so that on Mahti the `acpp` compiler will generate code for CPU and Nvidia GPUs, while on LUMI for CPU nd AMD GPUs.
@@ -141,7 +161,6 @@ Similarly on LUMI. First we set up the envinronment as indicated above, then loa
 ```
 module load LUMI/22.08
 module load partition/G
-#module load Boost/1.79.0-cpeCray-22.08 # This is needed only for AdaptiveCpp
 module load rocm/5.3.3
 module load cce/16.0.1
 ```
