@@ -54,7 +54,7 @@ SYCL language and runtime consists of a set of C++ classes, templates, and libra
 ### Kernel Code
 Code for a device is specified as kernels. This is a concept that is not
 unique to C++ with SYCL: it is a core concept in other offload acceleration
-languages including OpenCL and CUDA. [sycl-book]
+languages including OpenCL and CUDA. [sycl-book](https://link.springer.com/book/10.1007/978-1-4842-9691-2)
 
 ### Kernel scope:
 - Code that executes on the device.
