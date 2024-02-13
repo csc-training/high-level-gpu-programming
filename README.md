@@ -47,7 +47,7 @@ part of the EuroCC training activities at CSC.
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
 
-Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
+Link to [HedgeDoc]([https://kannu.csc.fi/s/gZSBE8DbeEKZjRw](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 ## Exercises
 
 [General instructions](Exercises_Instructions.md)
