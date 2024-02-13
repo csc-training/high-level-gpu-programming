@@ -25,9 +25,9 @@ part of the EuroCC training activities at CSC.
 
 | Time         | Topic |
 | ----         | ----- |
-| 09:00-12:00  | SYCL II
+| 09:00-12:00  | [SYCL II](exercises/sycl-optimization-performance-c2s/sycl2/sycl_2_sonersteiner_helsinki_FINAL.pdf)
 | 12:00-13:00  | Lunch break
-| 13:00-15:00  | SYCL III
+| 13:00-15:00  | [SYCL III](exercises/sycl-optimization-performance-c2s/sycl3/CUDA_To_SYCL_SYCLomatic.pdf)
 | 15:00-15:30  | Coffee Break
 | 15:30-16:45  | Exercises (on Mahti & LUMI )   
 | 16:45-17:00  | Day 2 wrap-up
@@ -36,7 +36,7 @@ part of the EuroCC training activities at CSC.
 
 | Time         | Topic |
 | ----         | ----- |
-| 09:00-09:30  | Kokkos
+| 09:00-09:30  | [Kokkos](docs/06-kokkos.pdf)
 | 09:30-11:00  | [Kokkos exercises](/exercises/kokkos)
 | 11:00-12:00  | [Interoperability with third-party libraries](exercises/sycl/09-interoperability/) and [mpi](exercises/sycl/08-ping-pong)
 | 12:00-13:00  | Lunch break
@@ -46,6 +46,7 @@ part of the EuroCC training activities at CSC.
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
+The lectures in this repository are published under  ![]([docs/img/cluster_diagram.jpeg](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png)) [CC](https://creativecommons.org/licenses/by-nc/4.0/)
 
 Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 ## Exercises
