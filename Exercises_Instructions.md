@@ -1,4 +1,4 @@
-# General exercise instructions
+# General exercises instructions
 
 ## Getting the materials
 
