@@ -130,7 +130,7 @@ export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib
 ```
  /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3 <sycl_code>.cpp
 ```
-AdaptiveCpp was set-up so that on Mahti the `acpp` compiler will generate code for CPU and Nvidia GPUs, while on LUMI for CPU nd AMD GPUs.
+In general one can set specific targets via the `--acpp-targets` flag, but we set-up AdaptiveCpp so that on Mahti the `acpp` compiler will automatically generate code for CPU and Nvidia GPUs, while on LUMI for CPU and AMD GPUs.
 
 ### MPI
 MPI (Message Passing Interface) is a standardized and portable message-passing standard designed for parallel computing architectures. It allows communication between processes running on separate nodes in a distributed memory environment. MPI plays a pivotal role in the world of High-Performance Computing (HPC), this is why is important to know we could combine SYCL and MPI.
