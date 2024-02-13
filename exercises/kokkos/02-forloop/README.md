@@ -11,19 +11,19 @@ At the end, the program should evaluate a verification loop (without Kokkos) to 
 
 In addition to `Kokkos::initialize()` and `Kokkos::finalize`, you will need `Kokkos::parallel_for` and `Kokkos::fence` in this exercise. Furthermore, two different memory management strategies are investigated here:
 
-## Case 1: Raw pointers with Unified Memory
+### Case 1: Raw pointers with Unified Memory
 `Kokkos::kokkos_malloc` and `Kokkos::kokkos_free` are needed here.
 
-## Case 2: Views with explicit memory management
+### Case 2: Views with explicit memory management
 `Kokkos::View` and `Kokkos::deep_copy` are needed here.
 
 
-# Compiling and running
+## Compiling and running
 1. If not already done, enter directory `/path/higher-level-gpu-programming/exercises/kokkos/` and clone kokkos by `git clone https://github.com/kokkos/kokkos.git`. Now the kokkos repo should be located in `/path/higher-level-gpu-programming/exercises/kokkos/kokkos/` (you can use different location but this location is hardcoded in the solution Makefiles).
 
 2. Then just create a source file and Makefile and type `make`. Hint! You can use the Makefile from the solution folder as a reference and just change the Kokkos path and the file name.
 
 3. Run on Lumi or Mahti by `srun ./executable` (add required flags according to the underlying system and user, eg, --account=XXX, --partition=YYY, etc.)
 
-# Example solution
-Example Kokkos implementations (.cpp) are given in the solution folders (based on [ENCCS material](https://enccs.github.io/gpu-programming/10-portable-kernel-models/) ). However, the intention is to try solving the exercise first without looking into these.
+## Example solution
+Example Kokkos implementations (.cpp) based on [ENCCS material](https://enccs.github.io/gpu-programming/10-portable-kernel-models/) (CC-BY-4.0 license) are given in the solution folders. However, the intention is to try solving the exercise first without looking into these.
