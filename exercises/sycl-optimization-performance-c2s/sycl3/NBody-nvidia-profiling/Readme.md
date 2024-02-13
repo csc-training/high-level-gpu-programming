@@ -35,7 +35,7 @@ Parameter Defaults
 - set_sfreq 	Default sample frequency is 1
 <br>
 It is possible to use command linearguments for
-```C++
+```
 int main(int argc, char** argv)
 {
   int n;      // number of particles
