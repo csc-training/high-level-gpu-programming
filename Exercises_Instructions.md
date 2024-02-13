@@ -135,7 +135,7 @@ module load LUMI/22.08
 module load partition/G
 module load rocm/5.3.3
 module load cce/16.0.1
-export MPICH_GPU_SUPPORT_ENABLED=1
+export MPICH_GPU_SUPPORT_ENABLED=1 # Needed for GPU aware MPI
 ```
 After this one can load other modules that might be needed for compiling the codes. With the environment set-up we can compile and run the SYCL codes.
 
@@ -201,15 +201,14 @@ or
 /projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 
-Similarly on LUMI. First we set up the envinronment as indicated above, then load the modules :
+Similarly on LUMI. First we set up the envinronment and load the modules as indicated above
 ```
+. /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
+
 module load LUMI/22.08
 module load partition/G
 module load rocm/5.3.3
 module load cce/16.0.1
-```
-We also activate the GPU-aware MPI via:
-```
 export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 Now compile with intel compilers:
