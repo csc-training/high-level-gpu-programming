@@ -52,9 +52,13 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 
 [General instructions](Exercises_Instructions.md)
 
-### SYCL 
+### SYCL Essentials
 
 - 
+
+### SYCL Advance
+
+### SYCLOMATIC
 
 ### Memory Optimization
 
