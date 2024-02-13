@@ -96,19 +96,19 @@ lang:     en
 
 
 
-
-
 1. Use existing GPU applications
 2. Use accelerated libraries
 3. Directive based methods
     - OpenMP, OpenACC
-4. Use direct GPU programming
-    - CUDA, HIP, **SYCL**, **Kokkos**,...
+4. High-level GPU programming
+    - **SYCL**, **Kokkos**, ...
+5. Use direct GPU programming
+    - CUDA, HIP, ...
 </div>
 <div class="column">
 **Easier, more limited**
 
-![](img/arrow.png){width=10% }
+![](img/arrow.png){width=16% }
 
 **More difficult, more opportunities**
 
