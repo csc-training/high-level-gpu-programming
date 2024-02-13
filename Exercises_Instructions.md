@@ -141,7 +141,7 @@ After this one can load other modules that might be needed for compiling the cod
 
 On Mahti:
 ```
-icpx -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 <sycl_code>.cpp
+icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 <sycl_code>.cpp
 ```
 on LUMI
 ```
@@ -158,7 +158,7 @@ module load cuda # This is needed for compiling sycl code for nvidia gpus
 module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI
 ```
 ```
-/projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
+/projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
 ```
 on LUMI:
 ```
@@ -194,11 +194,11 @@ $ mpicxx -showme
 We note that underneath `mpicxx` is calling `g++` with a lots of MPI related flags. We can obtain and use these programmatically with `mpicxx --showme:compile` and `mpicxx --showme:link`
 for compiling the SYCL+MPI codes:
 ```
-icpx -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
+icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 or
 ```
-/projappl/project_2008874/AdaptiveCpp/bin/acpp -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
+/projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 
 Similarly on LUMI. First we set up the envinronment and load the modules as indicated above
