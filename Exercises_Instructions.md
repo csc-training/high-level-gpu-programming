@@ -68,6 +68,24 @@ nano prog.f90
 (`^` in nano's shortcuts refer to **Ctrl** key, *i.e.* in order to save file and exit editor press `Ctrl+X`)
 Also other popular editors such as emacs and vim are available.
 
+
+### Module environment
+Supercomputers have a large number of users with different needs for development environments and applications. _Environment modules_ offers a convenient solution for dynamically altering the user's environment to suit their specific needs. This method makes it easier to use various compiler suites and app versions, making work smoother. Plus, when you switch compiler modules, the system takes care of loading the right library versions, cutting down on mistakes and keeping everything running smoothly. Also, loading a module that's customized for a specific app sets up the environment perfectly with just one command, making it super easy for users to get their software up and running.
+
+This approach facilitates easier utilization of different compiler suites and application versions, enhancing workflow efficiency. Moreover, when changing compiler modules, the system automatically loads the correct versions of associated libraries, minimizing errors and ensuring seamless operation. Additionally, loading a module tailored to a specific application configures the environment correctly with a single command, simplifying the software setup process for users.
+
+#### Common module commands
+Below are the most commonly used module commands:
+
+```
+module load mod #Loads module **mod** in shell environment
+module unload mod #Remove module **mod** from environment
+module list #List loaded modules
+module avail #List all available modules
+module spider mod #Search for module **mod**
+module show mod # Get information about module **mod**
+```
+
 ## Compilation
 
 Mahti and LUMI have several programming environments. For training, we recommend that you use one of the two SYCL implementations.
