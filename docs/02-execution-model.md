@@ -124,7 +124,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 </div>
 - the work-items are divided in groups of fixed size.
 - size limited by hardware, 1024 for some GPUS or 8912 for some CPUs.
-- each work-group is assign to a CU and it can not be split. 
+- each work-group is assign to a Compute Unite (2) and it can not be split. 
 - synchronization and data exchange is possible inside a group.
 
 
@@ -135,7 +135,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 ![](img/Grid_threads.png){.center width=35%}
 
-<div align="center"><small>A grid of work-items executing the same **kernel**</small></div>
+<div align="center"><small>A grid of work-groups executing the same **kernel**</small></div>
 
 </div>
 

@@ -100,7 +100,7 @@ lang:     en
 - local shared memory can be used to improve the memory accesses.
 
 
-# Coalesced vs Non-coalesced
+# Coalesced vs Non-coalesced Memory Access
 
 Serial cpu code of `y=y+a*x`:
 
