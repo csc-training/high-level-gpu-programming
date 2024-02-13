@@ -38,9 +38,9 @@ part of the EuroCC training activities at CSC.
 | ----         | ----- |
 | 09:00-09:30  | Kokkos
 | 09:30-11:00  | Kokkos exercises
-| 11:00-12:00  | Interoperability with third-party libraries and mpi
+| 11:00-12:00  | [Interoperability with third-party libraries](exercises/sycl/09-interoperability/) and [mpi](exercises/sycl/08-ping-pong)
 | 12:00-13:00  | Lunch break
-| 13:00-14:00  | Heat equation, cuda to sycl demo
+| 13:00-14:00  | [Heat equation, cuda to sycl demo](exercises/sycl/10-heat-equation-from-cuda/)
 | 14:00-15:00  | Exercises & Bring your own code
 | 15:00-15:30  | Coffee Break
 | 15:30-16:45  | Exercises & Bring your own code
