@@ -2,6 +2,8 @@
 // The manual implementation of the reduction kernel can be found in folder 06-reduction
 #include <sycl/sycl.hpp>
 
+using namespace sycl;
+
 int main() {
   queue q;
   unsigned n = 10;
