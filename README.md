@@ -66,7 +66,7 @@ Link to [slides](https://kannu.csc.fi/s/gZSBE8DbeEKZjRw)
 - [Kokkos](/exercises/kokkos)
 
 ### SYCL and MPI
-- [Ping-pong with multiple GPUs and MPI](exercises/sycl/08-ping-pong)
+- [Ping-pong with 2 GPUs and MPI](exercises/sycl/08-ping-pong)
 - [Pi computing with multiple GPU and MPI](exercises/sycl/11-pi/)
   
 ### SYCL interoperability
