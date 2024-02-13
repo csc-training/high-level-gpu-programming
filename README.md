@@ -15,7 +15,7 @@ part of the EuroCC training activities at CSC.
 | 10:40-11:20  | GPU memory hierarchy
 | 11:20-12:00  | Refresher of C++ concepts
 | 12:00-13:00  | Lunch break
-| 13:00-13:30  | Mahti and LUMI Computing Platforms (login & edit files, Slurm, SYCL usage)
+| 13:00-13:30  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
 | 13:30-15:00  | SYCL I(a)
 | 15:00-15:30  | Coffee break
 | 15:30-16:45  | SYCL I(b)
