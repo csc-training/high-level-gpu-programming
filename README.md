@@ -11,7 +11,7 @@ part of the EuroCC training activities at CSC.
 | ----         | ----- |
 | 09:00-09:15  | Welcome
 | 09:15-10:00  | Introduction to GPUs
-| 10:00-10:40  | GPU parallel programming model
+| 10:00-10:40  | GPU execution model
 | 10:40-11:20  | GPU memory hierarchy
 | 11:20-12:00  | Refresher of C++ concepts
 | 12:00-13:00  | Lunch break
