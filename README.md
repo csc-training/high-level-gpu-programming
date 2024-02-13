@@ -56,9 +56,9 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 
 - 
 
-### SYCL Advance
+### SYCL Performance and Optimization
 
-### SYCLOMATIC
+### SYCL Migrate from CUDA to SYCL
 
 ### Memory Optimization
 
