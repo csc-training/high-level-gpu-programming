@@ -134,9 +134,11 @@ std::cout << "Device: " << q.get_device().get_info<info::device::name>() << "\n"
 2. On Intel Developer Cloud machine, please make sure that the environment is set:
 
 3. Compile and run the code example with -fsycl option:
+
 ```Bash
 # compile for several targets
 icpx -fuse-ld=lld -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a gpu_sample.cpp -o gpu_sample
+```
 
 # For compiling on MAHTI use the following bash script!
 ```bash
