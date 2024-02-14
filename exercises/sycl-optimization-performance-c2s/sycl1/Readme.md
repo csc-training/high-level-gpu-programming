@@ -531,6 +531,7 @@ int main()
 1. Inspect the code in sycl1-lab/vector_add_usm_buffers.cpp file showing vector add computation implemented using USM and Buffers memory model.
 
 2. Compile and run this code:
+>- Use the above compile script for compilation
 
 ```Bash
 icpx -fsycl vector_add_usm_buffers.cpp -o vector_add_usm_buffers
@@ -539,10 +540,22 @@ icpx -fsycl vector_add_usm_buffers.cpp -o vector_add_usm_buffers
 
 3. Set the environment variable SYCL_PI_TRACE to enable the tracing of plugins/devices discovery. You should be able to check on which device you are running:
 
-
+# Batch run script for MAHTI
 ```Bash
-SYCL_PI_TRACE=1 ./vector_add_usm_buffers
+#!/bin/bash
+#SBATCH --job-name=example
+#SBATCH --account=project_2008874
+#SBATCH --partition=medium
+#SBATCH --reservation=hlgp-cpu-f2024
+#SBATCH --time=00:05:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+
+SYCL_PI_TRACE=1 srun vector_add_usm_buffers
+###########
 ```
+
 
 #### Synchronization: Host Accessor
 
