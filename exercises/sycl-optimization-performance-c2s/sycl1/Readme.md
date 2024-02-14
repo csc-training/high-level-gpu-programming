@@ -127,39 +127,25 @@ queue q(gpu_selector_v);
 //queue q;
 std::cout << "Device: " << q.get_device().get_info<info::device::name>() << "\n";
 ```
-
-## Exercise 1
-1. Inspect the code in sycl1-lab/gpu_sample.cpp file showing different device selectors in use.
-
-2. On Intel Developer Cloud machine, please make sure that the environment is set:
-
-3. Compile and run the code example with -fsycl option:
-
-```Bash
-# compile for several targets
-icpx -fuse-ld=lld -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a gpu_sample.cpp -o gpu_sample
-```
-
 # For compiling on MAHTI use the following bash script!
-```bash
+```Bash
 filename=$(basename  $1)
 outname=${filename%.*}.x
 
 echo running icpx -fuse-ld=lld  -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a -o $outname $filename $2 $3 $4 $5
 
 icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 -o  $outname $filename $2 $3 $4 $5
-```
-you can use this script in the following way: e.g. for exercise one
 
-```bash
+```
+
+you can use this script in the following way: e.g. for exercise one
+```Bash
 ./compile.sh gpu_sample.cpp
 ```
-
 and it will produce the executable gpu_sample.x
 
-```bash
-##########
-# batch run script, e.g. MAHTI CPU: 
+# Batch run script for MAHTI
+```Bash
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_2008874
@@ -174,6 +160,18 @@ srun gpu_sample
 ###########
 ```
 
+
+## Exercise 1
+1. Inspect the code in sycl1-lab/gpu_sample.cpp file showing different device selectors in use.
+
+2. On Intel Developer Cloud machine, please make sure that the environment is set:
+
+3. Compile and run the code example with -fsycl option:
+
+```Bash
+# compile for several targets
+icpx -fuse-ld=lld -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a gpu_sample.cpp -o gpu_sample
+```
 >- You should get the device you are working on
 
 4. Use cpu_selector_v instead of gpu_selector_v, recompile and rerun the code:
