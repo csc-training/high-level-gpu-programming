@@ -66,6 +66,9 @@ int c = max(a, b);
 
 double x = 3.4, y = 5.6;
 double z = max(x, y);
+
+// Call int version explicitly
+int zi = max<int>(x, y);
 ```
 
 
