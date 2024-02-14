@@ -152,8 +152,10 @@ you can use this script in the following way: e.g. for exercise one
 ```bash
 ./compile.sh gpu_sample.cpp
 ```
+
 and it will produce the executable gpu_sample.x
 
+```bash
 ##########
 # batch run script, e.g. MAHTI CPU: 
 #!/bin/bash
@@ -169,6 +171,7 @@ and it will produce the executable gpu_sample.x
 srun gpu_sample
 ###########
 ```
+
 >- You should get the device you are working on
 
 4. Use cpu_selector_v instead of gpu_selector_v, recompile and rerun the code:
