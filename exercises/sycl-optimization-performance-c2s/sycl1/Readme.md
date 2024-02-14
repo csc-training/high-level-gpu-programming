@@ -134,8 +134,22 @@ std::cout << "Device: " << q.get_device().get_info<info::device::name>() << "\n"
 
 3. Compile and run the code example with -fsycl option:
 ```Bash
-icpx -fsycl gpu_sample.cpp -o gpu_sample
+icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a gpu_sample.cpp -o gpu_sample
 ./gpu_sample
+
+##########
+# batch run script, e.g. MAHTI CPU: 
+#!/bin/bash
+#SBATCH --job-name=example
+#SBATCH --account=project_2008874
+#SBATCH --partition=medium
+#SBATCH --reservation=hlgp-cpu-f2024
+#SBATCH --time=00:05:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+
+srun gpu_sample
 ```
 >- You should get the device you are working on
 
