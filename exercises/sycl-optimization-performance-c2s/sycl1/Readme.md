@@ -138,6 +138,22 @@ std::cout << "Device: " << q.get_device().get_info<info::device::name>() << "\n"
 # compile for several targets
 icpx -fuse-ld=lld -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a gpu_sample.cpp -o gpu_sample
 
+# For compiling on MAHTI use the following bash script!
+```bash
+filename=$(basename  $1)
+outname=${filename%.*}.x
+
+echo running icpx -fuse-ld=lld  -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a -o $outname $filename $2 $3 $4 $5
+
+icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 -o  $outname $filename $2 $3 $4 $5
+```
+you can use this script in the following way: e.g. for exercise one
+
+```bash
+./compile.sh gpu_sample.cpp
+```
+and it will produce the executable gpu_sample.x
+
 ##########
 # batch run script, e.g. MAHTI CPU: 
 #!/bin/bash
@@ -158,6 +174,7 @@ srun gpu_sample
 4. Use cpu_selector_v instead of gpu_selector_v, recompile and rerun the code:
 
 5. Use the default queue constructor and check what happens at runtime in that case.
+
 
 ### Queue
 Queue submits command groups to be executed by the SYCL runtime. Queue is a mechanism where work is
