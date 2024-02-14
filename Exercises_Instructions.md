@@ -52,7 +52,7 @@ cd $USER
 
 on LUMI
 ```
-cd /scratch/project_
+cd /scratch/project_462000456
 mkdir -p $USER
 cd $USER
 ```
