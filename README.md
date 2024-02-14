@@ -13,9 +13,9 @@ part of the EuroCC training activities at CSC.
 | ----         | ----- |
 | 09:00-09:15  | Welcome
 | 09:15-10:00  | [Introduction to GPUs](docs/01-introduction.pdf)
-| 10:00-10:40  | [GPU execution model](02-execution-model.pdf)
-| 10:40-11:20  | [GPU memory hierarchy](03-memory-access-hierarchy.pdf)
-| 11:20-12:00  | [Refresher of C++ concepts](04-cpp-concepts.pdf)
+| 10:00-10:40  | [GPU execution model](docs/02-execution-model.pdf)
+| 10:40-11:20  | [GPU memory hierarchy](doces/03-memory-access-hierarchy.pdf)
+| 11:20-12:00  | [Refresher of C++ concepts](docs/04-cpp-concepts.pdf)
 | 12:00-13:00  | Lunch break
 | 13:00-13:30  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
 | 13:30-15:00  | [SYCL I](exercises/sycl-optimization-performance-c2s/sycl1/sycl_1_sonersteiner_helsinki_FINAL.pdf)(a)
