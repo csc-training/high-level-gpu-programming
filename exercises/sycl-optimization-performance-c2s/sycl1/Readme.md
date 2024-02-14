@@ -74,7 +74,7 @@ static const int N = 16;
 
 int main()
 {
-    sycl::queue q(sycl::gpu_device_selector_v); // <--- select GPU for offload
+    sycl::queue q(sycl::gpu_selector_v); // <--- select GPU for offload
     int *data = sycl::malloc_shared<int>(N, q); // <--- allocate memory
     
     for(int i=0; i<N; i++) data[i] = i;
