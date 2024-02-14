@@ -271,7 +271,7 @@ single GPU with single MPI task and a single thread use:
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_2008874
-#SBATCH --partition=gpu_medium
+#SBATCH --partition=gpumedium
 #SBATCH --reservation=hlgp-gpu-f2024-wed
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
