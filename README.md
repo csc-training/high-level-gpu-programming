@@ -2,7 +2,7 @@
 
 Course material for the CSC course "High-Level GPU Programming". The course is
 part of the EuroCC training activities at CSC.
-
+**Zoom:** <https://cscfi.zoom.us/j/67534098583>
 ## Agenda
 
 ### Day 1, Wednesday 14.2.
