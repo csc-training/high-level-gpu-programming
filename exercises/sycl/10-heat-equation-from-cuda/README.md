@@ -71,7 +71,7 @@ So, the device selection is not going to work correctly.
 
 As a workaround, we can restrict the SYCL devices in oneAPI to GPUs by:
 
-    export ONEAPI_DEVICE_SELECTOR=*:gpu
+    export ONEAPI_DEVICE_SELECTOR=*:gpu  # alternatively: export SYCL_DEVICE_FILTER=*:gpu
 
 Resulting in:
 
