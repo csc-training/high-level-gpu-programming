@@ -69,13 +69,14 @@ Let's look at a simple SYCL code to offload computation to GPU, the code does th
 
 ```C++
 #include <sycl/sycl.hpp>
+using namespace sycl;
 
 static const int N = 16;
 
 int main()
 {
-    sycl::queue q(sycl::gpu_selector_v); // <--- select GPU for offload
-    int *data = sycl::malloc_shared<int>(N, q); // <--- allocate memory
+    queue q(gpu_selector_v); // <--- select GPU for offload
+    int *data = malloc_shared<int>(N, q); // <--- allocate memory
     
     for(int i=0; i<N; i++) data[i] = i;
     q.parallel_for(N, [=] (auto i)
@@ -84,7 +85,7 @@ int main()
     }).wait();
     
     for(int i=0; i<N; i++) std::cout << data[i] << "\n";
-    sycl::free(data, q);
+    free(data, q);
     
     return 0;
 }
