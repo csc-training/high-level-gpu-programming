@@ -15,7 +15,7 @@ Let's make a test run of the CUDA code on Mahti:
     cd cuda
     make
 
-    srun -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:2 -1 00:05:00 ./heat
+    srun -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 -t 00:05:00 ./heat
 
 
 ## Run syclomatic
