@@ -31,7 +31,7 @@ part of the EuroCC training activities at CSC.
 | 12:00-13:00  | Lunch break
 | 13:00-15:00  | [SYCL III](exercises/sycl-optimization-performance-c2s/sycl3/CUDA_To_SYCL_SYCLomatic.pdf)
 | 15:00-15:30  | Coffee Break
-| 15:30-16:45  | Exercises (on Mahti & LUMI )   
+| 15:30-16:45  | [Heat equation, cuda to sycl demo](exercises/sycl/10-heat-equation-from-cuda/) 
 | 16:45-17:00  | Day 2 wrap-up
 
 ### Day 3, Friday 16.2.
@@ -42,8 +42,7 @@ part of the EuroCC training activities at CSC.
 | 09:30-11:00  | [Kokkos exercises](/exercises/kokkos)
 | 11:00-12:00  | [Interoperability with third-party libraries](exercises/sycl/09-interoperability/) and [mpi](exercises/sycl/08-ping-pong)
 | 12:00-13:00  | Lunch break
-| 13:00-14:00  | [Heat equation, cuda to sycl demo](exercises/sycl/10-heat-equation-from-cuda/)
-| 14:00-15:00  | Exercises & Bring your own code
+| 13:00-15:00  | Exercises & Bring your own code
 | 15:00-15:30  | Coffee Break
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
