@@ -215,7 +215,7 @@ catch (sycl::exception const &exc) {
 }
 ```
 
-## We can compile this sycl code just as we all the other examples!
+## We can compile this sycl code just as we did with all the other examples!
 ```bash
 filename=$(basename  $1)
 outname=${filename%.*}.x
