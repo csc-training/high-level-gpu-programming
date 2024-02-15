@@ -178,7 +178,7 @@ private:
     const int constant;
 public:
     Adder(int c) : constant{c} {}
-    int operator()(int a) { return constant + a; }
+    int operator()(int a) const { return constant + a; }
 };
 
 Adder add{5};
