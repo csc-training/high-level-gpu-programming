@@ -272,7 +272,7 @@ single GPU with single MPI task and a single thread use:
 #SBATCH --job-name=example
 #SBATCH --account=project_2008874
 #SBATCH --partition=gpusmall
-#SBATCH --reservation=hlgp-gpu-f2024-wed
+#SBATCH --reservation=hlgp-gpu-f2024-thu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --time=00:05:00
@@ -280,7 +280,10 @@ single GPU with single MPI task and a single thread use:
 
 srun my_gpu_exe
 ```
-The reservation `hlgp-gpu-f2024-wed` is valid on Wednesday, 15:00 to 17:00. On Thursday we will use `hlgp-gpu-f2024-thu` , while on Friday `hlgp-gpu-f2024-fri`.
+The reservation `hlgp-gpu-f2024-wed` is valid on Wednesday, 15:00 to 17:00. On Thursday we will use `hlgp-gpu-f2024-thu` , while on Friday `hlgp-gpu-f2024-fri`. Outside the course hours, you can use gputest partition instead without the reservation argument, ie, 
+```
+srun --account=project_2008874 --nodes=1 --partition=gpustest --gres=gpu:a100:1 --time=00:05:00 ./my_gpu_exe
+```
 
 
 ### Running on LUMI
