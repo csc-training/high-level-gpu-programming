@@ -18,7 +18,7 @@ Change the above command accordingly to run the program on an nvidia GPU!
 
 # This generates a profile report which can be observed with nsys-ui
 ## You have to download the report to your own computer and open it
-## with nsys-ui! And you have our profiling report!
+## with [nsys-ui](https://developer.nvidia.com/nsight-systems/get-started)! And you have our profiling report!
 # That means, you have to install nsys on your own computer,
 # on Linux you have to install nvidia sdk, please look it up for
 # your own system.
