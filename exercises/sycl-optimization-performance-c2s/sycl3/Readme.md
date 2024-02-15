@@ -22,10 +22,6 @@ intercept-build make
 c2s -p compile_commands.json --in-root ../../.. --gen-helper-function
 ```
 
-```bash
-intercept_convert.sh
-```
-
 ## 3. How well did it go?
 
 Check the conversion messages (purple warnings) and look at the respective files.\
