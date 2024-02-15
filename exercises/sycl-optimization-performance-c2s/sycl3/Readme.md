@@ -216,3 +216,31 @@ catch (sycl::exception const &exc) {
 ```
 
 ## We can compile this sycl code just as we all the other examples!
+```bash
+filename=$(basename  $1)
+outname=${filename%.*}.x
+
+echo running icpx -fuse-ld=lld  -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a -I../../../../Common/  -o $outname $filename $2 $3 $4 $5
+
+icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 -I../../../../Common/ -o  $outname $filename $2 $3 $4 $5
+```
+
+can be invoked like:
+```bash
+./compile.sh vectorAdd.dp.cpp
+```
+which gives you vectorAdd.dp.x
+```bash
+#!/bin/bash
+#SBATCH --job-name=usm
+#SBATCH --account=project_2008874
+#SBATCH --partition=gpusmall
+#SBATCH --reservation=hlgp-gpu-f2024-thu
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=00:01:00
+#SBATCH --gres=gpu:a100:1
+
+srun vectorAdd.dp.x
+```
+
