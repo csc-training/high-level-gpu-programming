@@ -57,3 +57,11 @@ rm -r build
 mkdir build && cd build
 cmake .. && make VERBOSE=1
 ```
+
+# SIMPLE VECTORADD
+```bash
+cd cuda-samples/Samples/0_Introduction/vectorAdd
+c2s vectorAdd.cu --in-root ../../..
+cd ~/cuda-samples/Samples/0_Introduction/vectorAdd/dpct_output/Samples/0_Introduction/vectorAdd/
+```
+In there is the sycl file
