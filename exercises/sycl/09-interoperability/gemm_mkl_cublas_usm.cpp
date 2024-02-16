@@ -26,6 +26,10 @@
 // icpx -std=c++17 -fuse-ld=lld -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64   -DMKL_LIB gemm_mkl_cublas_usm.cpp 
 
 // ************************************************************************************************************************************************************
+//
+// If uyou are lucky you make this https://github.com/oneapi-src/oneMKL work
+//
+
 #include <sycl/sycl.hpp>
 #include <ctime>
 #include <chrono>
