@@ -189,7 +189,7 @@ q.submit([&](handler &cgh) {
        // Call generalised matrix-matrix multiply
        // Call generalised matrix-matrix multiply
        CHECK_ERROR(cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N,N,
-                               N, &alpha, dev_a, N, dev_b, N, &beta,
+                               N, &alpha, dev_b, N, dev_a, N, &beta,
                                dev_c, N));
      });
    }).wait();
@@ -206,7 +206,7 @@ q.submit([&](handler &cgh) {
 
        // Call generalised matrix-matrix multiply
        CHECK_ERROR(cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, N,N,
-                               N, &alpha, dev_a, N, dev_b, N, &beta,
+                               N, &alpha, dev_b, N, dev_a, N, &beta,
                                dev_c, N));
        cuStreamSynchronize(cuStream);
      });
