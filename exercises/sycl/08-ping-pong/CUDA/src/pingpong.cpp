@@ -113,6 +113,7 @@ void GPUtoGPUtestCudaAware(int rank, double *dA, int N, double &timer)
 
         MPI_Recv(dA, N, MPI_DOUBLE, 0, 11, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         call_kernel(dA, N, grid, tib);
+        CUDA_CHECK(cudaStreamSynchronize(0));
         MPI_Send(dA, N, MPI_DOUBLE, 0, 12, MPI_COMM_WORLD);
     }
 
