@@ -166,7 +166,8 @@ int main(int argc, char *argv[])
     CUDA_CHECK( cudaMallocHost((void **)&hA, sizeof(double) * N) );
     CUDA_CHECK( cudaMalloc((void **)&dA, sizeof(double) * N) );
 
-
+    // Dummy transfer to remove the overhead of the first communication
+    CPUtoCPUtest(rank, hA, N, CPUtime);
 
     /* Re-initialize and copy the data to the device memory to prepare for
      * MPI test */
@@ -182,6 +183,9 @@ int main(int argc, char *argv[])
         printf("CPU-CPU time %f, errorsum %f\n", CPUtime, errorsum);
     }
 
+
+    // Dummy transfer to remove the overhead of the first communication
+    GPUtoGPUtestCudaAware(rank, dA, N, GPUtime);
 
     /* Re-initialize and copy the data to the device memory */
     for (int i = 0; i < N; ++i)
@@ -199,6 +203,9 @@ int main(int argc, char *argv[])
             errorsum += hA[i] - 2.0;        
         printf("GPU-GPU cuda-aware time %f, errorsum %f\n", GPUtime, errorsum);
     }
+
+    // Dummy transfer to remove the overhead of the first communication
+    GPUtoGPUtestManual(rank, hA, dA, N, GPUtime);
 
     /* Re-initialize and copy the data to the device memory to prepare for
      * MPI test */
