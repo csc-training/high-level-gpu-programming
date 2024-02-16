@@ -16,7 +16,7 @@
 // Add -DACPP if cublas and Adaptive Cpp is used for compiling
 // Add -DDPCPP -DCUDA_NO_HALF if oneapi is used for compiling
 // icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
-
+// //<path_to_acpp>/binacpp -O3 --hipsycl-targets="cuda:sm_80"   -DCUBLAS -DACPP $CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda 
 
 #include <sycl/sycl.hpp>
 #include <ctime>
