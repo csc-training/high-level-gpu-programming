@@ -192,6 +192,11 @@ int main(int argc, char *argv[])
     double GPUtime,CPUtime;
     std::vector<int> ha(N);
     int* da_usm = malloc_device<int>(N, q);
+
+    // Dummy transfer to remove the overhead of the first communication
+    CPUtoCPUtest(id, ha.data(), N, &CPUtime);
+
+
     std::fill(ha.begin(), ha.end(), 1);
     // Copy data from host to USM
     q.memcpy(da_usm, ha.data(), N * sizeof(int)).wait();
@@ -204,6 +209,9 @@ int main(int argc, char *argv[])
             errorsum += ha[i] - 2.0;        
         printf("CPU-CPU time time %lf, errorsum %d\n", CPUtime, errorsum);
     }
+
+    // Dummy transfer to remove the overhead of the first communication
+    GPUtoGPUtestmanual(id, da_usm, ha.data() , N, M, &GPUtime, q);
 
     // Reinitialize the data
     std::fill(ha.begin(), ha.end(), 1);
@@ -223,6 +231,10 @@ int main(int argc, char *argv[])
             errorsum += ha[i] - 2.0;        
         printf("GPU-GPU manual transfer time %lf, errorsum %d\n", GPUtime, errorsum);
     }
+
+
+    // Dummy transfer to remove the overhead of the first communication
+    GPUtoGPUtestGPUAware(id, da_usm, N, M, &GPUtime, q);
     
     // Reinitialize the data
     std::fill(ha.begin(), ha.end(), 1);
