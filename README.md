@@ -45,7 +45,7 @@ part of the EuroCC training activities at CSC.
 | 13:00-13:00  | Memory optimization
 | 13:30-15:00  | Interoperability with mpi [ping-pong](exercises/sycl/08-ping-pong) & [pi](/exercises/sycl/11-pi/)
 | 15:00-15:30  | Coffee Break
-| 15:30-16:00  | Interoperability with [third-party libraries](exercises/sycl/09-interoperability/) and
+| 15:30-16:00  | Interoperability with [third-party libraries](exercises/sycl/09-interoperability/)
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
