@@ -42,8 +42,7 @@ part of the EuroCC training activities at CSC.
 | 09:30-11:00  | [Kokkos exercises](/exercises/kokkos)
 | 11:00-12:00  | Memory optimizations [Jacobi Iterations](exercises/sycl/07-jacobi/), [Matrix-Matrix multiply](exercises/sycl/04-matrix-matrix-mul/) & [Reductions](/exercises/sycl/06-reduction-direct/)
 | 12:00-13:00  | Lunch break
-| 13:00-15:00  | Interoperability with [third-party libraries](exercises/sycl/09-interoperability/) and mpi [ping-pong](exercises/sycl/08-ping-pong) & [pi](/exercises/sycl
-/11-pi/)
+| 13:00-15:00  | Interoperability with [third-party libraries](exercises/sycl/09-interoperability/) and mpi [ping-pong](exercises/sycl/08-ping-pong) & [pi](/exercises/sycl/11-pi/)
 | 15:00-15:30  | Coffee Break
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
