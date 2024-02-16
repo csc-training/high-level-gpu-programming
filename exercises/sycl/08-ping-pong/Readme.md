@@ -16,5 +16,5 @@ export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 Otherwise the compilation and execution is done as indicated in the [instructions](../../../Exercises_Instructions.md)
 ## Task
-For this exercise one can start from the [cuda code](08-ping-pong/CUDA/src/) and just  replace all the cuda calls with equivalent SYCL calls. One has to define the SYCL queues associated with the right GPU in the node, allocate the GPU pointers, and replace the cuda kernel launch with equivalent SYCL lambdas or function operators. If you get stuck take a peek a the [solution](solution/pp_with_usm.cpp).
+For this exercise one can start from the [cuda code](CUDA/src/) and just  replace all the cuda calls with equivalent SYCL calls. One has to define the SYCL queues associated with the right GPU in the node, allocate the GPU pointers, and replace the cuda kernel launch with equivalent SYCL lambdas or function operators. If you get stuck take a peek a the [solution](solution/pp_with_usm.cpp).
 

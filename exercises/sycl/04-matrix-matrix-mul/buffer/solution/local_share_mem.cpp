@@ -165,7 +165,8 @@ int main(int argc, char *argv[]) {
                     for (k = 0; k < M; k++) 
                     {
                         temp += A_tile[x][k] * B_tile[k][y];
-                    } 
+                    }
+                     item.barrier(access::fence_space::local_space); // barrier within the group 
                 }
                 C[i*N+j] = temp;
             });
