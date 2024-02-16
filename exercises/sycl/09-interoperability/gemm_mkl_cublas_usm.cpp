@@ -15,6 +15,7 @@
 
 // Add -DACPP if cublas and Adaptive Cpp is used for compiling
 // Add -DDPCPP -DCUDA_NO_HALF if oneapi is used for compiling
+// icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
 
 
 #include <sycl/sycl.hpp>
@@ -213,9 +214,9 @@ q.submit([&](handler &cgh) {
 
 #endif
   
-    auto duration = std::chrono::high_resolution_clock::now() - start;
-    double elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(duration).count();
-    std::cout << "\n Execute in " << elapsed_seconds << " s\n";
+    //auto duration = std::chrono::high_resolution_clock::now() - start;
+    //double elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(duration).count();
+    //std::cout << "\n Execute in " << elapsed_seconds << " s\n";
 
     q.memcpy(matrix_c.data(), dev_c, N*N*sizeof(float)).wait();
     //# Print Output
