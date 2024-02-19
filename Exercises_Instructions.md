@@ -324,4 +324,5 @@ srun my_cpu_exe
 srun my_gpu_exe
 ```
 Similarly to Mahti, on LUMI we have 2 cpu nodes reservered for us, and as well 2 gpu nodes. 
+
 **NOTE** Some exercises have additional instructions of how to run!
