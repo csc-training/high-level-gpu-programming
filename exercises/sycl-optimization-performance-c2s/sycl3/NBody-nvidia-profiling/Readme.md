@@ -3,7 +3,7 @@
 
 - Compile the program with the following options for run on the nvidia GPU
 ```bash
-icpx -fsycl -fsycl-targets=nvptx64-nvidia-cuda -O3 -o main.x.gpu main.cpp GSimulation.cpp
+icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda -O3 -o main.x.gpu main.cpp GSimulation.cpp
 ```
 
 Put your compile script togetger, if you like, you can also compile for both targets, AMD CPU and NVIDIA GPU
