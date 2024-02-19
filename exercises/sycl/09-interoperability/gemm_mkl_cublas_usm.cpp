@@ -226,11 +226,12 @@ q.submit([&](handler &cgh) {
 
 #endif
   
-    //auto duration = std::chrono::high_resolution_clock::now() - start;
-    //double elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(duration).count();
-    //std::cout << "\n Execute in " << elapsed_seconds << " s\n";
-
-    q.memcpy(matrix_c.data(), dev_c, N*N*sizeof(float)).wait();
+    q.memcpy(matrix_c.data(), dev_c, N*N*sizeof(float)).wait(); 
+    
+    // Nor sure if this works
+    auto duration = std::chrono::high_resolution_clock::now().time_since_epoch().count() - start;
+    std::cout << "\tCompute Duration      : " << duration / 1e+9 << " seconds\n";
+   
     //# Print Output
     if (PRINT_OUTPUT_MATRIX){
         for (int i=0; i<N; i++){
