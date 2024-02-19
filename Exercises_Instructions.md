@@ -257,7 +257,7 @@ Save the script *e.g.* as `job.sh` and submit it with `sbatch job.sh`.
 The output of job will be in file `slurm-xxxxx.out`. You can check the status of your jobs with `squeue -u $USER` and kill possible hanging applications with
 `scancel JOBID`.
 
-The reservation `hlgp-cpu-f2024` for parition `medium` is available during the training days and it
+The reservation `hlgp-cpu-f2024` for partition `medium` is available during the training days and it
 is accessible only if the users are part of `project_2008874`.
 
 Some applications use MPI, in this case the number of node and number of tasks per node will have to be adjusted accordingly.
