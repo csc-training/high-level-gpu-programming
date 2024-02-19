@@ -146,6 +146,25 @@ q.submit([&](handler &cgh) {
 
 #endif
 ```
-This looks ugly and kind of bits the purpose of using SYCL, but if it only a small part of the whole code it is preferable to having 3-5 different version of the same application written for different devices (CPU, Intel GPU, FPGA, Nvidia GPU, AMD GPU, and so on).
+This looks ugly and kind of bits the purpose of using SYCL, but if it is only a small part of the whole code it is preferable to having 3-5 different version of the same application written for different devices (CPU, Intel GPU, FPGA, Nvidia GPU, AMD GPU, and so on).
 
-For a complete example implementation, refer to the provided  [code](gemm_mkl_cublas_usm.cpp). Note in the comments at the begnning of the code the instructions for compiling the code for different situations.
+For a complete example implementation, refer to the provided  [code](gemm_mkl_cublas_usm.cpp). Note in the comments at the beginning of the code the instructions for compiling the code for different situations.
+
+## Compilation
+Here are the complete compilation options for the various cases.
+
+#### OneAPI with `oneMKL`
+
+```
+icpx -std=c++17 -fuse-ld=lld -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64   -DMKL_LIB gemm_mkl_cublas_usm.cpp
+``` 
+
+#### OneAPI with `cuBlas
+```
+icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
+```
+#### AdaptiveCpp with `cuBlas`
+
+```
+ /projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -DCUBLAS -DACPP -I$CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
+```
