@@ -63,9 +63,12 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 ### SYCL Performance and Optimization
 - [Unified Shared Memory](exercises/sycl-optimization-performance-c2s/sycl2/Readme.md)
 - [Profiling on Nvidia platform](exercises/sycl-optimization-performance-c2s/sycl3/NBody-nvidia-profiling/Readme.md)
-- 
+
 ### SYCL Migrate from CUDA to SYCL
 - [CUDA to SYCL migration](exercises/sycl-optimization-performance-c2s/sycl3/Readme.md)
+
+### Syclomatic
+- [Heat equation from CUDA to SYCL](exercises/sycl/10-heat-equation-from-cuda/)
 
 ### Memory Optimization
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
@@ -82,7 +85,3 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 ### SYCL interoperability
 
 - [SYCL and 3rd party libraries](exercises/sycl/09-interoperability/)
-
-### Syclomatic
-- [Heat equation from CUDA to SYCL](exercises/sycl/10-heat-equation-from-cuda/)
- 
