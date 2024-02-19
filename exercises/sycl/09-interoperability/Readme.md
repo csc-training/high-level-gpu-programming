@@ -32,12 +32,11 @@ Compiling the code requires some extra flags for linking to the MKL library:
 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64
 ```
 Where `MKLROOT` is an environment variable which is set during the initial set up of the oneAPI.
-
 ### Nvidia and AMD hardware
 In the case non-Intel hardware the specific libraries need to be called. For Nvidia GPUs we use cuBlas, while for AMD hipBlas. Calling directly this library  depends on the SYCL implementation. 
 
-#### Using oneAPI
-If you are lucky someone set the [mkl interfaces](https://oneapi-src.github.io/oneMKL/create_new_backend.html). Then the oneMKL calls will call directly the cuda/hip libraries when the cuda/hip backend is enabled. Otherwise we the use `host_task` method to enqueu a libray call on a specific queue:
+#### Using oneAPI with `cuBlas` 
+If you are lucky someone set the [mkl interfaces](https://oneapi-src.github.io/oneMKL/create_new_backend.html) or they are already supported in the [oneMKL interfaces]([interfaces](https://github.com/oneapi-src/oneMKL/tree/develop)). Then the oneMKL calls will call directly the cuda/hip libraries when the cuda/hip backend is enabled. Otherwise we the use `host_task` method to enqueue a libray call on a specific queue:
 ```
   q.submit([&](handler &h) {
      h.host_task([=](sycl::interop_handle ih) {
@@ -159,7 +158,7 @@ Here are the complete compilation options for the various cases.
 icpx -std=c++17 -fuse-ld=lld -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64   -DMKL_LIB gemm_mkl_cublas_usm.cpp
 ``` 
 
-#### OneAPI with `cuBlas
+#### OneAPI with `cuBlas`
 ```
 icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
 ```
