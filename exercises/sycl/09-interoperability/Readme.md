@@ -36,7 +36,7 @@ Where `MKLROOT` is an environment variable which is set during the initial set u
 In the case non-Intel hardware the specific libraries need to be called. For Nvidia GPUs we use cuBlas, while for AMD hipBlas. Calling directly this library  depends on the SYCL implementation. 
 
 #### Using oneAPI with `cuBlas` 
-If you are lucky someone set the [mkl interfaces](https://oneapi-src.github.io/oneMKL/create_new_backend.html) or they are already supported in the [oneMKL interfaces]([interfaces](https://github.com/oneapi-src/oneMKL/tree/develop)). Then the oneMKL calls will call directly the cuda/hip libraries when the cuda/hip backend is enabled. Otherwise we the use `host_task` method to enqueue a libray call on a specific queue:
+If you are lucky someone set the [mkl interfaces](https://oneapi-src.github.io/oneMKL/create_new_backend.html) or they are already supported in the [oneMKL interfaces](https://github.com/oneapi-src/oneMKL). Then the oneMKL calls will call directly the cuda/hip libraries when the cuda/hip backend is enabled. Otherwise we the use `host_task` method to enqueue a libray call on a specific queue:
 ```
   q.submit([&](handler &h) {
      h.host_task([=](sycl::interop_handle ih) {
