@@ -16,7 +16,7 @@ int main() {
   std::fill(c.begin(), c.end(), 0);
 
   {
-    // Create buffers for data and sum
+    // Allocate the memory using universal share memory
     int* a_usm = malloc_device<int>(N, q);
     int* b_usm = malloc_device<int>(N, q);
     int* c_usm = malloc_device<int>(N, q);
