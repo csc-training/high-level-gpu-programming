@@ -53,7 +53,7 @@ If you are lucky someone set the [mkl interfaces](https://oneapi-src.github.io/o
      });
    }).wait();
 ```
-This option is functionally correct, but due to the way the `host_task` is designed, this means that all work before the `ccuBlas` call needs to be finished before the actually call. And then also note the `cuStreamSynchronize()`  call in the `host_task` which means that the program waits for the work to be done before continuing. 
+This option is functionally correct, but due to the way the `host_task` is designed, this means that all work before the `cuBlas` call needs to be finished before the actually call. And then also note the `cuStreamSynchronize()`  call in the `host_task` which means that the program waits for the work to be done before continuing. 
 
 ### Using AdaptiveCpp
 The alternative to the `host_task` is the `hipSYCL_enqueue_custom_operation()`. As the name suggests this is only available in the AdaptiveCpp (formerly known as hipsycl) implementation. Below is an example:
@@ -145,7 +145,7 @@ q.submit([&](handler &cgh) {
 
 #endif
 ```
-This looks ugly and kind of bits the purpose of using SYCL, but if it is only a small part of the whole code it is preferable to having 3-5 different version of the same application written for different devices (CPU, Intel GPU, FPGA, Nvidia GPU, AMD GPU, and so on).
+This looks ugly and kind of beats the purpose of using SYCL, but if it is only a small part of the whole code it is preferable to having 3-5 different version of the same application written for different devices (CPU, Intel GPU, FPGA, Nvidia GPU, AMD GPU, and so on).
 
 For a complete example implementation, refer to the provided  [code](gemm_mkl_cublas_usm.cpp). Note in the comments at the beginning of the code the instructions for compiling the code for different situations.
 
