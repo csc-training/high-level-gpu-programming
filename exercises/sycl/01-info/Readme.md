@@ -10,3 +10,5 @@ for (const auto & p : platform::get_platforms()) {
     }  
 }
 ``` 
+
+The `sycl::info` namespace is wide. It is possible to query platform name and version, device name, and also some low level details such as maximum size permitted for work-groups or how many compute units (or SMP) the device has.
