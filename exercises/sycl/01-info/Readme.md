@@ -9,3 +9,4 @@ for (const auto & p : platform::get_platforms()) {
         std::cout << "name: " << d.get_info<info::device::name>() << std::endl;
     }  
 }
+``` 
