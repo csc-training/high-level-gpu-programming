@@ -1,12 +1,12 @@
 ---
-title:  Introduction to GPU parallel computing and programming model
+title:  Introduction to GPUs
 subtitle: High-Level GPU Programming 
 author:   CSC Training
 date:     2024-02
 lang:     en
 ---
 
-# Introduction to GPU parallel computing and programming model{.section}
+# Introduction to GPUs {.section}
 
 # High Performance Computing through the ages
 
@@ -33,9 +33,7 @@ lang:     en
 - Usually major rewrites of programs required
 
 
-
 # Accelerator model today
-
 
 - Local memory in GPU
     - Smaller than main memory (32 GB in Puhti, 64GB in LUMI)
@@ -46,7 +44,6 @@ lang:     en
 
 - GPUs are connected to CPUs via PCIe
 - Data must be copied from CPU to GPU over the PCIe bus
-
 
 # Lumi - Pre-exascale system in Finland
 
@@ -90,19 +87,19 @@ lang:     en
 - CPU and GPU can work concurrently
    - kernel launches are normally asynchronous
 
+
 # Using GPUs
 
 <div class="column">
 
-
-
 1. Use existing GPU applications
 2. Use accelerated libraries
-3. Directive based methods
+3. Features in language standards
+4. Directive based methods
     - OpenMP, OpenACC
-4. High-level GPU programming
+5. High-level GPU programming
     - **SYCL**, **Kokkos**, ...
-5. Use direct GPU programming
+6. Use direct GPU programming
     - CUDA, HIP, ...
 </div>
 <div class="column">
@@ -113,8 +110,6 @@ lang:     en
 **More difficult, more opportunities**
 
 </div>
-
-
 
 <!--
 # Directive-based accelerator languages
@@ -156,6 +151,7 @@ lang:     en
     - Four Nvidia A100 GPUs, two 64-core AMD Epyc processors, 3.8 TB fast local storage,  network connectivity of 200Gbps aggregate bandwidth   
 - **LUMI-G**: 2560 nodes, total peak performance of 500 Petaflops
     - Four AMD MI250X GPUs, one 64-core AMD Epyc processor, <!--2x3 TB fast local storage,--> network connectivity of 800Gbps aggregate bandwidth
+
 
 # Summary
 
