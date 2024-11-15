@@ -32,8 +32,8 @@ lang:     en
   - specific  adaptation of the SYCL programming model
     - **compilers**:  translate the SYCL code into machine code that can run on various hardware accelerators
     - **runtime library**: manages the execution of SYCL applications, handling  memory management, task scheduling, and synchronization across different devices
-    - **backend support**: support for various backends to target different hardware.They might include backends for OpenCL, CUDA, HIP, and Level Zero
-    - **standard library extensions**: additional functionalities and optimizations specific to SYCL
+    - **backend support**: interface for various backends such as OpenCL, CUDA, HIP,  Level Zero, OpenMP
+    - **standard template library**: interface for accesing functionalities and optimizations specific to SYCL
     - **development tools**: debuggers, profilers, etc.
 
 
@@ -45,7 +45,7 @@ lang:     en
 
 **Intel One API** + CodePlay Plug-ins for Nvidia and AMD:
 
-  - CPUs, Intel GPUs, Intel FPGAs (via SPIR-V or Level 0)
+  - CPUs, Intel GPUs, Intel FPGAs (via OpenCL or Level Zero)
   - Nvidia GPUs (via CUDA), AMD GPUs (via ROCM)
 
 **AdaptiveCpp** (former OpenSYCL, hipSYCL):
