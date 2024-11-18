@@ -13,17 +13,21 @@ lang:     en
  - C++ abstraction layer that can target various heterogeneous platforms in a single application
  - single source, high-level programming model
  - open source, royalty-free
- - focused on 3P (Productivity, Portability, Performance)
  - developed by the Khronos Group 
-    - v. 1.2 (2014), final (2015) revise 1.2.1 (2017)
-    - v. 2.2 (2016), never finalized, C++14 and OpenCL 2.2
-    - SYCL 2020 (2021), revision 9 (2024), C++17 and OpenCL 3.0
+    - 1.2 (2014), final (2015) revise 1.2.1 (2017)
+    - 2.2 (2016), never finalized, C++14 and OpenCL 2.2
+    - 2020 (2021), revision 9 (2024), C++17 and OpenCL 3.0
+ - focused on 3P (Productivity, Portability, Performance)
 
 
 # Productivity, Portability, Performance
 
  - **Productivity**: uses generic programming with templates and generic lambda functions.
+
+
  - **Portability**: it is a standard.
+
+
  - **Performance**: implementations aim to optimize SYCL for specific hardware platforms
 
 # SYCL implementation
@@ -39,7 +43,8 @@ lang:     en
 
 # SYCL ecosystem
 
-![](img/2020-blog-sycl-03.jpg){.center width=80%}
+![https://www.khronos.org/blog/sycl-2020-what-do-you-need-to-know](img/2020-blog-sycl-03.jpg){.center width=75%}
+
 
 # SYCL Implementations on Mahti and LUMI
 

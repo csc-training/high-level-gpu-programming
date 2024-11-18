@@ -1,3 +1,10 @@
+/* Adapted from: https://github.com/Apress/data-parallel-CPP
+ *
+ * Copyright (C) 2020 Intel Corporation
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <sycl/sycl.hpp>
 #include <iostream>
 
