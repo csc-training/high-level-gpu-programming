@@ -1,7 +1,10 @@
 a.out
 *.o
+*.x
 *.png
 *.qdrep
 *.sqlite
+*.out
+*.nsys-rep
 heat
 build/
