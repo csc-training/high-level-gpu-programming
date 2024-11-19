@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
     printf("Time: %.4f s\n", time);
     printf("Performance: %.3f GFLOPS, %.3f GB/s\n", gflops, gbytess);
 #else
-    printf("%16.4f %16.3f %16.3f\n", (double)nbytes / pow(1024, 2), gflops, gbytess);
+    printf("%16zu %16.4f %16.3f %16.3f\n", n, (double)nbytes / pow(1024, 2), gflops, gbytess);
 #endif
 
     gpublasDestroy(gpublasH);
