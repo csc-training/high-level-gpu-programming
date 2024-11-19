@@ -2,16 +2,16 @@
 
 Set the environments paths:
 
-    . /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
+    source /projappl/project_2012125/intel/oneapi/setvars.sh --include-intel-llvm
     ml cuda/11.5.0 openmpi/4.1.2-cuda
 
 Compile for nvidia and cpu targets:
 
-    clang++ -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  <sycl_code>.cpp
+    icpx -fuse-ld=lld -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 sycl_code.cpp
 
 Run as an usual gpu program:
 
-    srun --partition=gputest --account=project_2008874 --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 --time=00:15:00 ./a.out
+    srun --partition=gputest --account=project_2012125 --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 --time=00:15:00 ./a.out
 
 
 ## The Intel® DPC++ Compatibility Tool
