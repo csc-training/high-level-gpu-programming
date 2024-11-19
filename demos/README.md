@@ -21,7 +21,7 @@ nvc++ -DBENCHMARK -O4 -std=c++20 -stdpar=gpu -gpu=cc80 --gcc-toolchain=$(dirname
 nvcc  -DBENCHMARK -O3 -x cu -arch sm_80 --expt-relaxed-constexpr daxpy_cuda_hip.cpp -o cuda_hip.x
 nvcc  -DBENCHMARK -O3 -x cu -arch sm_80 --expt-relaxed-constexpr daxpy_blas.cpp -lcublas -o blas.x
 
-sbatch -p gputest --ntasks-per-node=1 --gres=gpu:a100:1 -t 0:05:00 submit.sh
+sbatch daxpy_benchmark.sh
 
 
 # sycl
