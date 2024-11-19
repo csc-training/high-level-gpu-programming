@@ -1,8 +1,15 @@
 #!/bin/bash
 #SBATCH -J test
+#SBATCH -p gputest
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --gres=gpu:a100:1
+#SBATCH -t 0:05:00
 
 nit=200
 for version in blas cuda_hip stdpar; do
+#for version in sycl; do
     echo $version
     f=daxpy_$version.dat
     rm $f
