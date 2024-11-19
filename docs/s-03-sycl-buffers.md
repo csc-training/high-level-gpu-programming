@@ -29,7 +29,7 @@ lang:     en
  - support 1-, 2-, or 3-dimensional data
  - dependencies between multiple kernels are implicitly handled
  - buffers get to be initialized them from already existing objects
- - does not own the memory, it’s only a constrained view into it
+ - does not own the memory, it’s only a *constrained view* into it
  - accessor objects are used to access the data
  - three possible access modes, *read_write*, *read_only*, or *write_only*
  - can have also host accessors
