@@ -56,6 +56,9 @@ void init(const size_t n, double *x, double *y)
 void daxpy(const size_t n, const double a, const double *x, double *y)
 {
     gpublasDaxpy(gpublasH, n, &a, x, 1, y, 1);
+#ifdef SYNC
+    gpuDeviceSynchronize();
+#endif
 }
 
 bool check(const std::vector<double> &y);

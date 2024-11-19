@@ -56,6 +56,9 @@ void daxpy(const size_t n, const double a, const double *x, double *y)
     dim3 blocks(n / 1024);
     dim3 threads(1024);
     daxpy_<<<blocks, threads>>>(n, a, x, y);
+#ifdef SYNC
+    gpuDeviceSynchronize();
+#endif
 }
 
 bool check(const std::vector<double> &y);

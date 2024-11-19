@@ -32,6 +32,9 @@ void daxpy(sycl::queue &q, const double a, auto &x_buf, auto &y_buf)
         };
         h.parallel_for(sycl::range{x_buf.size()}, kernel);
     });
+#ifdef SYNC
+    q.wait();
+#endif
 }
 
 bool check(const auto &y);
