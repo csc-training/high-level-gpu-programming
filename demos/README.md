@@ -19,7 +19,7 @@ srun -p gpusmall --ntasks-per-node=1 --gres=gpu:a100_1g.5gb:1 -t 0:05:00 ./blas.
 # benchmark
 bash compile.sh -DBENCHMARK
 
-sbatch daxpy_benchmark.sh
+sbatch daxpy_benchmark.sh blas blas_sync cuda_hip cuda_hip_sync stdpar
 
 
 # sycl
@@ -28,5 +28,6 @@ source /projappl/project_2012125/intel/oneapi/setvars.sh --include-intel-llvm
 ml cuda/11.5.0 openmpi/4.1.2-cuda
 
 bash compile.sh -DBENCHMARK
+sbatch daxpy_benchmark.sh sycl sycl_sync
 
 ```

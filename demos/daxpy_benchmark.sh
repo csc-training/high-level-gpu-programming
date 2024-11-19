@@ -8,8 +8,7 @@
 #SBATCH -t 0:05:00
 
 nit=200
-for version in blas blas_sync cuda_hip cuda_hip_sync stdpar; do
-#for version in sycl sycl_sync; do
+for version in "$@"; do
     echo $version
     f=daxpy_$version.dat
     rm $f
