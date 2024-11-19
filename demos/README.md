@@ -7,6 +7,7 @@ ml purge
 ml use /appl/opt/nvhpc/modulefiles
 ml nvhpc/24.3
 ml gcc/11.2.0
+export PATH=/appl/spack/v017/install-tree/gcc-8.5.0/binutils-2.37-ed6z3n/bin:$PATH
 
 nvc++ -O4 -std=c++20 -stdpar=gpu -gpu=cc80 daxpy_stdpar.cpp --gcc-toolchain=$(dirname $(which g++)) -o stdpar.x
 nvcc  -O3 -x cu -arch sm_80 --expt-relaxed-constexpr daxpy_cuda_hip.cpp -o cuda_hip.x
