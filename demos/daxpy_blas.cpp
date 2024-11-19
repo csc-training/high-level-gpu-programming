@@ -27,6 +27,7 @@
 #endif
 
 #include <chrono>
+#include <cmath>
 #include <cstdio>
 #include <string>
 #include <vector>
@@ -67,7 +68,7 @@ int main(int argc, char *argv[])
     double a = 3.4;
 
 #ifndef BENCHMARK
-    printf("Vector size %d (%.2f MiB)\n", n, (double)nbytes / (1024*1024));
+    printf("Vector size %zu (%.2f MiB)\n", n, (double)nbytes / (1024*1024));
     fflush(stdout);
 #endif
 
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
     gpuMalloc(&y, nbytes);
     gpublasCreate(&gpublasH);
 
-    // Initialize
+    // Initialize data on GPU
     init(n, x, y);
 
     // Calculate on GPU
@@ -96,7 +97,7 @@ int main(int argc, char *argv[])
     }
 #endif
 
-    // BENCHMARK performance
+    // Measure performance
     gpuDeviceSynchronize();
     using clock = std::chrono::high_resolution_clock;
     auto t0 = clock::now();
@@ -111,7 +112,7 @@ int main(int argc, char *argv[])
 
 #ifndef BENCHMARK
     printf("Time: %.4f s\n", time);
-    printf("Performance: %.3f GFLOPS, %.3f GiB/s\n", gflops, gbytess);
+    printf("Performance: %.3f GFLOPS, %.3f GB/s\n", gflops, gbytess);
 #else
     printf("%16.4f %16.3f %16.3f\n", (double)nbytes / pow(1024, 2), gflops, gbytess);
 #endif
