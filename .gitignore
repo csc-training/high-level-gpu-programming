@@ -6,5 +6,6 @@ a.out
 *.sqlite
 *.out
 *.nsys-rep
+*.ncu-rep
 heat
 build/
