@@ -38,21 +38,21 @@ The Intel DevCloud can be acces via the [web interface](https://console.cloud.in
 
 ### Disk area
 
-The  (computing and storage)  resources can be accessed on on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2008874` on Mahti and `project_462000456` on LUMI.
+The  (computing and storage)  resources can be accessed on on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2012125` on Mahti and `project_462000456` on LUMI.
 
 All the exercises in the supercomputers have to be carried out in the **scratch** disk area. The name of the scratch directory can be queried with the commands `csc-workspaces` on Mahti and `lumi-workspaces` onLUMI. As the base directory is shared between members of the project, you should create your own
 directory:
 
 on Mahti
 ```
-cd /scratch/project_2008874
+cd /scratch/project_2012125
 mkdir -p $USER
 cd $USER
 ```
 
 on LUMI
 ```
-cd /scratch/project_462000456
+cd /scratch/project_462000752
 mkdir -p $USER
 cd $USER
 ```
@@ -122,14 +122,14 @@ In order to use the intel SYCL compiler one has to  set the environment varibles
 
 on Mahti:
 ```
-. /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
+. /projappl/project_2012125/intel/oneapi/setvars.sh --include-intel-llvm
 module load cuda # This is needed for compiling sycl code for nvidia gpus
 module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI 
 ```
 
 on LUMI:
 ```
-. /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
+. /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
 
 module load LUMI/22.08
 module load partition/G
@@ -158,7 +158,7 @@ module load cuda # This is needed for compiling sycl code for nvidia gpus
 module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI
 ```
 ```
-/projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
+/projappl/project_2012125/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
 ```
 on LUMI:
 ```
@@ -172,7 +172,7 @@ export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib
 ```
 
 ```
- /projappl/project_462000456/AdaptiveCpp/bin/acpp -O3 <sycl_code>.cpp
+ /projappl/project_462000752/AdaptiveCpp/bin/acpp -O3 <sycl_code>.cpp
 ```
 In general one can set specific targets via the `--acpp-targets` flag, but we set-up AdaptiveCpp so that on Mahti the `acpp` compiler will automatically generate code for CPU and Nvidia GPUs, while on LUMI for CPU and AMD GPUs.
 
@@ -198,12 +198,12 @@ icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backen
 ```
 or
 ```
-/projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
+/projappl/project_2012125/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 
 Similarly on LUMI. First we set up the envinronment and load the modules as indicated above
 ```
-. /projappl/project_462000456/intel/oneapi/setvars.sh --include-intel-llvm
+. /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
 
 module load LUMI/22.08
 module load partition/G
@@ -219,7 +219,7 @@ icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend
 Or with AdaptiveCpp:
 ```
 export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so
-/projappl/project_462000456/AdaptiveCpp/bin/acpp -O3  `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
+/projappl/project_462000752/AdaptiveCpp/bin/acpp -O3  `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
 ```
 
 ## Running applications in supercomputers
@@ -242,7 +242,7 @@ Use [`SYCL_PI_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.htm
 ```
 #!/bin/bash
 #SBATCH --job-name=example
-#SBATCH --account=project_2008874
+#SBATCH --account=project_2012125
 #SBATCH --partition=medium
 #SBATCH --reservation=hlgp-cpu-f2024
 #SBATCH --time=00:05:00
@@ -258,7 +258,7 @@ The output of job will be in file `slurm-xxxxx.out`. You can check the status of
 `scancel JOBID`.
 
 The reservation `hlgp-cpu-f2024` for partition `medium` is available during the training days and it
-is accessible only if the users are part of `project_2008874`.
+is accessible only if the users are part of `project_2012125`.
 
 Some applications use MPI, in this case the number of node and number of tasks per node will have to be adjusted accordingly.
 
@@ -270,7 +270,7 @@ single GPU with single MPI task and a single thread use:
 ```
 #!/bin/bash
 #SBATCH --job-name=example
-#SBATCH --account=project_2008874
+#SBATCH --account=project_2012125
 #SBATCH --partition=gpusmall
 #SBATCH --reservation=hlgp-gpu-f2024-thu
 #SBATCH --nodes=1
@@ -282,7 +282,7 @@ srun my_gpu_exe
 ```
 The reservation `hlgp-gpu-f2024-wed` is valid on Wednesday, 15:00 to 17:00. On Thursday we will use `hlgp-gpu-f2024-thu` , while on Friday `hlgp-gpu-f2024-fri`. Outside the course hours, you can use gputest partition instead without the reservation argument, ie, 
 ```
-srun --account=project_2008874 --nodes=1 --partition=gputest --gres=gpu:a100:1 --time=00:05:00 ./my_gpu_exe
+srun --account=project_2012125 --nodes=1 --partition=gputest --gres=gpu:a100:1 --time=00:05:00 ./my_gpu_exe
 ```
 
 
@@ -295,7 +295,7 @@ LUMI is similar to Mahti.
 ```
 #!/bin/bash
 #SBATCH --job-name=example
-#SBATCH --account=project_462000456
+#SBATCH --account=project_462000752
 #SBATCH --partition=standard
 ##SBATCH --reservation=hlgp-cpu-f2024  # The reservation does not work 
 #SBATCH --time=00:05:00
@@ -312,7 +312,7 @@ srun my_cpu_exe
 ```
 #!/bin/bash
 #SBATCH --job-name=example
-#SBATCH --account=project_462000456
+#SBATCH --account=project_462000752
 #SBATCH --partition=standard-g
 #SBATCH --reservation=hlgp-gpu-f2024
 #SBATCH --time=00:05:00
