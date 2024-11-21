@@ -145,7 +145,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 <div align="center"><small>AMD Instinct MI100 architecture (source: AMD)</small></div>
 </div>
 
-- a grid of threads is created on a specific device to perform the work. 
+- a grid of work-items is created on a specific device to perform the work. 
 - each work-item executes the same kernel
 - each work-item typically processes different elements of the data. 
 - there is no global synchronization or data exchange.

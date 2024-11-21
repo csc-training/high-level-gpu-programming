@@ -123,6 +123,15 @@ auto Q = queue { custom_selector {} };
   }
 ``` 
 
+
+# Queue Class Member Functions 
+
+  - **Enqeue work**: `submit()`, `parallel_for()`, `single_task()`
+  - **Memory Operations**: `memcpy()` , `fill()`, `copy()`
+  - **Utilities**: `is_empty()`,  `get_device()`, `get_context()`, `throw_asynchronous()`
+  - **Synchronizations**: `wait()`, `wait_and_throw()`, `wait_for()`
+
+
 # Command Groups
 
  - created via `.submit()` member
@@ -134,8 +143,8 @@ auto Q = queue { custom_selector {} };
 <small>
 ```cpp  
   q.submit([&](handler &cgh) {
-    auto x = x_buf.template get_access<access::mode::read>(h);        // accessor x(x_buf, h, read_only);
-    auto y = y_buf.template get_access<access::mode::read_write>(h);  // accessor y(y_buf, h, read_write);
+    auto x = x_buf.get_access<access::mode::read>(h);        
+    auto y = y_buf.get_access<access::mode::read_write>(h);  
 
     h.parallel_for(N, [=](id<1> i) {
       y[i] += a * x[i];
@@ -164,25 +173,118 @@ auto Q = queue { custom_selector {} };
 ```cpp 
 class AXPYFunctor {
 public:
-    AXPYFunctor(float a, accessor<T> x, accessor<T> y): a(a), x(x), y(y) {}
+  AXPYFunctor(float a, accessor<T> x, accessor<T> y): a(a), x(x),
+                                                      y(y) {}
 
-    void operator()(id<1> i) {
-        y[i] += a * x[i];
-    }
+  void operator()(id<1> i) {
+    y[i] += a * x[i];
+  }
 
 private:
-    float a;
-    accessor<T> x; 
-    accessor<T> y;
+  float a;
+  accessor<T> x; 
+  accessor<T> y;
 };
 ```
 </small>
 
 
+
+
+# Grid of Work-Items
+
+<div class="column">
+
+
+![](img/Grid_threads.png){.center width=37%}
+
+<div align="center"><small>A grid of work-groups executing the same **kernel**</small></div>
+
+</div>
+
+<div class="column">
+![](img/mi100-architecture.png){.center width=53%}
+
+<div align="center"><small>AMD Instinct MI100 architecture (source: AMD)</small></div>
+</div>
+
+ - a grid of work-items is created on a specific device to perform the work. 
+ - each work-item executes the same kernel
+ - each work-item typically processes different elements of the data. 
+ - there is no global synchronization or data exchange.
+
+# Basic Parallel Launch with `parallel_for`
+
+<div class="column">
+
+ - **range** class to prescribe the span off iterations 
+ - **id** class to index an instance of a kernel
+ - **item** class gives additional functions 
+
+</div>
+
+<div class="column">
+
+```cpp
+cgh.parallel_for(range<1>(N), [=](id<1> idx){
+  y[idx] += a * x[idx];
+});
+``` 
+
+```cpp
+cgh.parallel_for(range<1>(N), [=](item<1> item){
+  auto idx = item.get_id();
+  auto R = item.get_range();
+  y[idx] += a * x[idx];
+});
+```
+
+</div>
+
+ - runtime choose how to group the work-items
+ - supports 1D,2D, and 3D-grids
+ - no control over the size of groups,no locality within kernels 
+
+
+# Parallel launch with **nd-range** I
+
+![](img/ndrange.jpg){.center width=100%}
+
+# Parallel launch with **nd-range** II
+
+ - enables low level performance tuning 
+ - **nd_range** sets the global range and the local range 
+ - iteration space is divided into work-groups
+ - work-items within a work-group are scheduled on a single compute unit
+ - **nd_item** enables to querying for work-group range and index.
+
+```cpp
+cgh.parallel_for(nd_range<1>(range<1>(N),range<1>(64)), [=](nd_item<1> item){
+  auto idx = item.get_global_id();
+  auto local_id = item.get_local_id();
+  y[idx] += a * x[idx];
+});
+```
+
+# Parallel launch with **nd-range** III
+ - extra functionalities
+    - each work-group has work-group *local memory*
+        - faster to access than global memory
+        - can be used as programmable cache
+    - group-level *barriers* and *fences* to synchronize work-items within a group
+        - *barriers* force all work-items to reach a speciffic point before continuing
+        - *fences* ensures writes are visible to all work-items before proceedin
+    - group-level collectives, for communication, e.g. broadcasting, or computation, e.g. scans
+        - useful for reductions at group-level
+ 
+
 # Summary
 
- - **queueus* are the bridege between host and devices
+ - **queues** are bridges between host and devices
  - each queue maps to one device
  - work is enqued by submitting **command groups**
     - give lots of flexibility
  - parallel code (kernel)  is submitted as a lambda function or as a function operator
+ - two methods to express the parallelism
+    - basic launching
+    - via **nd-range**
