@@ -14,8 +14,8 @@ void init(sycl::queue &q, auto &x_buf, auto &y_buf)
         sycl::accessor y{y_buf, h, sycl::read_write};
 
         auto kernel = [=](sycl::id<1> i) {
-            x[i] = sin((double)i) * 2.3;
-            y[i] = cos((double)i) * 1.1;
+            x[i] = sycl::sin((double)i) * 2.3;
+            y[i] = sycl::cos((double)i) * 1.1;
         };
         h.parallel_for(sycl::range{x_buf.size()}, kernel);
     });
