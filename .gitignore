@@ -1,4 +1,5 @@
 a.out
+core
 *.o
 *.x
 *.png
