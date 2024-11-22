@@ -131,10 +131,9 @@ on LUMI:
 ```
 . /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
 
-module load LUMI/22.08
+module load LUMI
 module load partition/G
-module load rocm/5.3.3
-module load cce/16.0.1
+module load rocm/6.0.3
 export MPICH_GPU_SUPPORT_ENABLED=1 # Needed for GPU aware MPI
 ```
 After this one can load other modules that might be needed for compiling the codes. With the environment set-up we can compile and run the SYCL codes.
@@ -162,13 +161,12 @@ module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI
 ```
 on LUMI:
 ```
-module load LUMI/22.08
+module load LUMI
 module load partition/G
-module load rocm/5.3.3
-module load cce/16.0.1
+module load rocm/6.0.3
 export MPICH_GPU_SUPPORT_ENABLED=1
-export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-22.08/G/EB/Boost/1.79.0-cpeCray-22.08/lib:$LD_LIBRARY_PATH
-export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so
+#export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-22.08/G/EB/Boost/1.79.0-cpeCray-22.08/lib:$LD_LIBRARY_PATH ??? 
+#export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so ??????
 ```
 
 ```
@@ -205,10 +203,9 @@ Similarly on LUMI. First we set up the envinronment and load the modules as indi
 ```
 . /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
 
-module load LUMI/22.08
+module load LUMI
 module load partition/G
-module load rocm/5.3.3
-module load cce/16.0.1
+module load rocm/6.0.3
 export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 Now compile with intel compilers:
@@ -218,7 +215,7 @@ icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend
 ```
 Or with AdaptiveCpp:
 ```
-export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so
+#export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so 
 /projappl/project_462000752/AdaptiveCpp/bin/acpp -O3  `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
 ```
 
@@ -233,7 +230,7 @@ The `job.sh` file contains all the necessary information (number of nodes, tasks
 
 Use [`SYCL_PI_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.html#sycl-pi-trace-options) to enable runtime tracing (e.g. device discovery):
 
-    export SYCL_PI_TRACE=1
+    export SYCL_UR_TRACE=1
 
 
 ### Running on Mahti
@@ -272,7 +269,7 @@ single GPU with single MPI task and a single thread use:
 #SBATCH --job-name=example
 #SBATCH --account=project_2012125
 #SBATCH --partition=gpusmall
-#SBATCH --reservation=hlgp-gpu-f2024-thu
+#SBATCH --reservation=hlgp-gpu-f2024-thu ?????????
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --time=00:05:00
@@ -297,7 +294,7 @@ LUMI is similar to Mahti.
 #SBATCH --job-name=example
 #SBATCH --account=project_462000752
 #SBATCH --partition=standard
-##SBATCH --reservation=hlgp-cpu-f2024  # The reservation does not work 
+##SBATCH --reservation=hlgp-cpu-f2024  ??????# The reservation does not work 
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -314,7 +311,7 @@ srun my_cpu_exe
 #SBATCH --job-name=example
 #SBATCH --account=project_462000752
 #SBATCH --partition=standard-g
-#SBATCH --reservation=hlgp-gpu-f2024
+#SBATCH --reservation=hlgp-gpu-f2024 ??????
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
