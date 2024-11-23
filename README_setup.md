@@ -90,3 +90,22 @@ Install:
 
     sh ./oneapi-for-amd-gpus-2025.0.0-rocm-6.0.2-linux.sh -y --extract-folder $SCRATCH/$USER/oneapi_tmp --install-dir $PROJAPPL/intel/oneapi
 
+## AdaptiveCpp on LUMI
+
+
+Load the modules needed:
+```
+module load LUMI/24.03
+module load partition/G
+module load rocm/6.0.3
+```
+Clone repository and Compile with both cpu and rocm support:
+```
+git clone https://github.com/AdaptiveCpp/AdaptiveCpp.git
+cd AdaptiveCpp
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/projappl/project_462000752/ACPP/  -DROCM_PATH=$ROCM_PATH -DWITH_CPU_BACKEND=ON -DWITH_CUDA_BACKEND=OFF  -DWITH_ROCM_BACKEND=ON -DACPP_TARGETS="gfx90a"  -DWITH_ACCELERATED_CPU=ON -DWITH_SSCP_COMPILER=OFF  -DWITH_OPENCL_BACKEND=OFF -DWITH_LEVEL_ZERO_BACKEND=OFF -DBOOST_ROOT=/appl/lumi/SW/LUMI-24.03/G/EB/Boost/1.83.0-cpeGNU-24.03/ ..
+make -j 64 
+make install 
+```
