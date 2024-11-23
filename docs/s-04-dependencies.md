@@ -160,6 +160,8 @@ lang:     en
     - put the buffers in a scope
       - when a buffer goes out of scope program  wait for all actions that use it to complete
 
+# Basic Profiling{.section}
+
 #  Profiling with Events I
 
  - the queue needs to be initialized for profiling:
@@ -179,9 +181,11 @@ lang:     en
     - **info::event_profiling::command_end**: timestamp when the command group  finished execution
   - all results are in nanoseconds
 
-# SYCL Error Handling
+# Error Handling {.section}
 
-  - in C++ erros are handled through exceptions:
+# Synchronous exceptions vs. Asynchronous exceptions
+
+  - in C++ errors are handled through exceptions:
     - **synchronous exceptions**:
         - thrown immediately when something fails (caught by `try..catch` blocks)
   - SYCL kernels are executed asychronous:

@@ -6,7 +6,7 @@ date:     2024-11
 lang:     en
 ---
 
-#  Queues, Command Groups, Kernels{.section}
+# GPU Programming Model{.section}
 
 
 # Anatomy of a SYCL code
@@ -127,10 +127,11 @@ auto Q = queue { custom_selector {} };
 # Queue Class Member Functions 
 
   - **Enqeue work**: `submit()`, `parallel_for()`, `single_task()`
-  - **Memory Operations**: `memcpy()` , `fill()`, `copy()`
+  - **Memory Operations**: `memcpy()` , `fill()`, `copy()`, `memset()`
   - **Utilities**: `is_empty()`,  `get_device()`, `get_context()`, `throw_asynchronous()`
-  - **Synchronizations**: `wait()`, `wait_and_throw()`, `wait_for()`
+  - **Synchronizations**: `wait()`, `wait_and_throw()`
 
+# Command Groups{.section}
 
 # Command Groups
 
@@ -152,6 +153,8 @@ auto Q = queue { custom_selector {} };
   });
 ```
 </small>
+
+#  Kernels{.section} 
 
 # Kernels
  - code to be executed in parallel
@@ -189,7 +192,7 @@ private:
 </small>
 
 
-
+#  Launching Kernels{.section}
 
 # Grid of Work-Items
 
@@ -249,6 +252,8 @@ cgh.parallel_for(range<1>(N), [=](item<1> item){
 # Parallel launch with **nd-range** I
 
 ![](img/ndrange.jpg){.center width=100%}
+
+<small>https://link.springer.com/book/10.1007/978-1-4842-9691-2</small>
 
 # Parallel launch with **nd-range** II
 
