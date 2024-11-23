@@ -9,9 +9,7 @@ Load the modules needed:
 ```
 module load LUMI/24.03
 module load partition/G
-module load Boost
 module load rocm/6.0.3
-module load cce/17.0.1
 ```
 Compile with both cpu and gpu (mi250x) acceleration:
 ```
