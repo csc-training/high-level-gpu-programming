@@ -160,9 +160,85 @@ lang:     en
     - put the buffers in a scope
       - when a buffer goes out of scope program  wait for all actions that use it to complete
 
-# Basic profiling
+#  Profiling with Events I
 
- - events can be used to measure execution time
-    - the queue needdds to be initialized for profiling:
-      - `queue q{ gpu_selector{}, { property::queue::enable_profiling() } };
+ - the queue needs to be initialized for profiling:
+    - `queue q{ gpu_selector{}, { property::queue::enable_profiling() } };`
+ - submit the work:
+    - `auto e = Q.submit([&](handler &cgh){ /* body */});`
+ - wait for the task to complete:
+    - `e.wait();` (could be also other ways)
+ - extract the time:
+   - `auto t_submit = e.get_profiling_info<info::event_profiling::command_submit>();`
+
+# Profiling with Events II
+
+ - `get_profiling_info()`  can have different queries:
+    - **info::event_profiling::command_submit**: timestamp when command group was submitted to the queue
+    - **info::event_profiling::command_start** : timestamp when the command group started executionexecuting 
+    - **info::event_profiling::command_end**: timestamp when the command group  finished execution
+  - all results are in nanoseconds
+
+# SYCL Error Handling
+
+  - in C++ erros are handled through exceptions:
+    - **synchronous exceptions**:
+        - thrown immediately when something fails (caught by `try..catch` blocks)
+  - SYCL kernels are executed asychronous:
+    - **asynchronous exceptions**:
+        - caused by a "future" failure 
+        - saved into an object 
+        - programmer controls when to process
+
+# Processing Asynchronous exceptions
+
+<div class="column">
+<small>
+```cpp
+#include <sycl/sycl.hpp>
+using namespace sycl;
+
+// Asynchronous handler function object
+auto exception_handler = [] (exception_list exceptions) {
+    for (std::exception_ptr const& e : exceptions) {
+      try {
+        std::rethrow_exception(e);
+      } catch(exception const& e) {
+        std::cout << "Caught asynchronous SYCL exception:\n"
+                  << e.what() << std::endl;
+      }
+    }
+  };
+```
+</small>
+
+</div>
+
+<div class="column">
+
+<small>
+```cpp
+
+  int main() {
+  sycl::queue queue(default_selector_v, exception_handler);
+
+  queue.submit([&] (handler& cgh) {
+    auto range = nd_range<1>(range<1>(1), range<1>(10));
+    cgh.parallel_for(range, [=] (nd_item<1>) {});
+  });
+
+  try {
+    queue.wait_and_throw();
+  } catch (exception const& e) {
+    std::cout << "Caught synchronous SYCL exception:\n"
+              << e.what() << std::endl;
+  }
+}
+``` 
+</small>
+</div>
+
+<small>e.g. https://developer.codeplay.com/computecppce/latest/sycl-guide-error-handling</small> 
+
+
 # Summary
