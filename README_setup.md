@@ -44,7 +44,7 @@ Set up the environment:
     
 Compile for amd and cpu targets:
 
-    acpp -O2 --hipsycl-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
+    acpp -O2 --acpp-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
     
 Run as an usual gpu program:
 
