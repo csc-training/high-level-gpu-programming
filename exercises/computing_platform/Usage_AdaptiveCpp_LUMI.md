@@ -11,5 +11,5 @@ export LD_PRELOAD=/opt/rocm-6.0.3/llvm/lib/libomp.so
 ```
 Compile `sycl` codes:
 ```
-/projappl/project_462000752/ACPP/bin/acpp -O2 --hipsycl-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
+/projappl/project_462000752/ACPP/bin/acpp -O2 --acpp-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
 ```
