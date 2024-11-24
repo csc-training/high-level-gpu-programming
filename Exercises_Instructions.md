@@ -228,7 +228,7 @@ The `job.sh` file contains all the necessary information (number of nodes, tasks
 
 ### Useful environment variables
 
-Use [`SYCL_PI_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.html#sycl-pi-trace-options) to enable runtime tracing (e.g. device discovery):
+Use [`SYCL_UR_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.html#sycl-pi-trace-options) to enable runtime tracing (e.g. device discovery):
 
     export SYCL_UR_TRACE=1
 
