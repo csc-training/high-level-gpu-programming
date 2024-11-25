@@ -29,7 +29,7 @@ void initialize(int argc, char *argv[], field *current,
     int rows = 2000;             //!< Field dimensions with default values
     int cols = 2000;
 
-    char input_file[64];        //!< Name of the optional input file
+    char *input_file;            //!< Name of the optional input file
 
     int read_file = 0;
 
@@ -41,12 +41,12 @@ void initialize(int argc, char *argv[], field *current,
         break;
     case 2:
         /* Read initial field from a file */
-        strncpy(input_file, argv[1], 64);
+        input_file = argv[1];
         read_file = 1;
         break;
     case 3:
         /* Read initial field from a file */
-        strncpy(input_file, argv[1], 64);
+        input_file = argv[1];
         read_file = 1;
 
         /* Number of time steps */
