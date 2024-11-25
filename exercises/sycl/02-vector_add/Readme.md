@@ -122,8 +122,7 @@ Once you're done with the device memory, free the allocated memory using `sycl::
 This ensures that the allocated memory is properly released on the device.
 
 
- 
-### IIb) **malloc_shared**
+### IIb) **malloc_managed**
 
 Use the skeleton provided in `vector_add_usm_managed.cpp`. Look for the **//TODO** lines.
 
@@ -136,7 +135,7 @@ Allocate memory that can be migrated between host and device using `sycl::malloc
 ```cpp
 int* a = sycl::malloc_managed<int>(N, q);
 ```
-Step 3: Initialize Data on Host
+### Step 3: Initialize Data on Host
 
 This part is already in the skeleton, it is done using `std::fill`. Though if you have time you can replace it with a **for loop**.
 
