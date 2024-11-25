@@ -23,15 +23,12 @@ int main() {
 
     // Submit the kernel to the queue
     q.submit([&](handler& h) {
-      // Create an accessor
-      accessor a{a_buf, h};
-      accessor b{b_buf, h};
-      accessor c{c_buf, h};
+      // Create accessors
+      //TODO
 
-      h.parallel_for(range{N}, [=](id<1> idx) {
-        c[idx] = a[idx] + b[idx];
-      });
-    });
+      h.parallel_for(
+        //TODO
+      );
   }
 
   // Check that all outputs match expected value
