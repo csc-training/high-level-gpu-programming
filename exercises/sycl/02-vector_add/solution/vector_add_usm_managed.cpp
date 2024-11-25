@@ -12,9 +12,9 @@ int main() {
   constexpr size_t N = 256;
   
   // Allocate memory using malloc_managed
-  int* a = malloc_managed<int>(N, q);
-  int* b = malloc_managed<int>(N, q);
-  int* c = malloc_managed<int>(N, q);
+  int* a = malloc_shared<int>(N, q);
+  int* b = malloc_shared<int>(N, q);
+  int* c = malloc_shared<int>(N, q);
 
   // Initialize input memory on the host
   std::fill(a, a + N, 1);
@@ -34,7 +34,7 @@ int main() {
   q.wait();
 
   // Check that all outputs match the expected value
-  bool passed = std::all_of(c.begin(), c.end(),
+  bool passed = std::all_of(c, c+N,
                             [](int i) { return (i == 3); });
   std::cout << ((passed) ? "SUCCESS" : "FAILURE") << std::endl;
 
