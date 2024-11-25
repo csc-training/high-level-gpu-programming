@@ -103,30 +103,7 @@ q.memcpy(a_usm, a.data(), N * sizeof(int)).wait();
 ``` 
 
 ### Step 4: Submit the Task
-Once memory is allocated and data is copied, submit the task to the device using the `.parallel_for()` member function. The basic submission:
-
-```
-   h.parallel_for(sycl::range{N}, [=](sycl::id<1> idx) {
-        c_usm[idx] = a_usm[idx] + b_usm[idx];
-      });
-```  
-Here: 
- - `sycl::range{N}` or `sycl::range(N)` specify number of work-items be launched 
-- `sycl::id<1>` represents the index used within the kernel.
-
-#### Using **item** class instead of **id**
-Modify the lambda function to use the  **sycl::item** class instead of the **id** class. In this case the index `idx` is obtained from the `.get_id()` member.
-
-#### Using ND-Range
-This basic launching serves our purpose for this simpler example, however it is useful to test also the **ND-RANGE**. In case we specify to the runtime the total size of the grid of work-items and size of a work-group as well:
-
-```
-   h.parallel_for(sycl::nd_range<1>(sycl::range<1>(((N+local_size-1)/local_size)*local_size), sycl::range<1>(local_size)), [=](sycl::nd_itemi<1> item) {
-        auto idx=item.get_global_id(0);
-        c_usm[idx] = a_usm[idx] + b_usm[idx];
-      });
-```  
-**Note** that **ND-RANGE** requires that the total number of work-items to be divisible by the size of the work-group.
+Same as using buffers.
 
 ### Step 5: Retrieve Data
 
@@ -163,30 +140,7 @@ Step 3: Initialize Data on Host
 This part is already in the skeleton, it is done using `std::fill`. Though if you have time you can replace it with a **for loop**.
 
 ### Step 4: Submit the Task
-Once memory is allocated and data is copied, submit the task to the device using the `.parallel_for()` member function. The basic submission:
-
-```
-   h.parallel_for(sycl::range{N}, [=](sycl::id<1> idx) {
-        c[idx] = a[idx] + b_idx];
-      });
-```  
-Here: 
- - `sycl::range{N}` or `sycl::range(N)` specify number of work-items be launched 
-- `sycl::id<1>` represents the index used within the kernel.
-
-#### Using **item** class instead of **id**
-Modify the lambda function to use the  **sycl::item** class instead of the **id** class. In this case the index `idx` is obtained from the `.get_id()` member.
-
-#### Using ND-Range
-This basic launching serves our purpose for this simpler example, however it is useful to test also the **ND-RANGE**. In case we specify to the runtime the total size of the grid of work-items and size of a work-group as well:
-
-```
-   h.parallel_for(sycl::nd_range<1>(sycl::range<1>(((N+local_size-1)/local_size)*local_size), sycl::range<1>(local_size)), [=](sycl::nd_itemi<1> item) {
-        auto idx=item.get_global_id(0);
-        c[idx] = a[idx] + b[idx];
-      });
-```  
-**Note** that **ND-RANGE** requires that the total number of work-items to be divisible by the size of the work-group.
+Same as using buffers.
 
 ### Step 5: Synchronize and Check Results
 
