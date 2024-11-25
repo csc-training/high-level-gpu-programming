@@ -9,12 +9,13 @@ lang:     en
 
 # Host memory and device memory
 
-![](img/gpu-bws.png){.center width=70%}
+![](img/gpu-bws.png){.center width=65%}
 
 - In most GPUs, the global GPU memory is physically distinct from the host (CPU) memory
 - Data used by GPU kernels has to be copied from host to device (and back if data is needed also in CPU)
 - Host-device bus (typically PCIe) has often low bandwidth
     - Can become performance bottleneck
+- Memory copies can be done asynchronously with computations
 
 # Unified/managed memory 
 
