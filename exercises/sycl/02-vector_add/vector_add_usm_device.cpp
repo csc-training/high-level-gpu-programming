@@ -6,7 +6,7 @@ using namespace sycl;
 
 int main() {
   // Set up queue on any available device
-  queue q;
+  //TODO
 
   // Initialize input and output memory on the host
   constexpr size_t N = 256;
@@ -15,22 +15,18 @@ int main() {
   std::fill(b.begin(), b.end(), 2);
   std::fill(c.begin(), c.end(), 0);
   
-  // Allocate the memory using universal share memory
-  int* a_usm = malloc_device<int>(N, q);
-  int* b_usm = malloc_device<int>(N, q);
-  int* c_usm = malloc_device<int>(N, q);
+  // Allocate the memory using malloc_device
+  //TODO
   
   // Copy data from host to USM
-  q.memcpy(a_usm, a.data(), N * sizeof(int)).wait();
-  q.memcpy(b_usm, b.data(), N * sizeof(int)).wait();
-  q.memcpy(c_usm, c.data(), N * sizeof(int)).wait();
+  //TODO
   
   // Submit the kernel to the queue
   q.submit([&](handler& h) {
 
-    h.parallel_for(range{N}, [=](id<1> idx) {
-      c_usm[idx] = a_usm[idx] + b_usm[idx];
-    });
+    h.parallel_for(
+      //TODO
+    );
 
   });
 
@@ -38,13 +34,12 @@ int main() {
   q.wait();
 
   // Copy data from USM to host
-  q.memcpy(c.data(), c_usm, N * sizeof(int)).wait();
+  //TODO
 
   // Free USM allocations
-  free(a_usm, q);
-  free(b_usm, q);
-  free(c_usm, q);
+  //TODO
 
+  
   // Check that all outputs match the expected value
   bool passed = std::all_of(c.begin(), c.end(),
                             [](int i) { return (i == 3); });

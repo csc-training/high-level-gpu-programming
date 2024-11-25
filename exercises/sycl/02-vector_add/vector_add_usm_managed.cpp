@@ -6,15 +6,13 @@ using namespace sycl;
 
 int main() {
   // Set up queue on any available device
-  queue q;
+  //TODO
 
   // Initialize input and output memory on the host
   constexpr size_t N = 256;
   
   // Allocate memory using malloc_managed
-  int* a = malloc_managed<int>(N, q);
-  int* b = malloc_managed<int>(N, q);
-  int* c = malloc_managed<int>(N, q);
+  //TODO
 
   // Initialize input memory on the host
   std::fill(a, a + N, 1);
@@ -24,10 +22,9 @@ int main() {
   // Submit the kernel to the queue
   q.submit([&](handler& h) {
 
-    h.parallel_for(range{N}, [=](id<1> idx) {
-      c[idx] = a[idx] + b[idx];
-    });
-
+    h.parallel_for(
+      //TODO
+      );
   });
 
   // Wait for the kernel to finish
@@ -38,10 +35,8 @@ int main() {
                             [](int i) { return (i == 3); });
   std::cout << ((passed) ? "SUCCESS" : "FAILURE") << std::endl;
 
-  // Free managed allocations
-  free(a, q);
-  free(b, q);
-  free(c, q);
+  // Free the memory
+  //TODO
 
   return (passed) ? 0 : 1;
 }

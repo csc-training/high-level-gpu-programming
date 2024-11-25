@@ -29,6 +29,9 @@ int main() {
       h.parallel_for(
         //TODO
       );
+
+      //TODO after the submission works
+      //Checking inside the scope of the buffers
   }
 
   // Check that all outputs match expected value
