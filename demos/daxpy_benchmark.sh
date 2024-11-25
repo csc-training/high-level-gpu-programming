@@ -1,11 +1,9 @@
 #!/bin/bash
 #SBATCH -J test
-#SBATCH -p dev-g
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH --gpus-per-node=1
-#SBATCH -t 0:05:00
+#SBATCH -t 0:15:00
 
 outdpath="$1"
 shift
