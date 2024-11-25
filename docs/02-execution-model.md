@@ -43,8 +43,9 @@ void axpy_(int n, double a, double *x, double *y)
 
 On an accelerator:
 
-- no loop 
 - we create instances of the same function, **kernels**
+- kernel is called typically in implicit loop
+- SIMT (single instruction multiple threads)
 <small>
 
 ```cpp
@@ -60,14 +61,14 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 
 
-# Work-items
+# GPU threads
 
 <div class="column">
 
 
 ![](img/work_item.png){.center width=5%}
 
-<div align="center"><small>A work-item is running on a simd lane</small></div>
+<div align="center"><small>A thread is running on execution unit</small></div>
 
 </div>
 
@@ -75,22 +76,22 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 ![](img/amd_simd_lanet.png){.center width=31%} 
 
-<div align="center"><small>The smallest computational element in a GPU.</small></div>
+<div align="center"><small>The smallest execution unit in a GPU.</small></div>
 </div>
 
-- the work-items are very light execution contexts.
-- contain all information needed to execute a stream of instructions.
-- for each work-item there is an instance of the **kernel**. 
-- each work-item processes different elements of the data (SIMD).
+- GPU threads are very light execution contexts.
+- Threads execute a stream of instructions running on different execution units
+- Each thread runs the same **kernel** (SIMT). 
+- Each thread processes different elements of the data (SIMD).
 
-# Sub-Group
+# Warp / wavefront
 
 <div class="column">
 
 
 ![](img/sub_group.png){.center width=15%}
 
-<div align="center"><small>Execution is done per sub-groups.</small></div>
+<div align="center"><small>Execution is done per warp / wavefront</small></div>
 
 </div>
 
@@ -98,63 +99,93 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 ![](img/amd_simd_unit.png){.center width=55%} 
 
-<div align="center"><small>Scheme of a SIMD unit in an AMD GPU.</small></div>
+<div align="center"><small>Scheme of a SIMD unit in an AMD GPU</small></div>
 </div>
-- the work-items are physically locked into sub-groups
-- the size is locked by hardware, currently 64 for AMD and 32 for Nvidia.
-- an instruction is executed by all items in the sub-group.
-- in the case of branching, each branch has to be handled separetely.
-- memory accesses are done per sub-group.
+- GPU threads are grouped together in hardware level
+    - warp (NVIDIA, 32 threads), wavefront (AMD, 64 threads)
+- All members of group execute the same instruction
+- In the case of branching, each branch is executed sequentially
+- Memory accesses are done per group
 
-# Work-Group
+# Thread blocks
 
 <div class="column">
 
+![](img/work_group.png){.center width=20%}
 
-![](img/work_group.png){.center width=25%}
-
-<div align="center"><small>Work-groups of work-items.</small></div>
+<div align="center"><small>Thread blocks</small></div>
 
 </div>
 
 <div class="column">
-![](img/CU2.png){.center width=24%}
+![](img/CU2.png){.center width=20%}
 
 <div align="center"><small>Compute Unit in an AMD GPU.</small></div>
 </div>
-- the work-items are divided in groups of fixed size.
-- size limited by hardware, 1024 for some GPUS or 8912 for some CPUs.
-- each work-group is assign to a Compute Unite (2) and it can not be split. 
-- synchronization and data exchange is possible inside a group.
+- Threads are grouped in so called blocks
+- Each block is executed in specific unit
+    - Streaming multiprocessor, SMP (NVIDIA), compute unit, CU (AMD)
+- Maximum number of threads in  a block limited by hardware
+- Synchronization and data exchange is possible inside a block
 
 
-# Grid of Work-Items
+# Grid of thread blocks
 
 <div class="column">
 
+![](img/Grid_threads.png){.center width=33%}
 
-![](img/Grid_threads.png){.center width=35%}
-
-<div align="center"><small>A grid of work-groups executing the same **kernel**</small></div>
+<div align="center"><small>A grid of thread blocks executing the same **kernel**</small></div>
 
 </div>
 
 <div class="column">
-![](img/mi100-architecture.png){.center width=55%}
+![](img/mi100-architecture.png){.center width=52%}
 
 <div align="center"><small>AMD Instinct MI100 architecture (source: AMD)</small></div>
 </div>
 
-- a grid of threads is created on a specific device to perform the work. 
-- each work-item executes the same kernel
-- each work-item typically processes different elements of the data. 
-- there is no global synchronization or data exchange.
+- Thread blocks are organized into a grid
+    - Total number of threads = number of blocks $\mathrm{\times}$ threads per block
+- In order to hide latencies, there should be more blocks than SMPs / CUs
+- There is no synchronization or data exchange between blocks
+
+# Terminology with different vendors
+
+
+<table class="docutils align-center" id="id7">
+<thead>
+<tr class="row-odd"><th class="head"><p>NVIDIA</p></th>
+<th class="head"><p>AMD</p></th>
+<th class="head"><p>SYCL</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td style="text-align: center"; colspan="2"><p>grid of threads</p></td>
+<td><p>NDRange</p></td>
+</tr>
+<tr class="row-odd"><td style="text-align: center"; colspan="2"><p>block</p></td>
+<td><p>work-group</p></td>
+</tr>
+<tr class="row-even"><td><p>warp</p></td>
+<td><p>wavefront</p></td>
+<td><p>sub-group</p></td>
+</tr>
+<tr class="row-odd"><td style="text-align: center"; colspan="2"><p>thread</p></td>
+<td><p>work-item</p></td>
+</tr>
+</tbody>
+</table>
 
 # Summary
-- GPUs are hardware with high degree of parallelism.
-- many threads execute the same instruction (SIMD).
-- there is a hierarchy of the work-items (*work-groups*, *sub-groups*).
-- all items in the sub-group execute the same instruction.
-- branching in a *sub-group* should be avoided
-- memory accesses are done per *sub-group*.
+
+- GPU hardware has high degree of parallelism
+- Many threads execute the same instruction (SIMT), working on different data (SIMD)
+- Threads are organized in a grid of blocks 
+- All threads within a group (*warp / wavefront*) execute the same instructions
+    - branching within a *warp / wavefront* should be avoided
+- Memory accesses are done per *warp / wavefront*
+- High-level frameworks aim to hide these low level details
+
+
 

@@ -2,7 +2,7 @@
 title:  Introduction to GPUs
 subtitle: High-Level GPU Programming 
 author:   CSC Training
-date:     2024-02
+date:     November 2024
 lang:     en
 ---
 
@@ -98,7 +98,7 @@ lang:     en
 4. Directive based methods
     - OpenMP, OpenACC
 5. High-level GPU programming
-    - **SYCL**, **Kokkos**, ...
+    - **C++ stdpar**, **Kokkos**, **SYCL**, ...
 6. Use direct GPU programming
     - CUDA, HIP, ...
 </div>
