@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     std::vector<double> x_(n), y_(n);
 
     // Set up sycl
-    sycl::queue q;
+    sycl::queue q{sycl::property::queue::in_order()};
     sycl::buffer<double, 1> x(x_.data(), sycl::range<1>(n));
     sycl::buffer<double, 1> y(y_.data(), sycl::range<1>(n));
 
