@@ -1,14 +1,14 @@
 COMMONDIR=../common
 
-CC=clang
-CXX=clang++
-CFLAGS=-g -O3 -Wall -I$(COMMONDIR) -I/appl/lumi/SW/LUMI-22.08/G/EB/libpng/1.6.37-cpeCray-22.08/include
+CC=icx
+CXX=icpx
+CFLAGS=-g -O3 -Wall -I$(COMMONDIR)
 SYCLFLAGS=-fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a
 CXXFLAGS=$(CFLAGS) $(SYCLFLAGS) `CC --cray-print-opts=cflags`
-LDFLAGS=$(CFLAGS) $(SYCLFLAGS) -L/appl/lumi/SW/LUMI-22.08/G/EB/libpng/1.6.37-cpeCray-22.08/lib
+LDFLAGS=$(CFLAGS) $(SYCLFLAGS) -fuse-ld=lld
 LIBS=`CC --cray-print-opts=libs` -lpng
 
-EXE=heat
+EXE=heat.x
 OBJS=main.o core.o core_acc.o setup.o utilities.o io.o pngwriter.o
 
 all: $(EXE)
