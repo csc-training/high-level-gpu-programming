@@ -1,62 +1,61 @@
-# [Heat equation](https://enccs.github.io/openmp-gpu/miniapp/) from CUDA to SYCL
+# Heat equation from CUDA to SYCL
 
-Using the Intel syclomatic tool to convert [the heat equation from CUDA](https://github.com/cschpc/heat-equation/tree/main/cuda) to SYCL.
-
-Before starting, please ensure that the environment is correct (Mahti):
-
-    . /projappl/project_2008874/intel/oneapi/setvars.sh --include-intel-llvm
-    ml cuda/11.5.0 openmpi/4.1.2-cuda
-
+This exercise is using the Intel DPC++ Compatibility Tool in oneAPI on Mahti to convert [the heat equation from CUDA](https://github.com/cschpc/heat-equation/tree/main/cuda) to SYCL.
 
 ## Test the CUDA code
 
-Let's make a test run of the CUDA code on Mahti:
+Let's first start by testing the CUDA code:
 
     cd cuda
     make
+    srun -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 -t 00:05:00 ./heat.x
 
-    srun --account=project_2008874 -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 -t 00:05:00 ./heat
+## Run the conversion tool
 
-
-## Run syclomatic
-
-Let's execute `dpct` to convert CUDA to SYCL:
+Let's execute the tool to convert CUDA to SYCL:
 
     cd cuda
     make clean
-    intercept-build make  # creates compile_commands.json
-    dpct -p compile_commands.json --gen-build-script --out-root=../dpct_output
+    intercept-build make  # runs make and creates compile_commands.json
+    dpct -p compile_commands.json --gen-build-script --change-cuda-files-extension-only --sycl-file-extension=cpp --out-root=../dpct_output
 
-This creates syclomatic-converted `dpct_output` directory of the `cuda` directory.
+This generates `dpct_output` from the `cuda` directory.
 
-A reference output is given in `dpct_sycl` with an added Makefile and some files renamed.
+## Test the generated SYCL code
+
+Let's try compiling the generated SYCL code using the generated makefile:
+
+    cd dpct_output
+    make -f Makefile.dpct
+
+This fails. A fixed makefile is given in `dpct_sycl`.
 
 
 ## Test the generated SYCL code
 
-Let's make a test run of the generated SYCL code on Mahti:
+Let's make a test run of the generated SYCL code with a fixed makefile:
 
     cd dpct_sycl
     make
 
     # Run on GPU
-    srun -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 -t 00:05:00 ./heat
+    srun -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 -t 00:05:00 ./heat.x
 
     # Run on CPU
-    srun -p test --nodes=1 --ntasks-per-node=1 --cpus-per-task=128 -t 00:05:00 ./heat
+    srun -p test --nodes=1 --ntasks-per-node=1 --cpus-per-task=128 -t 00:05:00 ./heat.x
 
 
 ### Test with MPI parallelization
 
 Let's run the code in parallel:
 
-    srun -p gputest --nodes=1 --ntasks-per-node=2 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 ./heat
+    srun -p gputest --nodes=1 --ntasks-per-node=2 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 ./heat.x
 
 This fails!
 
 Note that in `setup.cpp` dpct tool produced a line `dpct::select_device(nodeRank)` with a warning
 "DPCT1093:0: The "nodeRank" device may be not the one intended for use.".
-See [the documentation of the warning code](https://oneapi-src.github.io/SYCLomatic/dev_guide/diagnostic_ref/dpct1093.html).
+See [the documentation of the warning code](https://www.intel.com/content/www/us/en/docs/dpcpp-compatibility-tool/developer-guide-reference/2025-0/dpct1093.html).
 
 This line selects the device from *all* SYCL devices. Let's check the output of `sycl-ls`:
 
@@ -82,18 +81,16 @@ Resulting in:
 
 With this `ONEAPI_DEVICE_SELECTOR` environment variable active, the MPI-parallelized code works expectedly:
 
-    srun -p gputest --nodes=1 --ntasks-per-node=2 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 ./heat
+    srun -p gputest --nodes=1 --ntasks-per-node=2 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 ./heat.x
 
 Note though that MPI-parallelization with CPU devices (similar to hybrid MPI+OpenMP approach) doesn't work with such a trick.
 
 
 ## Convert the generated code to standard SYCL
 
-The code generated with syclomatic is specific to oneAPI as it uses functions from oneAPI's `dpct` namespace.
-We also found above that generated device selector logic is not generally suitable.
-
-Please have a look at `sycl/` for a reference SYCL code with `dpct` calls converted to standard SYCL.
-Compare the changes to code in `dpct_sycl/`.
+In `sycl/` there is a reference code with `dpct` calls converted to standard SYCL.
+Compare the changes to code in `dpct_sycl/`, but note alternative choices could be done too,
+e.g., not using global queue.
 
 Let's make a test run:
 
@@ -101,10 +98,10 @@ Let's make a test run:
     make
 
     # Run with MPI on 2 GPUs
-    srun -p gputest --nodes=1 --ntasks-per-node=2 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 ./heat
+    srun -p gputest --nodes=1 --ntasks-per-node=2 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 ./heat.x
 
     # Run with MPI on 2 nodes using CPUs only
-    srun -p test --nodes=2 --ntasks-per-node=1 --cpus-per-task=128 -t 00:05:00 ./heat
+    srun -p test --nodes=2 --ntasks-per-node=1 --cpus-per-task=128 -t 00:05:00 ./heat.x
 
 This SYCL code can be compiled and run with AdaptiveCpp too.
 
@@ -112,5 +109,5 @@ This SYCL code can be compiled and run with AdaptiveCpp too.
 ## Performance
 
 Task: Compare the performance of CUDA and SYCL implementations.
-For more reliable timing, use larger and longer calculations, e.g., `./heat 8000 8000 4000`.
+For more reliable timing, use larger and longer calculations, e.g., `./heat.x 8000 8000 4000`.
 
