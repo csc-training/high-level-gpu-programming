@@ -70,8 +70,9 @@ This basic launching serves our purpose for this simpler example, however it is 
 ### Step 5: Retrieve Data
 The final task in this exercise is to move the checking of the results  within the scope of the buffers (before the ending curly bracket) and add the appropriate method to access this data.
 
-By default, buffers are automatically synchronized with the host when they go out of scope. However, if you need to access data within the buffer’s scope, use **host accessors**. Host accessors can also be created in two ways:
-Similar to the device, it is possible to define host accessors in two ways. By using the accessor class constructor
+By default, buffers are automatically synchronized with the host when they go out of scope. However, if you need to access data within the buffer’s scope, use **host accessors**. 
+
+Similar to the device  accessors, it is possible to define host accessors in two ways. By using the accessor class constructor
 ```
 host_accessor c{c_buf, sycl::access::mode::read};
 ``` 
