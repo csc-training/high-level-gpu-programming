@@ -13,7 +13,7 @@
 #define gpublasDestroy           cublasDestroy
 #else
 #include <hip/hip_runtime.h>
-#include <hip/hipblas.h>
+#include <hipblas/hipblas.h>
 #define gpuFree                  hipFree
 #define gpuMalloc                hipMalloc
 #define gpuMemcpy                hipMemcpy
