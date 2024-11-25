@@ -11,8 +11,8 @@
 void init(std::vector<double> &x, std::vector<double> &y)
 {
     auto kernel = [=, x = x.data(), y = y.data()](size_t i) {
-        x[i] = sin(i) * 2.3;
-        y[i] = cos(i) * 1.1;
+        x[i] = sin((double)i) * 2.3;
+        y[i] = cos((double)i) * 1.1;
     };
 
     using std::begin;
