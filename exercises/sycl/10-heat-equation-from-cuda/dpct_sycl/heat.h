@@ -3,7 +3,7 @@
 
 
 /* Datatype for temperature field */
-typedef struct dpct_type_142634 {
+typedef struct dpct_type_119532 {
     /* nx and ny are the true dimensions of the field. The array data
      * contains also ghost layers, so it will have dimensions nx+2 x ny+2 */
     int nx;                     /* Local dimensions of the field */
@@ -17,7 +17,7 @@ typedef struct dpct_type_142634 {
 } field;
 
 /* Datatype for basic parallelization information */
-typedef struct dpct_type_224916 {
+typedef struct dpct_type_119045 {
     int size;                   /* Number of MPI tasks */
     int rank;
     int nup, ndown;      /* Ranks of neighbouring MPI tasks */

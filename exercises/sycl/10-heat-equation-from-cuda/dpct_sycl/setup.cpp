@@ -181,7 +181,7 @@ void parallel_set_dimensions(parallel_data *parallel, int nx, int ny)
 
     MPI_Comm_free(&intranodecomm);
 
-    devCount = dpct::dev_mgr::instance().device_count();
+    devCount = dpct::device_count();
 
     if (nodeProcs > devCount) {
         printf("Not enough GPUs for all processes in the node.\n");
