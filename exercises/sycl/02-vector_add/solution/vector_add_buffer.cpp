@@ -24,6 +24,7 @@ int main() {
 
     // Submit the kernel to the queue
     q.submit([&](handler& h) {
+      //Create accessors
       accessor a{a_buf, h};
       accessor b{b_buf, h};
       accessor c{c_buf, h};
