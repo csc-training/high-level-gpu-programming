@@ -13,7 +13,7 @@ A typical application running on an accelerator follows these steps:
  
 In this exercise, we will explore various memory models.
 
-## Memory management using Buffers and Accessors
+## I. Memory management using Buffers and Accessors
 
 Use the skeleton provided in `vector_add_buffer.cpp`. Look for the **//TODO** lines.
 
@@ -80,9 +80,9 @@ or by using the `.get_access` member function of the buffer
 auto = c_buf.get_access<access::mode::read>();
 ```
 
-## Memory management with Unified Shared Memory
+## II. Memory management with Unified Shared Memory
  
-### **malloc_device**
+###  IIa) **malloc_device**
 
 Use the skeleton provided in `vector_add_usm_device.cpp`. Look for the **//TODO** lines.
 
@@ -145,7 +145,7 @@ This ensures that the allocated memory is properly released on the device.
 
 
  
-### **malloc_shared**
+### IIb) **malloc_shared**
 
 Use the skeleton provided in `vector_add_usm_managed.cpp`. Look for the **//TODO** lines.
 
