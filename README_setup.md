@@ -1,5 +1,41 @@
 # Usage
 
+## C++ stdpar on Mahti
+
+Set up the environment:
+
+    ml purge
+    ml use /appl/opt/nvhpc/modulefiles
+    ml nvhpc/24.3
+    ml gcc/11.2.0
+    export PATH=/appl/spack/v017/install-tree/gcc-8.5.0/binutils-2.37-ed6z3n/bin:$PATH
+
+Compile:
+
+    nvc++ -O4 -std=c++20 -stdpar=gpu -gpu=cc80 --gcc-toolchain=$(dirname $(which g++)) code.cpp
+
+Run on one GPU:
+
+    srun -A project_2012125 -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 --time=00:15:00 ./a.out
+
+## C++ stdpar on LUMI
+
+Set up the environment with container:
+
+    export CONTAINER_EXEC="singularity exec /projappl/project_462000752/rocm_6.2.4_stdpar.sif"
+    export HIPSTDPAR_PATH="/opt/rocm-6.2.4/include/thrust/system/hip/hipstdpar"
+    export SINGULARITY_BIND="/pfs,/scratch,/projappl,/project,/flash,/appl"
+    export SINGULARITYENV_LC_ALL=C
+    export HSA_XNACK=1
+
+Compile:
+
+   $CONTAINER_EXEC hipcc --hipstdpar --hipstdpar-path=$HIPSTDPAR_PATH --offload-arch=gfx90a:xnack+ code.cpp
+
+Run on one GPU through container:
+
+    srun -A project_462000752 -p dev-g --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gpus-per-node=1 --time=00:15:00 $CONTAINER_EXEC ./a.out
+
 ## OneAPI on Mahti
 
 Set up the environment:
@@ -66,6 +102,46 @@ Run as an usual gpu program:
 # Installations
 
 *Here are instructions how the modules used above were installed.*
+
+## C++ stdpar on LUMI
+
+Fetch rocm container (new enough ubuntu for system GCC to support C++20):
+
+    export SINGULARITY_CACHEDIR=$PWD/singularity_cache
+    singularity build --sandbox sandbox/ docker://docker.io/rocm/dev-ubuntu-24.04:6.2.4-complete
+
+Add tbb to the container:
+
+    # Download and extract
+    mkdir tbb
+    cd tbb
+    for deb in \
+        o/onetbb/libtbbbind-2-5_2021.11.0-2ubuntu2_amd64.deb \
+        o/onetbb/libtbbmalloc2_2021.11.0-2ubuntu2_amd64.deb \
+        o/onetbb/libtbb12_2021.11.0-2ubuntu2_amd64.deb \
+        o/onetbb/libtbb-dev_2021.11.0-2ubuntu2_amd64.deb \
+        h/hwloc/libhwloc15_2.10.0-1build1_amd64.deb \
+    ; do
+        wget http://mirrors.kernel.org/ubuntu/pool/universe/$deb
+        deb=${deb##*/}
+        ar x $deb data.tar.zst
+        tar xvf data.tar.zst
+        rm data.tar.zst
+    done
+    cd ..
+
+    # Copy to sandbox
+    chown -R $USER:$USER tbb/usr/
+    chmod -R o+rX tbb/usr/
+    cp -vpr tbb/usr sandbox/
+    rm -r tbb/
+
+Build the container:
+
+    singularity build rocm_6.2.4_stdpar.sif sandbox/
+    rm -r sandbox/
+
+As an end result, the container image contains tbb as if it was installed with apt except that `/etc/ld.so.cache` doesn't contain libtbb (would require running `ldconfig` that `apt install` does).
 
 ## OneAPI on Mahti
 
