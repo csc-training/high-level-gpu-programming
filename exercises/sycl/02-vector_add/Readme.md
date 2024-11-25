@@ -23,18 +23,18 @@ Start by defining a **queue**  and selecting the appropriate device selector. SY
 ### Step 2: Create Buffers
 Next, create buffers to encapsulate the data. For a one-dimensional array of integers of length `N`, with pointer `P`, a buffer can be constructed as follows:
 
-```
-sycl::buffer<int, 1> a_buf(P, sycl::range<1>(N));
+```cpp
+    sycl::buffer<int, 1> a_buf(P, sycl::range<1>(N));
 ```
 ### Step 3: Create Accessors
 Accessors provide a mechanism to access data inside the buffers. Accessors on the device must be created within command groups. There are two ways to create accessors. Using the `sycl::accessor` class constructor
 
-```
+```cpp
    sycl::accessor a{a_buf, h, sycl::read_write};
 ```
 or  using the buffer `.getaccess<...>(h)`  member function:
-```
-a = a_buf.get_access<sycl::access::mode::read_write>(h);
+```cpp
+   auto a = a_buf.get_access<sycl::access::mode::read_write>(h);
 ```
 **Important**  Use appropriate access modes for your data:
  - **Input Buffers:** Use `sycl::access::mode::read` to avoid unnecessary device-to-host data transfers.
@@ -44,14 +44,14 @@ a = a_buf.get_access<sycl::access::mode::read_write>(h);
 ### Step 4: Submit the Task
 Once accessors are ready, submit the task to the device using the `.parallel_for()` member function. The basic submission:
 
-```
+```cpp
    h.parallel_for(sycl::range{N}, [=](sycl::id<1> idx) {
         c[idx] = a[idx] + b[idx];
       });
 ```  
 Here: 
  - `sycl::range{N}` or `sycl::range(N)` specify number of work-items be launched 
-- `sycl::id<1>` represents the index used within the kernel.
+ - `sycl::id<1>` represents the index used within the kernel.
 
 #### Using **item** class instead of **id**
 Modify the lambda function to use the  **sycl::item** class instead of the **id** class. In this case the index `idx` is obtained from the `.get_id()` member.
@@ -59,7 +59,7 @@ Modify the lambda function to use the  **sycl::item** class instead of the **id*
 #### Using ND-Range
 This basic launching serves our purpose for this simpler example, however it is useful to test also the **ND-RANGE**. In case we specify to the runtime the total size of the grid of work-items and size of a work-group as well:
 
-```
+```cpp
    h.parallel_for(sycl::nd_range<1>(sycl::range<1>(((N+local_size-1)/local_size)*local_size), sycl::range<1>(local_size)), [=](sycl::nd_itemi<1> item) {
         auto idx=item.get_global_id(0);
         c[idx] = a[idx] + b[idx];
@@ -73,12 +73,12 @@ The final task in this exercise is to move the checking of the results  within t
 By default, buffers are automatically synchronized with the host when they go out of scope. However, if you need to access data within the buffer’s scope, use **host accessors**. 
 
 Similar to the device  accessors, it is possible to define host accessors in two ways. By using the accessor class constructor
-```
-host_accessor c{c_buf, sycl::access::mode::read};
+```cpp
+    host_accessor c{c_buf, sycl::access::mode::read};
 ``` 
 or by using the `.get_access` member function of the buffer
-```
-auto = c_buf.get_access<access::mode::read>();
+```cpp
+    auto c = c_buf.get_access<access::mode::read>();
 ```
 
 ## II. Memory management with Unified Shared Memory
@@ -93,14 +93,14 @@ Same as using buffers
 ### Step 2: Allocate Memory on the Device Using `malloc_device`
 Instead of creating buffers, allocate memory directly on the device using `sycl::malloc_device`. For a one-dimensional array of integers of length N, memory can be allocated as follows:
 
-```
-int* a_usm = sycl::malloc_device<int>(N, q);
+```cpp
+    int* a_usm = sycl::malloc_device<int>(N, q);
 ```
 ### Step 3: Copy Data to the Device
 
 You need to copy the data from the host to the device memory. Use sycl::memcpy to transfer data from the host memory to device memory before launching the kernel:
-```
-q.memcpy(a_usm, a.data(), N * sizeof(int)).wait();
+```cpp
+    q.memcpy(a_usm, a.data(), N * sizeof(int)).wait();
 ``` 
 
 ### Step 4: Submit the Task
@@ -109,15 +109,15 @@ Same as using buffers.
 ### Step 5: Retrieve Data
 
 After the kernel execution is complete, you need to copy the result back from the device to the host. Use `sycl::memcpy` again to transfer the result:
-```
-q.memcpy(c.data(), c_usm, N * sizeof(int)).wait();
+```cpp
+    q.memcpy(c.data(), c_usm, N * sizeof(int)).wait();
 ```
 ### Step 6: Free Device Memory
 
 Once you're done with the device memory, free the allocated memory using `sycl::free`:
 
-```
-sycl::free(a_usm, q);
+```cpp
+    sycl::free(a_usm, q);
 ```
 This ensures that the allocated memory is properly released on the device.
 
@@ -133,7 +133,7 @@ Same as before
 ### Step 2: Allocate Memory on the Device Using `malloc_managed`
 Allocate memory that can be migrated between host and device using `sycl::malloc_managed`. For a one-dimensional array of integers of length N, memory can be allocated as follows:
 
-```
+```cpp
 int* a = sycl::malloc_managed<int>(N, q);
 ```
 Step 3: Initialize Data on Host
@@ -150,7 +150,7 @@ Since `malloc_managed` migrates data automatically between the host and device, 
 
 Once you're done with the device memory, free the allocated memory using `sycl::free`:
 
-```
+```cpp
 sycl::free(a_usm, q);
 ```
 This ensures that the allocated memory is properly released on the device.
