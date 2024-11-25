@@ -43,11 +43,11 @@ Set up the environment:
     source /projappl/project_2012125/intel/oneapi/setvars.sh --include-intel-llvm
     ml cuda/11.5.0 openmpi/4.1.2-cuda
 
-Compile for nvidia and cpu targets:
+Compile:
 
-    icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 sycl_code.cpp
+    icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 code.cpp
 
-Run as an usual gpu program:
+Run on one GPU:
 
     srun -A project_2012125 -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 --time=00:15:00 ./a.out
 
@@ -56,14 +56,14 @@ Run as an usual gpu program:
 Set up the environment:
 
     source /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
-    ml rocm/6.0.3
+    ml craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
     export MPICH_GPU_SUPPORT_ENABLED=1
 
-Compile for amd and cpu targets:
+Compile:
 
-    icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a sycl_code.cpp
+    icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a code.cpp
 
-Run as an usual gpu program:
+Run on one GPU:
 
     srun -A project_462000752 -p dev-g --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gpus-per-node=1 --time=00:15:00 ./a.out
 
