@@ -51,17 +51,19 @@ void evolve(field *curr, field *prev, double a, double dt)
 
     /* CUDA thread settings */
     const int blocksize = 16;  //!< CUDA thread block dimension
-    sycl::range<3> dimBlock(1, blocksize, blocksize);
+    dpct::dim3 dimBlock(blocksize, blocksize);
     // CUDA threads are arranged in column major order; thus make ny x nx grid
-    sycl::range<3> dimGrid(1, (nx + 2 + blocksize - 1) / blocksize,
-                           (ny + 2 + blocksize - 1) / blocksize);
+    dpct::dim3 dimGrid((ny + 2 + blocksize - 1) / blocksize,
+                       (nx + 2 + blocksize - 1) / blocksize);
 
     {
-        dpct::has_capability_or_fail(dpct::get_in_order_queue().get_device(),
-                                     {sycl::aspect::fp64});
+        dpct::get_device(
+            dpct::get_device_id(dpct::get_in_order_queue().get_device()))
+            .has_capability_or_fail({sycl::aspect::fp64});
+
         dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
-            double *curr_devdata_ct0 = curr->devdata;
-            double *prev_devdata_ct1 = prev->devdata;
+            auto curr_devdata_ct0 = curr->devdata;
+            auto prev_devdata_ct1 = prev->devdata;
 
             cgh.parallel_for(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock),
                              [=](sycl::nd_item<3> item_ct1) {
@@ -85,9 +87,8 @@ void enter_data(field *temperature1, field *temperature2)
     temperature2->devdata =
         (double *)sycl::malloc_device(datasize, dpct::get_in_order_queue());
 
-    dpct::get_in_order_queue()
-        .memcpy(temperature1->devdata, temperature1->data, datasize)
-        .wait();
+    dpct::get_in_order_queue().memcpy(temperature1->devdata, temperature1->data,
+                                      datasize);
     dpct::get_in_order_queue()
         .memcpy(temperature2->devdata, temperature2->data, datasize)
         .wait();

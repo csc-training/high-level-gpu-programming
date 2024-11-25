@@ -57,8 +57,8 @@ void evolve(field *curr, field *prev, double a, double dt)
 
     {
         global_queue.submit([&](sycl::handler &cgh) {
-            double *curr_devdata_ct0 = curr->devdata;
-            double *prev_devdata_ct1 = prev->devdata;
+            auto *curr_devdata_ct0 = curr->devdata;
+            auto *prev_devdata_ct1 = prev->devdata;
 
             cgh.parallel_for(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock),
                              [=](sycl::nd_item<3> item_ct1) {
