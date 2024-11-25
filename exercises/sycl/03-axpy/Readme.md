@@ -47,17 +47,17 @@ Instead of using **in-order** queues can use `sycl::events` to explicitly set th
  1. Initialize arrays `X` and `Y` on the device using two separate kernels. Capture the events for these kernel submissions:
 ```cpp
 auto event_x = queue.submit([&](sycl::handler &h) {
-    h.parallel_for(size, [=](size_t i) { X[i] = 1; });
+    h.parallel_for(range{N}, [=](id<1> idx) { X[idx] = 1; });
 });
 auto event_b = queue.submit([&](sycl::handler &h) {
-    h.parallel_for(size, [=](size_t i) { Y[i] = 2; });
+    h.parallel_for(range{N}, [=](id<1> idx) { Y[idx] = 2; });
 });
 ```
  1. submit the `axpy` kernel with an explicit dependency on the two initialization events
  ```cpp
  queue.submit([&](sycl::handler &h) {
     h.depends_on({event_y, event_y});
-    h.parallel_for(size, [=](size_t i) { Y[i] += a * X[i]; });
+    h.parallel_for(range{N}, [=](id<1> idx) { Y[idx] += a * X[idx]; });
 });
 ``` 
  1. as a exercise you can synch the host with the event `sycl::event::wait({event_a, event_b});`
