@@ -9,7 +9,7 @@ CXXFLAGS=$(CFLAGS)
 LDFLAGS=$(CFLAGS)
 LIBS=-lpng -lcudart
 
-EXE=heat
+EXE=heat.x
 OBJS=main.o core.o core_acc.o setup.o utilities.o io.o pngwriter.o
 
 all: $(EXE)

@@ -1,14 +1,14 @@
 COMMONDIR=../common
 
-CC=clang
-CXX=clang++
+CC=icx
+CXX=icpx
 CFLAGS=-g -O3 -Wall -I$(COMMONDIR)
 SYCLFLAGS=-fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80
 CXXFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:compile`
-LDFLAGS=$(CFLAGS) $(SYCLFLAGS) `mpicxx --showme:link`
+LDFLAGS=$(CFLAGS) $(SYCLFLAGS) -fuse-ld=lld `mpicxx --showme:link`
 LIBS=-lpng
 
-EXE=heat
+EXE=heat.x
 OBJS=main.o core.o core_acc.o setup.o utilities.o io.o pngwriter.o
 
 all: $(EXE)
