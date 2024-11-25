@@ -30,10 +30,11 @@ int main() {
   // Wait for the kernel to finish
   q.wait();
 
-  // Check that all outputs match the expected value
-  bool passed = std::all_of(c.begin(), c.end(),
+// Check that all outputs match the expected value
+  bool passed = std::all_of(c, c+N,
                             [](int i) { return (i == 3); });
   std::cout << ((passed) ? "SUCCESS" : "FAILURE") << std::endl;
+
 
   // Free the memory
   //TODO
