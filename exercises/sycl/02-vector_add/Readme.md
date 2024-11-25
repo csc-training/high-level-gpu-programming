@@ -122,18 +122,18 @@ Once you're done with the device memory, free the allocated memory using `sycl::
 This ensures that the allocated memory is properly released on the device.
 
 
-### IIb) **malloc_managed**
+### IIb) **malloc_shared**
 
 Use the skeleton provided in `vector_add_usm_managed.cpp`. Look for the **//TODO** lines.
 
 ### Step 1: Define a Queue
 Same as before
 
-### Step 2: Allocate Memory on the Device Using `malloc_managed`
-Allocate memory that can be migrated between host and device using `sycl::malloc_managed`. For a one-dimensional array of integers of length N, memory can be allocated as follows:
+### Step 2: Allocate Memory on the Device Using `malloc_shared`
+Allocate memory that can be migrated between host and device using `sycl::malloc_shared`. For a one-dimensional array of integers of length N, memory can be allocated as follows:
 
 ```cpp
-int* a = sycl::malloc_managed<int>(N, q);
+int* a = sycl::malloc_shared<int>(N, q);
 ```
 ### Step 3: Initialize Data on Host
 
@@ -144,7 +144,7 @@ Same as using buffers.
 
 ### Step 5: Synchronize and Check Results
 
-Since `malloc_managed` migrates data automatically between the host and device, no explicit memory transfer is required. Ensure the queue finishes execution before accessing the results using `q.wait()`;
+Since `malloc_shared` migrates data automatically between the host and device, no explicit memory transfer is required. Ensure the queue finishes execution before accessing the results using `q.wait()`;
 ### Step 6: Free Device Memory
 
 Once you're done with the device memory, free the allocated memory using `sycl::free`:
