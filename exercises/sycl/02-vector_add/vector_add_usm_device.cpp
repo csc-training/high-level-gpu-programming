@@ -1,5 +1,4 @@
 // Copyright (C) 2023 Intel Corporation
-
 // SPDX-License-Identifier: MIT
 #include <iostream>
 #include <sycl/sycl.hpp>
@@ -7,37 +6,43 @@ using namespace sycl;
 
 int main() {
   // Set up queue on any available device
-  //TODO 
-  queue q;
+  //TODO
 
   // Initialize input and output memory on the host
   constexpr size_t N = 256;
-  std::vector<int> a_host(N), b_host(N), c_host(N);
+  std::vector<int> a(N), b(N), c(N);
   std::fill(a.begin(), a.end(), 1);
   std::fill(b.begin(), b.end(), 2);
   std::fill(c.begin(), c.end(), 0);
+  
+  // Allocate the memory using malloc_device
+  //TODO
+  
+  // Copy data from host to USM
+  //TODO
+  
+  // Submit the kernel to the queue
+  q.submit([&](handler& h) {
 
-  {
-   // Create buffers for the 
-   // TODO
-
-    // Submit the kernel to the queue
-    q.submit([&](handler& h) {
-      // Create accessors
+    h.parallel_for(
       //TODO
+    );
 
-      h.parallel_for(
-        //TODO
-      );
+  });
 
-      //TODO after the submission works
-      //Checking inside the scope of the buffers
-  }
+  // Wait for the kernel to finish
+  q.wait();
 
-  // Check that all outputs match expected value
+  // Copy data from USM to host
+  //TODO
+
+  // Free USM allocations
+  //TODO
+
+  
+  // Check that all outputs match the expected value
   bool passed = std::all_of(c.begin(), c.end(),
                             [](int i) { return (i == 3); });
-  std::cout << ((passed) ? "SUCCESS" : "FAILURE")
-            << std::endl;
+  std::cout << ((passed) ? "SUCCESS" : "FAILURE") << std::endl;
   return (passed) ? 0 : 1;
 }

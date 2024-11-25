@@ -4,3 +4,4 @@ a.out
 *.qdrep
 *.sqlite
 heat
+build/
