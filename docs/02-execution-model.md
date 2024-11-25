@@ -1,8 +1,7 @@
 ---
 title:  GPU Execution Model
 subtitle: High-Level GPU Programming 
-author:   CSC Training
-date:     2024-02
+date:     Novermber 2024
 lang:     en
 ---
 

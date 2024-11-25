@@ -1,7 +1,6 @@
 ---
 title:  Introduction to GPUs
 subtitle: High-Level GPU Programming 
-author:   CSC Training
 date:     November 2024
 lang:     en
 ---
