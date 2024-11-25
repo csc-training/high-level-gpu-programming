@@ -30,7 +30,7 @@ Next, create buffers to encapsulate the data. For a one-dimensional array of int
 Accessors provide a mechanism to access data inside the buffers. Accessors on the device must be created within command groups. There are two ways to create accessors. Using the `sycl::accessor` class constructor
 
 ```cpp
-   sycl::accessor a{a_buf, h, sycl::read_write};
+   sycl::accessor a{a_buf, h, read_write};
 ```
 or  using the buffer `.getaccess<...>(h)`  member function:
 ```cpp
@@ -74,7 +74,7 @@ By default, buffers are automatically synchronized with the host when they go ou
 
 Similar to the device  accessors, it is possible to define host accessors in two ways. By using the accessor class constructor
 ```cpp
-    host_accessor c{c_buf, sycl::access::mode::read};
+    host_accessor c{c_buf, read_only};
 ``` 
 or by using the `.get_access` member function of the buffer
 ```cpp
