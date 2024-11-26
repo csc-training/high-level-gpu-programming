@@ -9,22 +9,22 @@ lang:     en
 
 #  Heterogeneous Programming Model
 
-- GPUs are co-processors to the CPU
+- GPUs (devices) are co-processors to the CPU (host)
 - CPU controls the work flow:
   - *offloads* computations to GPU by launching *kernels*
   - allocates and deallocates the memory on GPUs
   - handles the data transfers between CPU and GPUs
 - CPU and GPU can work concurrently
    - kernel launches are normally asynchronous
+   - memory copies between CPU and GPU can be done asynchronously
 
 # Example: axpy
 
 <div class="column">
 
-Serial cpu code of `y=y+a*x`:
+Serial CPU code of `y=y+a*x`:
 
-- have a loop going over the each index
-
+- Loop over each index
 
 <small>
 ```cpp
@@ -42,8 +42,8 @@ void axpy_(int n, double a, double *x, double *y)
 
 On an accelerator:
 
-- we create instances of the same function, **kernels**
-- kernel is called typically in implicit loop
+- Instances of the same function, **kernels**
+- An instance of kernel is run for each index (implicit loop)
 - SIMT (single instruction multiple threads)
 <small>
 
@@ -65,7 +65,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 <div class="column">
 
 
-![](img/work_item.png){.center width=5%}
+![](img/work_item.png){.center width=2%}
 
 <div align="center"><small>A thread is running on execution unit</small></div>
 
@@ -73,7 +73,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 <div class="column">
 
-![](img/amd_simd_lanet.png){.center width=31%} 
+![](img/amd_simd_lanet.png){.center width=12%} 
 
 <div align="center"><small>The smallest execution unit in a GPU.</small></div>
 </div>
@@ -82,6 +82,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 - Threads execute a stream of instructions running on different execution units
 - Each thread runs the same **kernel** (SIMT). 
 - Each thread processes different elements of the data (SIMD).
+- Much more threads than execution units
 
 # Warp / wavefront
 
@@ -102,7 +103,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 </div>
 - GPU threads are grouped together in hardware level
     - warp (NVIDIA, 32 threads), wavefront (AMD, 64 threads)
-- All members of group execute the same instruction
+- All members of the group execute the same instruction
 - In the case of branching, each branch is executed sequentially
 - Memory accesses are done per group
 
@@ -110,23 +111,23 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 
 <div class="column">
 
-![](img/work_group.png){.center width=20%}
+![](img/work_group.png){.center width=13%}
 
 <div align="center"><small>Thread blocks</small></div>
 
 </div>
 
 <div class="column">
-![](img/CU2.png){.center width=20%}
+![](img/CU2.png){.center width=13%}
 
-<div align="center"><small>Compute Unit in an AMD GPU.</small></div>
+<div align="center"><small>Compute Unit in an AMD GPU</small></div>
 </div>
-- Threads are grouped in so called blocks
+- Threads are grouped in blocks
 - Each block is executed in specific unit
     - Streaming multiprocessor, SMP (NVIDIA), compute unit, CU (AMD)
 - Maximum number of threads in  a block limited by hardware
-- Synchronization and data exchange is possible inside a block
-
+- Synchronization is possible within a block
+- Communication via local shared memory within a block
 
 # Grid of thread blocks
 
@@ -139,7 +140,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 </div>
 
 <div class="column">
-![](img/mi100-architecture.png){.center width=52%}
+![](img/mi100-architecture.png){.center width=48%}
 
 <div align="center"><small>AMD Instinct MI100 architecture (source: AMD)</small></div>
 </div>
@@ -147,7 +148,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 - Thread blocks are organized into a grid
     - Total number of threads = number of blocks $\mathrm{\times}$ threads per block
 - In order to hide latencies, there should be more blocks than SMPs / CUs
-- There is no synchronization or data exchange between blocks
+- No synchronization between blocks
 
 # Terminology with different vendors
 
