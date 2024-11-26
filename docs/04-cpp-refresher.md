@@ -9,7 +9,7 @@ lang:     en
 # Outline
 
 - SYCL and Kokkos are modern C++ with classes, templates, lambdas, ...
-- These constructions are reviewed
+- These constructs are reviewed
 
 
 # Elements of a SYCL code
