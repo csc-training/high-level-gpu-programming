@@ -78,7 +78,7 @@ lang:     en
 
  - two flavors of queues:
     - **out-of-order**
-        - default behaivour
+        - default behaviour
         - a task/kernel can start execution at any time
         - dependencies and order need to be set in other ways
     - **in-order**: 
