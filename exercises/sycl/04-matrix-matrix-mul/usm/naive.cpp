@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
             }
          });
     });
-    
+    q.wait();
 
     auto kernel_duration = (e.get_profiling_info<info::event_profiling::command_end>() - e.get_profiling_info<info::event_profiling::command_start>());
     std::cout << "\tKernel Execution Time : " << kernel_duration / 1e+9 << " seconds" << "\n";
