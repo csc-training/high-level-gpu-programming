@@ -48,18 +48,20 @@ bash compile_lumi.sh -DBENCHMARK
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm603 cuda_hip cuda_hip_sync blas blas_sync
 ```
 
-### rocm container
+### rocm container with acpp
 
 ```bash
-export CONTAINER_EXEC="singularity exec /projappl/project_462000752/rocm_6.2.4_stdpar.sif"
+export CONTAINER_EXEC="singularity exec /projappl/project_462000752/rocm_6.2.4_acpp.sif"
 export HIPSTDPAR_PATH="/opt/rocm-6.2.4/include/thrust/system/hip/hipstdpar"
 export SINGULARITY_BIND="/pfs,/scratch,/projappl,/project,/flash,/appl"
 export SINGULARITYENV_LC_ALL=C
 export HSA_XNACK=1
 
 bash compile_lumi_container.sh -DBENCHMARK
-
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 stdpar cuda_hip cuda_hip_sync blas blas_sync
+
+bash compile_lumi_container_acpp.sh -DBENCHMARK
+sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 sycl_acpp sycl_sync_acpp stdpar_acpp
 ```
 
 ### OneAPI
