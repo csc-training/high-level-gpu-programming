@@ -15,41 +15,21 @@ int main() {
 
 {
   // Create buffers for data
-  buffer<int, 1> X_buf(X.data(), range<1>(N));
-  buffer<int, 1> Y_buf(Y.data(), range<1>(N));
-
+  //TODO
+  
   // Submit kernel to initialize X
   q.submit([&](handler& h) {
-      //Create accessors
-    accessor X_acc{X_buf, h,write_only};
-
-    // Kernel to initialize X with value 1
-    h.parallel_for(range{N}, [=](id<1> idx) {
-      X_acc[idx] = 1;
-    });
+    //TODO
   });
 
   // Submit kernel to initialize Y
   q.submit([&](handler& h) {
-      //Create accessors
-    accessor Y_acc{Y_buf, h,write_only};
-
-    // Kernel to initialize Y with value 2
-    h.parallel_for(range{N}, [=](id<1> idx) {
-      Y_acc[idx] = 2;
-    });
+    //TODO
   });
 
   // Submit kernel to perform the AXPY operation: a = X + Y
   q.submit([&](handler& h) {
-      //Create accessors
-    accessor X_acc{X_buf, h,read_only};
-    accessor Y_acc{Y_buf, h,read_write};
-    // Kernel to compute Y = X + Y
-    h.parallel_for(range{N}, [=](id<1> idx) {
-      Y_acc[idx] = X_acc[idx] + a*Y_acc[idx];
-    });
-  });
+    //TODO
 }
 
   // Check that all outputs match expected value
