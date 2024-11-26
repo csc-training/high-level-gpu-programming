@@ -1,7 +1,7 @@
 ---
 title:    C++ Refresher
 subtitle: High-Level GPU Programming
-date:     2024-11
+date:     November 2024
 lang:     en
 ---
 

@@ -1,6 +1,6 @@
 ---
-title:  Introduction to GPUs
-subtitle: High-Level GPU Programming 
+title:    Introduction to GPUs
+subtitle: High-Level GPU Programming
 date:     November 2024
 lang:     en
 ---

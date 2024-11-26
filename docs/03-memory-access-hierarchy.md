@@ -1,8 +1,7 @@
 ---
-title:  Memory Hierarchy and Memory Accesses in GPUs 
+title:    Memory Hierarchy and Memory Accesses in GPUs 
 subtitle: High-Level GPU Programming 
-author:   CSC Training
-date:     2024-02
+date:     November 2024
 lang:     en
 ---
 

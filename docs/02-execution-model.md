@@ -1,7 +1,7 @@
 ---
-title:  GPU Execution Model
-subtitle: High-Level GPU Programming 
-date:     Novermber 2024
+title:    GPU Execution Model
+subtitle: High-Level GPU Programming
+date:     November 2024
 lang:     en
 ---
 
