@@ -53,8 +53,8 @@ __global__ void daxpy_(const size_t n, const double a, const double* __restrict_
 
 void daxpy(const size_t n, const double a, const double *x, double *y)
 {
-    dim3 blocks(n / 1024);
-    dim3 threads(1024);
+    dim3 blocks(n / 256);
+    dim3 threads(256);
     daxpy_<<<blocks, threads>>>(n, a, x, y);
 #ifdef SYNC
     gpuDeviceSynchronize();
