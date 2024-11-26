@@ -158,6 +158,8 @@ Set up the environment:
     module use /scratch/project_2012125/cristian/spack/share/spack/modules/linux-rhel8-x86_64_v3/
     module load hipsycl/24.06.0-gcc-10.4.0-4nny2ja
     module load gcc/10.4.0
+    export LD_LIBRARY_PATH=/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/:$LD_LIBRARY_PATH
+    export LD_PRELOAD=/scratch/project_2012125/cristian/spack/opt/spack/linux-rhel8-x86_64_v3/gcc-10.4.0/llvm-18.1.8-bgdmsbegf2oymsvhmukkr22s2cjb4zxz/lib/libomp.so
 
 Compile sycl code:
 
@@ -242,6 +244,8 @@ module use /scratch/project_2012125/cristian/spack/share/spack/modules/linux-rhe
 module load hipsycl/24.06.0-gcc-10.4.0-4nny2ja
 module load gcc/10.4.0
 module load openmpi/4.1.5-cuda
+export LD_LIBRARY_PATH=/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/:$LD_LIBRARY_PATH
+export LD_PRELOAD=/scratch/project_2012125/cristian/spack/opt/spack/linux-rhel8-x86_64_v3/gcc-10.4.0/llvm-18.1.8-bgdmsbegf2oymsvhmukkr22s2cjb4zxz/lib/libomp.so
 
 acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
