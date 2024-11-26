@@ -54,7 +54,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
-The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercises are based on Intel copyrighted work and they have their own license ([MIT](https://fedoraproject.org/wiki/Licensing:MIT?rd=Licensing/MIT)).
+The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercises are based on Intel copyrighted work and they have their own license ([MIT]([https://fedoraproject.org/wiki/Licensing:MIT?rd=Licensing/MIT](https://spdx.org/licenses/MIT.html))).
 
 ## Exercises
 
