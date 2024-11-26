@@ -58,7 +58,7 @@ lang:     en
 
 - pointer-based approach to C/C++/CUDA/HIP
 - explicit allocation and  freeing of memory
-- explict dependencies
+- explicit dependencies
 - explicit host-device transfers (unless using managaged)
 - explicit host-device synchronization 
 
