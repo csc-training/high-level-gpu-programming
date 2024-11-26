@@ -28,7 +28,6 @@ int main() {
   // Initialize Y array on the device, depending on X initialization
    //TODO = q.parallel_for(
       range<1>(N), 
-      init_X_event,  // Wait for X initialization to complete
       [=](id<1> idx) {
         Y[idx] = 2;  // Initialize Y with value 2
       });
