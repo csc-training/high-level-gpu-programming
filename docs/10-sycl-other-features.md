@@ -14,23 +14,11 @@ lang:     en
 
 # Set Dependencies
 
-  - **in-order** queues: implicit dependence depending on the order of submission
   - **buffers and accessors**: automatic dependencies based on data and order of submission
+  - **in-order** queues: implicit dependence depending on the order of submission
   - **event based**: manual dependencies, most control
 
 
-# Order of Execution in Queues
-
- - two flavors of queues:
-    - **out-of-order**
-        - default behaivour
-        - a task/kernel can start execution at any time
-        - dependencies and order need to be set in other ways
-    - **in-order**: 
-        - `queue q{property::queue::in_order()};`
-        - creates a linear task graph
-        - a task/kernel  will start execution only when the preceeding is completed
-        - no conncurrent execution
 
 # Dependencies via Buffer and Accessors API
 
@@ -85,6 +73,19 @@ lang:     en
 </div>
  - kernel 1 and kernel 2 are independent
  - kernel 3 waits for the completion of kernel 1 and 2 
+
+# Order of Execution in Queues
+
+ - two flavors of queues:
+    - **out-of-order**
+        - default behaivour
+        - a task/kernel can start execution at any time
+        - dependencies and order need to be set in other ways
+    - **in-order**: 
+        - `queue q{property::queue::in_order()};`
+        - creates a linear task graph
+        - a task/kernel  will start execution only when the preceeding is completed
+        - no conncurrent execution
 
 # Event Based Dependencies I
  - most flexible way to force specific order of execution
