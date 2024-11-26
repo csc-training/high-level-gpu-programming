@@ -59,6 +59,12 @@ auto event_b = queue.submit([&](sycl::handler &h) {
     h.depends_on({event_y, event_y});
     h.parallel_for(range{N}, [=](id<1> idx) { Y[idx] += a * X[idx]; });
 });
-``` 
+```
+or 
+
+ ```cpp
+ queue.
+    h.parallel_for(range{N},{event_y, event_y}, [=](id<1> idx) { Y[idx] += a * X[idx]; });
+```
  1. as a exercise you can synch the host with the event `sycl::event::wait({event_a, event_b});`
  1. copy the final result back to the host for validation
