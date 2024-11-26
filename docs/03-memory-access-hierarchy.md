@@ -56,14 +56,14 @@ lang:     en
 
 Parallel GPU code of `y=y+a*x`:
 
-- we create instances of the same function, **kernels**, `id`
+- Instances of the same function, **kernel**, running for different index `id`
 
 ```cpp
 GPU_K void axpy_(int n, double a, double *x, double *y, int id)
 {
         y[id] += a * x[id]; // Coalesced 
         y[id] += a * x[id*stride]; // Strided Non-Coalesced 
-        y[id] += a * x[id+shift]; // Shifted Non-Coalesced 
+        y[id] += a * x[id+shift]; // Shifted (non-aligned) Non-Coalesced 
 }
 
 ```
