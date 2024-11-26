@@ -62,26 +62,27 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 
 [General instructions](Exercises_Instructions.md)
 
-### SYCL Essentials
-- [Intel DevCloud Intructions](exercises/sycl-optimization-performance-c2s/sycl1/1_Intel_Devcloud_20240203.pdf)
-- [SYCL Basics](exercises/sycl-optimization-performance-c2s/sycl1/Readme.md)
-
-### SYCL Performance and Optimization
-- [Unified Shared Memory](exercises/sycl-optimization-performance-c2s/sycl2/Readme.md)
-- [Profiling on Nvidia platform](exercises/sycl-optimization-performance-c2s/sycl3/NBody-nvidia-profiling/Readme.md)
-
-### Memory Optimization
-- [Jacobi Iterations](exercises/sycl/07-jacobi)
-- [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
-- [Reductions](exercises/sycl/06-reduction-direct)
-
 ### Kokkos
 - [Kokkos](/exercises/kokkos)
+
+### SYCL Essentials
+- [Hello World](/exercises/sycl/00-hello/)
+- [Getting Device Info](/exercises/sycl/01-info/)
+- [Vector Addition](/exercises/sycl/02-vector_add)
+
+### SYCL Advance Features
+- [Hello World](/exercises/sycl/00-hello/)
+- [Getting Device Info](/exercises/sycl/01-info/)
+- [Vector Addition](/exercises/sycl/02-vector_add)
+  
+### Memory Optimizations
+- [Jacobi Iterations](exercises/sycl/07-jacobi)
+- [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
+- [Reductions](exercises/sycl/06-reduction-direct) (Optional)
 
 ### SYCL and MPI
 - [Ping-pong with 2 GPUs and MPI](exercises/sycl/08-ping-pong)
 - [Pi computing with multiple GPU and MPI](exercises/sycl/11-pi/)
 
 ### SYCL interoperability
-
 - [SYCL and 3rd party libraries](exercises/sycl/09-interoperability/)
