@@ -1,7 +1,7 @@
 ---
 title:    Converting CUDA code to SYCL
 subtitle: High-Level GPU Programming
-date:     2024-11
+date:     November 2024
 lang:     en
 ---
 
