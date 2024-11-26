@@ -115,71 +115,114 @@ When we execute `module load cuda`, it will effectively modify the above environ
 SYCL is not part of the module system at the moment. The SYCL compilers were build for this training. We recommend that you use one of the two SYCL implementations.
 
 ### Intel oneAPI compilers
+
 oneAPI is a collection of tool and library supporting a wide range of programming languange and parallel programming paradigms. It includes a SYCL implementation which supports all  Intel devices (CPUs, FPGAs, and GPUs) and has SYCL plug-ins for targeting Nvidia and AMD GPUs.
-In order to use the intel SYCL compiler one has to  set the environment varibles first:
 
-on Mahti:
-```
-. /projappl/project_2012125/intel/oneapi/setvars.sh --include-intel-llvm
-module load cuda # This is needed for compiling sycl code for nvidia gpus
-module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI 
-```
+#### oneAPI on Mahti
 
-on LUMI:
-```
-. /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
+Set up the environment:
 
-module load LUMI
-module load partition/G
-module load rocm/6.0.3
-export MPICH_GPU_SUPPORT_ENABLED=1 # Needed for GPU aware MPI
-```
-After this one can load other modules that might be needed for compiling the codes. With the environment set-up we can compile and run the SYCL codes.
+    source /projappl/project_2012125/intel/oneapi/setvars.sh --include-intel-llvm
+    module load cuda/11.5.0          # Needed for compiling to NVIDIA GPUs
+    module load openmpi/4.1.2-cuda   # Needed for using GPU-aware MPI
 
-On Mahti:
-```
-icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 <sycl_code>.cpp
-```
-on LUMI
-```
-icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a <sycl_code>.cpp
-```
-Where `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` is used to instruct the compiler to generate optimized code for both CPU and GPU SYCL devices.
+Compile sycl code:
+
+    icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 <sycl_code>.cpp
+
+Here `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` is used to instruct the compiler to generate optimized code for both CPU and GPU devices.
+
+#### oneAPI on LUMI
+
+Set up the environment:
+
+    source /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
+    module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3  # Needed for compiling to AMD GPUs
+    export MPICH_GPU_SUPPORT_ENABLED=1                                # Needed for using GPU-aware MPI
+
+Compile sycl code:
+
+    icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a <sycl_code>.cpp
+
+Here `-fsycl` flag indicates that a sycl code is compiled and `-fsycl-targets` is used to instruct the compiler to generate optimized code for both CPU and GPU devices.
 
 ### AdaptiveCpp
+
 This is another SYCL  implementation with support for many type of devices. No special set-up is needed, expect from loading the modules related to the backend (cuda or rocm).
 
-on Mahti:
-```
-module purge
-module use /scratch/project_2012125/cristian/spack/share/spack/modules/linux-rhel8-x86_64_v3/
-module load hipsycl/24.06.0-gcc-10.4.0-4nny2ja
-module load gcc/10.4.0
-```
-```
-acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" vector_add_buffer.cpp  vector_add_buffer.cpp
-```
-on LUMI:
-```
-module load LUMI
-module load partition/G
-module load rocm/6.0.3
-export MPICH_GPU_SUPPORT_ENABLED=1
-#export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-22.08/G/EB/Boost/1.79.0-cpeCray-22.08/lib:$LD_LIBRARY_PATH ??? 
-#export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so ??????
-```
+#### AdaptiveCpp on Mahti
 
-```
-acpp -O3 --acpp-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
-```
+Set up the environment:
+
+    module purge
+    module use /scratch/project_2012125/cristian/spack/share/spack/modules/linux-rhel8-x86_64_v3/
+    module load hipsycl/24.06.0-gcc-10.4.0-4nny2ja
+    module load gcc/10.4.0
+
+Compile sycl code:
+
+    acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" vector_add_buffer.cpp  vector_add_buffer.cpp
+
+#### AdaptiveCpp on LUMI
+
+Set up the environment:
+
+    module load LUMI/24.03
+    module load partition/G
+    module load rocm/6.0.3
+    export PATH=/projappl/project_462000752/ACPP/bin/:$PATH
+    export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-24.03/G/EB/Boost/1.83.0-cpeGNU-24.03/lib64/:$LD_LIBRARY_PATH
+    export LD_PRELOAD=/opt/rocm-6.0.3/llvm/lib/libomp.so
+
+Compile sycl code:
+
+    acpp -O3 --acpp-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
+
+### NVIDIA HPC on Mahti for stdpar
+
+Set up the environment:
+
+    ml purge
+    ml use /appl/opt/nvhpc/modulefiles
+    ml nvhpc/24.3
+    ml gcc/11.2.0
+    export PATH=/appl/spack/v017/install-tree/gcc-8.5.0/binutils-2.37-ed6z3n/bin:$PATH
+
+Compile stdpar code:
+
+    nvc++ -O4 -std=c++20 -stdpar=gpu -gpu=cc80 --gcc-toolchain=$(dirname $(which g++)) code.cpp
+
+### LUMI container with ROCm 6.2.4, hipstdpar, and AdaptiveCpp
+
+Set up the environment with container:
+
+    export CONTAINER_EXEC="singularity exec /projappl/project_462000752/rocm_6.2.4_stdpar_acpp.sif"
+    export HIPSTDPAR_PATH="/opt/rocm-6.2.4/include/thrust/system/hip/hipstdpar"
+    export SINGULARITY_BIND="/pfs,/scratch,/projappl,/project,/flash,/appl"
+    export SINGULARITYENV_LC_ALL=C
+    export HSA_XNACK=1  # needed for stdpar
+
+Compile stdpar code with hipcc:
+
+    $CONTAINER_EXEC hipcc -std=c++20 -O3 --hipstdpar --hipstdpar-path=$HIPSTDPAR_PATH --offload-arch=gfx90a:xnack+ code.cpp
+
+Compile stdpar code with acpp:
+
+    $CONTAINER_EXEC acpp -std=c++20 -O3 --acpp-stdpar --acpp-targets=hip:gfx90a -ltbb code.cpp
+
+Compile sycl code with acpp:
+
+    $CONTAINER_EXEC acpp -std=c++20 -O3 --acpp-targets=hip:gfx90a code.cpp
+
 ### MPI
+
 MPI (Message Passing Interface) is a standardized and portable message-passing standard designed for parallel computing architectures. It allows communication between processes running on separate nodes in a distributed memory environment. MPI plays a pivotal role in the world of High-Performance Computing (HPC), this is why is important to know we could combine SYCL and MPI.
 
 The SYCL implementation do not know anything about MPI. Intel oneAPI contains mpi wrappers, however they were not configure for Mahti and LUMI. Both Mahti and LUMI provide wrappers that can compile applications which use MPI, but they can not compile SYCL codes. We can however extract the MPI related flags and add them to the SYCL compilers.
 
 For exampl on Mahti in order to use CUDA-aware MPI we would first load the modules:
 ```
-module load cuda
+module load cuda/11.5.0
 module load openmpi/4.1.2-cuda
 ```
 The environment would be setup for compiling a CUDA code which use GPU to GPU communications. We can inspect the `mpicxx` wrapper:
@@ -190,7 +233,7 @@ $ mpicxx -showme
 We note that underneath `mpicxx` is calling `g++` with a lots of MPI related flags. We can obtain and use these programmatically with `mpicxx --showme:compile` and `mpicxx --showme:link`
 for compiling the SYCL+MPI codes:
 ```
-icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
+icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 or
 ```
@@ -201,20 +244,18 @@ module load gcc/10.4.0
 acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 
-Similarly on LUMI. First we set up the envinronment and load the modules as indicated above
-```
-. /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
-
-module load LUMI
-module load partition/G
-module load rocm/6.0.3
+Similarly on LUMI. First we set up the environment and load the modules as indicated above
+```bash
+source /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
+module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
 export MPICH_GPU_SUPPORT_ENABLED=1
 ```
-Now compile with intel compilers:
 
+Now compile with intel compilers:
+```bash
+icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
 ```
-icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend=amdgcn-amd-amdhsa  --offload-arch=gfx90a `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
-```
+
 Or with AdaptiveCpp:
 ```
 module load LUMI/24.03
@@ -333,3 +374,10 @@ srun my_gpu_exe
 Similarly to Mahti, on LUMI we have 2 cpu nodes reservered for us, and as well 2 gpu nodes. 
 
 **NOTE** Some exercises have additional instructions of how to run!
+
+#### Container
+
+Running works as usual except that the code needs to be executed through the container:
+
+    srun -A project_462000752 -p dev-g --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gpus-per-node=1 --time=00:15:00 $CONTAINER_EXEC ./a.out
+
