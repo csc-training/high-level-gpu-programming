@@ -47,7 +47,6 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 09:30-11:00  | Converting CUDA to SYCL
 | 11:00-12:00  | Memory optimizations
 | 12:00-13:00  | Lunch break
-| 13:00-13:30  | Memory optimizations
 | 13:30-15:00  | Interoperability with mpi, ping-pong and pi
 | 15:00-15:30  | Coffee break
 | 15:30-16:00  | Interoperability with third-party libraries
