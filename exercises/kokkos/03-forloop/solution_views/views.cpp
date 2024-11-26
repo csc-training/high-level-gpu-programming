@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
 
   {
-    unsigned n = 5;
+    int n = 5;
 
     // Allocate space for 5 ints on Kokkos HostSpace
     Kokkos::View<int*, Kokkos::HostSpace> h_a("h_a", n);
@@ -19,10 +19,10 @@ int main(int argc, char* argv[]) {
     Kokkos::View<int*> c("c", n);
 
     // Initialize values on host
-    for (unsigned i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-      h_a[i] = i;
-      h_b[i] = 1;
+      h_a(i) = i;
+      h_b(i) = 1;
     }
 
     // Copy from host to device
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 
     // Run element-wise multiplication on device
     Kokkos::parallel_for(n, KOKKOS_LAMBDA(const int i) {
-      c[i] = a[i] * b[i];
+      c(i) = a(i) * b(i);
     });
 
     // Copy from device to host
