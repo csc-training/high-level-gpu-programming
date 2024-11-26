@@ -241,6 +241,8 @@ module purge
 module use /scratch/project_2012125/cristian/spack/share/spack/modules/linux-rhel8-x86_64_v3/
 module load hipsycl/24.06.0-gcc-10.4.0-4nny2ja
 module load gcc/10.4.0
+module load openmpi/4.1.5-cuda
+
 acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 
