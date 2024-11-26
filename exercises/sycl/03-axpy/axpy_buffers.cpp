@@ -6,7 +6,7 @@ using namespace sycl;
 
 int main() {
   // Set up queue on any available device
-  queue q;
+  //TODO
 
   // Initialize input and output memory on the host
   constexpr size_t N = 256;
