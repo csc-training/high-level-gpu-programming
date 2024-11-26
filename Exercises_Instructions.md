@@ -161,7 +161,7 @@ Set up the environment:
 
 Compile sycl code:
 
-    acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" vector_add_buffer.cpp  vector_add_buffer.cpp
+    acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" <sycl_code>.cpp
 
 #### AdaptiveCpp on LUMI
 
