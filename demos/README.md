@@ -2,7 +2,7 @@
 
 ## Mahti
 
-### nvcc
+### CUDA
 
 ```bash
 ml cuda/11.5.0 openmpi/4.1.2-cuda
@@ -13,7 +13,7 @@ sbatch -p gputest --gres=gpu:a100:1 daxpy_benchmark.sh mahti cuda_hip cuda_hip_s
 srun -p gpusmall --ntasks-per-node=1 --gres=gpu:a100_1g.5gb:1 -t 0:05:00 ./cuda_hip.x
 ```
 
-### nvhpc
+### NVIDIA HPC
 
 ```bash
 ml purge
@@ -39,7 +39,7 @@ sbatch -p gputest --gres=gpu:a100:1 daxpy_benchmark.sh mahti sycl_oneapi sycl_sy
 
 ## LUMI
 
-### rocm module
+### ROCm module
 
 ```bash
 ml craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
@@ -48,7 +48,7 @@ bash compile_lumi.sh -DBENCHMARK
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm603 cuda_hip cuda_hip_sync blas blas_sync
 ```
 
-### rocm container with acpp
+### ROCm container with AdaptiveCpp
 
 ```bash
 export CONTAINER_EXEC="singularity exec /projappl/project_462000752/rocm_6.2.4_acpp.sif"
@@ -60,8 +60,10 @@ export HSA_XNACK=1
 bash compile_lumi_container.sh -DBENCHMARK
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 stdpar cuda_hip cuda_hip_sync blas blas_sync
 
+# AdaptiveCpp
 bash compile_lumi_container_acpp.sh -DBENCHMARK
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 sycl_acpp sycl_sync_acpp stdpar_acpp
+# Note! Timing is incorrect for stdpar_acpp due to missing synchronization
 ```
 
 ### OneAPI
@@ -74,7 +76,7 @@ bash compile_lumi_oneapi.sh -DBENCHMARK
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm603 sycl_oneapi sycl_sync_oneapi
 ```
 
-### AdaptiveCPP
+### AdaptiveCPP module
 
 ```bash
 ml LUMI/24.03
