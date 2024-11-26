@@ -9,7 +9,7 @@ lang:     en
 # Outline
 
 - Introduction to parallelization with C++ standard library
-- Performance considerations of GPU accelaration
+- Performance considerations of GPU acceleration
 - Examples
 
 
