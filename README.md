@@ -22,7 +22,7 @@ part of the EuroCC training activities at CSC.
 | 15:30-16:45  | Kokkos and Kokkos exercises
 | 16:45-17:00  | Day 1 wrap-up
 
-### Day 2, Thursday 15.2.
+### Day 2, Thursday 28.11
 
 | Time         | Topic |
 | ----         | ----- |
@@ -35,7 +35,7 @@ part of the EuroCC training activities at CSC.
 | 15:30-16:45  | SYCL Exercises (Advance Features)
 | 16:45-17:00  | Day 2 wrap-up
 
-### Day 3, Friday 16.2.
+### Day 3, Friday 29.11
 
 | Time         | Topic |
 | ----         | ----- |
