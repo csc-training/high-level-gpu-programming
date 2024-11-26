@@ -28,7 +28,6 @@ int main() {
   // Initialize Y array on the device, depending on X initialization
   event init_Y_event = q.parallel_for(
       range<1>(N), 
-      init_X_event,  // Wait for X initialization to complete
       [=](id<1> idx) {
         Y[idx] = 2;  // Initialize Y with value 2
       });
@@ -36,7 +35,7 @@ int main() {
   // Perform the AXPY operation: Y = X + a * Y, depending on Y initialization
   event axpy_event = q.parallel_for(
       range<1>(N), 
-      init_Y_event,  // Wait for Y initialization to complete
+       {init_Y_event,init_Y_event},  // Wait for Y initialization to complete
       [=](id<1> idx) {
         Y[idx] = X[idx] + a * Y[idx];
       });
