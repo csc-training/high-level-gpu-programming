@@ -17,7 +17,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 09:15-10:00  | Introduction to GPUs
 | 10:00-10:40  | GPU execution model
 | 10:40-11:30  | GPU memory hierarchy
-| 11:20-12:00  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
+| 11:30-12:00  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
 | 12:00-13:00  | Lunch break
 | 13:00-13:30  | C++ Refresher
 | 13:30-14:00  | C++ Standard Parallelism
@@ -51,7 +51,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 13:30-15:00  | Interoperability with mpi, ping-pong and pi
 | 15:00-15:30  | Coffee break
 | 15:30-16:00  | Interoperability with third-party libraries
-| 15:30-16:45  | Exercises & Bring your own code
+| 16:00-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
 The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercises are based on Intel copyrighted work and they have their own license ([MIT](https://spdx.org/licenses/MIT.html)).
@@ -68,11 +68,11 @@ The lectures in this repository are published under [CC-BY-SA license](https://c
 - [Getting Device Info](/exercises/sycl/01-info/)
 - [Vector Addition](/exercises/sycl/02-vector_add)
 
-### SYCL Advance Features
+### SYCL Advanced Features
 - [Dependencies](exercises/sycl/03-axpy/)
 - [Basic Profiling](exercises/sycl/12-basic-profiling)
 - [Error Handling](exercises/sycl/13-error-handling/)
-  
+
 ### SYCL Memory Optimizations
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
 - [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
