@@ -73,7 +73,7 @@ The lectures in this repository are published under [CC-BY-SA license](https://c
 - [Basic Profiling](exercises/sycl/12-basic-profiling)
 - [Error Handling](exercises/sycl/13-error-handling/)
   
-### Memory Optimizations
+### SYCL Memory Optimizations
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
 - [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
 - [Reductions](exercises/sycl/06-reduction-direct) (Optional)
