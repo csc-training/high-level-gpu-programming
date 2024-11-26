@@ -50,11 +50,8 @@ int main(int argc, char *argv[]) {
     auto start = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 
     range<1> work_items { N*N};
-    //# Define queue with default device for offloading computation
-    sycl::property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}};
-    //queue q{property::queue::enable_profiling{}};
-    queue q{default_selector{},q_prof};
-    //queue q{property::queue::enable_profiling{}};
+    //# Define queue with default device for offloading computation and enable profiling
+    //TODO
 
     auto matrix_a=malloc_shared<float>(N*N, q);
     auto matrix_b=malloc_shared<float>(N*N, q);
@@ -102,7 +99,7 @@ int main(int argc, char *argv[]) {
     
 
     std::cout << "Now the matrix-matrix  multiplication." << "\n"; 
-    //# Submit command groups to execute on device. Remeber that queues member functions return sycl::events
+    //# Submit command groups to execute on device. Remember that queues member functions return sycl::events
     //TODO = q.submit([&](handler &h){
         
         //# Define size for ND-Range and work-group size
