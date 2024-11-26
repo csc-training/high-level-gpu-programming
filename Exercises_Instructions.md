@@ -21,8 +21,7 @@ seldom the only or even the best way to solve the problem.**
 
 ## Using supercomputers
 
-Exercises can be carried out using the [LUMI](https://docs.lumi-supercomputer.eu/)  supercomputer, [Mahti](https://docs.csc.fi/computing/systems-mahti/), and [Intel DevCloud](https://console.cloud.intel.com/).
-
+Exercises can be carried out using the [LUMI](https://docs.lumi-supercomputer.eu/)  and/or  [Mahti](https://docs.csc.fi/computing/systems-mahti/) supercomputers.
  ![](docs/img/cluster_diagram.jpeg)
 
 LUMI can be accessed via ssh using the provided username and ssh key pair:
@@ -34,7 +33,6 @@ Mahti can be accessed via ssh using the provided username and CSC password:
 ```
 ssh  <username>@mahti.csc.fi
 ```
-The Intel DevCloud can be acces via the [web interface](https://console.cloud.intel.com/).
 
 ### Disk area
 
