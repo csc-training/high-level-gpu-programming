@@ -15,7 +15,7 @@ There are several ways to enforce dependencies.
 When managing memory with **buffers and accessors**, dependencies are handled automatically. Accessors ensure proper synchronization by blocking access to associated buffers until kernels complete their operations. As a result, kernels that use the same buffer execute in the correct order.
 
 **Steps**
- 1. Start from the [vector_add example](../02-vector_add/solution/vector_add_buffer.cpp)
+ 1. Start from the [vector_add example](../02-vector_add/solution/vector_add_buffer.cpp) use the skeleton [axpy_usm_queue_sync.cpp](axpy_usm_queue_sync.cpp).
  1. initialize the arrays `X`and `Y` with two seperate kernels. Use initial values  `X=1`, and `Y=2` at the beginning. 
  1.  compute `Y=Y+a*X` using a 3rd kernel with `a=1`
  1. copy the final result back to the host to validate
@@ -26,7 +26,7 @@ When managing memory with **buffers and accessors**, dependencies are handled au
 SYCL queues are **out-of-order** by default, meaning kernels can execute concurrently. When using USM, submitting multiple kernels without explicit synchronization can result in incorrect execution order. To enforce task order, you can define the queue as **in-order**, ensuring tasks are executed sequentially.
 
 **Steps**
- 1. Start from the  [vector_add example](../02-vector_add/solution/vector_add_usm_device.cpp)
+ 1. Start from the  [vector_add example](../02-vector_add/solution/vector_add_usm_device.cpp) or use the skeleton [axpy_usm_events.cpp](axpy_usm_events.cpp)
  1. Modify the queue definition
  ```cpp
  sycl::queue queue(sycl::default_selector{}, sycl::property::queue::in_order{});
