@@ -31,6 +31,19 @@ Run as an usual gpu program:
 
     srun -A project_462000752 -p dev-g --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gpus-per-node=1 --time=00:15:00 ./a.out
 
+## AdaptiveCpp on Mahti
+
+Load the modules needed:
+```
+module purge
+module use /scratch/project_2012125/cristian/spack/share/spack/modules/linux-rhel8-x86_64_v3/
+module load hipsycl/24.06.0-gcc-10.4.0-4nny2ja 
+```
+Compile for cpu anf nvidia targets:
+
+```
+acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" vector_add_buffer.cpp  vector_add_buffer.cpp
+```
 ## AdaptiveCpp on LUMI
 
 Set up the environment:
@@ -44,7 +57,7 @@ Set up the environment:
     
 Compile for amd and cpu targets:
 
-    acpp -O2 --acpp-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
+    acpp -O3 --acpp-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
     
 Run as an usual gpu program:
 
@@ -89,6 +102,28 @@ Get [Codeplay oneAPI for AMD GPUs](https://developer.codeplay.com/products/oneap
 Install:
 
     sh ./oneapi-for-amd-gpus-2025.0.0-rocm-6.0.2-linux.sh -y --extract-folder $SCRATCH/$USER/oneapi_tmp --install-dir $PROJAPPL/intel/oneapi
+
+## AdaptiveCpp on Mahti
+
+```
+module purge
+git clone -c feature.manyFiles=true https://github.com/spack/spack.git
+cd spack
+ . share/spack/setup-env.sh
+spack bootstrap now
+spack compiler find
+spack config add "modules:default:enable:[tcl]"
+spack install lmod
+$(spack location -i lmod)/lmod/lmod/init/bash
+. share/spack/setup-env.sh
+module load gcc/10.4.0
+spack compiler find
+```
+Edit the recipe var/spack/repos/builtin/packages/hipsycl/package.py. Add "-DWITH_ACCELERATED_CPU:Bool=TRUE", after line 84. Edit the recipe var/spack/repos/builtin/packages/llvmpackage.py, remove all the versions higher than 18.
+```
+spack install hipsycl@24.06  %gcc@10.4.0 + cuda
+```
+
 
 ## AdaptiveCpp on LUMI
 
