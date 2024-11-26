@@ -1,3 +1,3 @@
 # SYCL "Hello World!"
 
-This is a variant of the "Hello World!" in C++.
+This is a variant of the "Hello World!" in C++. It's purpose is mainly to check that SYCL works on the machine. Compile the code follwing the [Exercise Instructions](../../../Exercises_Instructions.md)
