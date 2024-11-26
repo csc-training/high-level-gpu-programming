@@ -22,7 +22,7 @@ Run on one GPU:
 
 Set up the environment with container:
 
-    export CONTAINER_EXEC="singularity exec /projappl/project_462000752/rocm_6.2.4_stdpar.sif"
+    export CONTAINER_EXEC="singularity exec /projappl/project_462000752/rocm_6.2.4_stdpar_acpp.sif"
     export HIPSTDPAR_PATH="/opt/rocm-6.2.4/include/thrust/system/hip/hipstdpar"
     export SINGULARITY_BIND="/pfs,/scratch,/projappl,/project,/flash,/appl"
     export SINGULARITYENV_LC_ALL=C
@@ -30,7 +30,11 @@ Set up the environment with container:
 
 Compile:
 
-   $CONTAINER_EXEC hipcc --hipstdpar --hipstdpar-path=$HIPSTDPAR_PATH --offload-arch=gfx90a:xnack+ code.cpp
+    $CONTAINER_EXEC hipcc -std=c++20 -O3 --hipstdpar --hipstdpar-path=$HIPSTDPAR_PATH --offload-arch=gfx90a:xnack+ code.cpp
+
+Compile using AdaptiveCpp:
+
+    $CONTAINER_EXEC acpp -std=c++20 -O3 --acpp-stdpar --acpp-targets=hip:gfx90a -ltbb code.cpp
 
 Run on one GPU through container:
 
@@ -103,45 +107,9 @@ Run as an usual gpu program:
 
 *Here are instructions how the modules used above were installed.*
 
-## C++ stdpar on LUMI
+## LUMI ROCm container with hipstdpar and AdaptiveCpp
 
-Fetch rocm container (new enough ubuntu for system GCC to support C++20):
-
-    export SINGULARITY_CACHEDIR=$PWD/singularity_cache
-    singularity build --sandbox sandbox/ docker://docker.io/rocm/dev-ubuntu-24.04:6.2.4-complete
-
-Add tbb to the container:
-
-    # Download and extract
-    mkdir tbb
-    cd tbb
-    for deb in \
-        o/onetbb/libtbbbind-2-5_2021.11.0-2ubuntu2_amd64.deb \
-        o/onetbb/libtbbmalloc2_2021.11.0-2ubuntu2_amd64.deb \
-        o/onetbb/libtbb12_2021.11.0-2ubuntu2_amd64.deb \
-        o/onetbb/libtbb-dev_2021.11.0-2ubuntu2_amd64.deb \
-        h/hwloc/libhwloc15_2.10.0-1build1_amd64.deb \
-    ; do
-        wget http://mirrors.kernel.org/ubuntu/pool/universe/$deb
-        deb=${deb##*/}
-        ar x $deb data.tar.zst
-        tar xvf data.tar.zst
-        rm data.tar.zst
-    done
-    cd ..
-
-    # Copy to sandbox
-    chown -R $USER:$USER tbb/usr/
-    chmod -R o+rX tbb/usr/
-    cp -vpr tbb/usr sandbox/
-    rm -r tbb/
-
-Build the container:
-
-    singularity build rocm_6.2.4_stdpar.sif sandbox/
-    rm -r sandbox/
-
-As an end result, the container image contains tbb as if it was installed with apt except that `/etc/ld.so.cache` doesn't contain libtbb (would require running `ldconfig` that `apt install` does).
+This container is built with recipe [here](https://github.com/trossi/containers/tree/main/examples/rocm_acpp).
 
 ## OneAPI on Mahti
 
