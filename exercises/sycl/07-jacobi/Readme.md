@@ -23,7 +23,7 @@ Kernel Execution Time : 0.368924 seconds
 Compute Duration      : 62.1323 seconds
 ```
 
-In this case we suspect that having the buffers created and destroyed every time step results in data being transfered between CPU and GPU. More information can be obtained using a performance analys tool. Since this is a code running on nvidia GPUs, using cuda as backend we can use the cuda toolkit performance anaylis tools included. We can get a lots of info by using [`nsys`](https://docs.csc.fi/computing/nsys/).
+In this case we suspect that having the buffers created and destroyed every time step results in data being transfered between CPU and GPU. More information can be obtained using a performance analys tool. Since this is a code running on nvidia GPUs, using cuda as backend we can use the cuda toolkit performance analysis tools included. We can get a lots of info by using [`nsys`](https://docs.csc.fi/computing/nsys/).
 
 ```
 nsys profile -t nvtx,cuda -o results --stats=true --force-overwrite true ./j_simple_buffer -n 16000
