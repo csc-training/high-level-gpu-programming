@@ -3,6 +3,10 @@
 Course material for the CSC course "High-Level GPU Programming". The course is
 part of the EuroCC training activities at CSC.
 
+## Presentation slides
+
+The slides are available [here](https://csc-training.github.io/high-level-gpu-programming/).
+
 ## Agenda
 
 ### Day 1, Wednesday 27.11
@@ -15,8 +19,8 @@ part of the EuroCC training activities at CSC.
 | 10:40-11:30  | GPU memory hierarchy
 | 11:20-12:00  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
 | 12:00-13:00  | Lunch break
-| 13:00-13:30  | Refresher of C++ concepts
-| 13:30-15:00  | Standard C++ parallelism
+| 13:00-13:30  | C++ Refresher
+| 13:30-14:00  | C++ Standard Parallelism
 | 14:00-15:00  | Kokkos and Kokkos exercises
 | 15:00-15:30  | Coffee break
 | 15:30-16:45  | Kokkos and Kokkos exercises
@@ -27,7 +31,7 @@ part of the EuroCC training activities at CSC.
 | Time         | Topic |
 | ----         | ----- |
 | 09:00-10:30  | Kokkos and Kokkos exercises
-| 10:30-12:00  | SYCL Essentials 
+| 10:30-12:00  | SYCL Essentials
 | 12:00-13:00  | Lunch break
 | 13:00-14:00  | SYCL exercises (Essentials)
 | 13:00-14:00  | SYCL advance features
@@ -40,7 +44,7 @@ part of the EuroCC training activities at CSC.
 | Time         | Topic |
 | ----         | ----- |
 | 09:00-09:30  | SYCL Review
-| 09:30-11:00  | Syclomatic (theory & heat equation demo)
+| 09:30-11:00  | Converting CUDA to SYCL
 | 11:00-12:00  | Memory optimizations
 | 12:00-13:00  | Lunch break
 | 13:00-13:30  | Memory optimization
@@ -50,7 +54,7 @@ part of the EuroCC training activities at CSC.
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
-The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercise are based on Intel copyrighted work and they have their own license.  
+The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercise are based on Intel copyrighted work and they have their own license.
 
 Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 
@@ -66,12 +70,6 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 - [Unified Shared Memory](exercises/sycl-optimization-performance-c2s/sycl2/Readme.md)
 - [Profiling on Nvidia platform](exercises/sycl-optimization-performance-c2s/sycl3/NBody-nvidia-profiling/Readme.md)
 
-### SYCL Migrate from CUDA to SYCL
-- [CUDA to SYCL migration](exercises/sycl-optimization-performance-c2s/sycl3/Readme.md)
-
-### Syclomatic
-- [Heat equation from CUDA to SYCL](exercises/sycl/10-heat-equation-from-cuda/)
-
 ### Memory Optimization
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
 - [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
@@ -83,7 +81,7 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 ### SYCL and MPI
 - [Ping-pong with 2 GPUs and MPI](exercises/sycl/08-ping-pong)
 - [Pi computing with multiple GPU and MPI](exercises/sycl/11-pi/)
-  
+
 ### SYCL interoperability
 
 - [SYCL and 3rd party libraries](exercises/sycl/09-interoperability/)
