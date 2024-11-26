@@ -37,9 +37,9 @@ or  using the buffer `.getaccess<...>(h)`  member function:
    auto a = a_buf.get_access<sycl::access::mode::read_write>(h);
 ```
 **Important**  Use appropriate access modes for your data:
- - **Input Buffers:** Use `read_only` / `sycl::access::mode::read` to avoid unnecessary device-to-host data transfers.
- - **Output Buffers:** Use `write_only`/ `sycl::access::mode::write` to avoid unnecessary host-to-device data transfers.
- - **Input/Ouput Buffers:** Use `read_write` / `sycl::access::mode::read_write` for the variables that are input, but they also get modified during the computaions.
+ - **Input Buffers:** Use `sycl::read_only` / `sycl::access::mode::read` to avoid unnecessary device-to-host data transfers.
+ - **Output Buffers:** Use `sycl::write_only`/ `sycl::access::mode::write` to avoid unnecessary host-to-device data transfers.
+ - **Input/Ouput Buffers:** Use `sycl::read_write` / `sycl::access::mode::read_write` for the variables that are input, but they also get modified during the computaions.
 
 ### Step 4: Submit the Task
 Once accessors are ready, submit the task to the device using the `.parallel_for()` member function. The basic submission:
