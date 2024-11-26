@@ -153,11 +153,12 @@ This is another SYCL  implementation with support for many type of devices. No s
 
 on Mahti:
 ```
-module load cuda # This is needed for compiling sycl code for nvidia gpus
-module load openmpi/4.1.2-cuda # This is neeeded for using CUDA aware MPI
+module purge
+module use /scratch/project_2012125/cristian/spack/share/spack/modules/linux-rhel8-x86_64_v3/
+module load hipsycl/24.06.0-gcc-10.4.0-4nny2ja 
 ```
 ```
-/projappl/project_2012125/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 <sycl_code>.cpp
+acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" vector_add_buffer.cpp  vector_add_buffer.cpp
 ```
 on LUMI:
 ```
@@ -170,10 +171,8 @@ export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 
 ```
- /projappl/project_462000752/AdaptiveCpp/bin/acpp -O3 <sycl_code>.cpp
+acpp -O3 --acpp-targets="omp.accelerated;hip:gfx90a" <sycl_code>.cpp
 ```
-In general one can set specific targets via the `--acpp-targets` flag, but we set-up AdaptiveCpp so that on Mahti the `acpp` compiler will automatically generate code for CPU and Nvidia GPUs, while on LUMI for CPU and AMD GPUs.
-
 ### MPI
 MPI (Message Passing Interface) is a standardized and portable message-passing standard designed for parallel computing architectures. It allows communication between processes running on separate nodes in a distributed memory environment. MPI plays a pivotal role in the world of High-Performance Computing (HPC), this is why is important to know we could combine SYCL and MPI.
 
@@ -196,7 +195,7 @@ icpx -fuse-ld=lld -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backen
 ```
 or
 ```
-/projappl/project_2012125/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -L/appl/spack/v017/install-tree/gcc-8.5.0/gcc-11.2.0-zshp2k/lib64 `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
+acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" `mpicxx --showme:compile` `mpicxx --showme:link` <sycl_mpi_code>.cpp
 ```
 
 Similarly on LUMI. First we set up the envinronment and load the modules as indicated above
@@ -215,8 +214,15 @@ icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_x86_64 -Xsycl-target-backend
 ```
 Or with AdaptiveCpp:
 ```
-#export LD_PRELOAD=/pfs/lustrep4/appl/lumi/SW/LUMI-22.08/G/EB/rocm/5.3.3/llvm/lib/libomp.so 
-/projappl/project_462000752/AdaptiveCpp/bin/acpp -O3  `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
+module load LUMI/24.03
+module load partition/G
+module load rocm/6.0.3
+export PATH=/projappl/project_462000752/ACPP/bin/:$PATH
+export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-24.03/G/EB/Boost/1.83.0-cpeGNU-24.03/lib64/:$LD_LIBRARY_PATH
+export LD_PRELOAD=/opt/rocm-6.0.3/llvm/lib/libomp.so
+```
+```
+acpp -O3 --acpp-targets="omp.accelerated;hip:gfx90a" `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
 ```
 
 ## Running applications in supercomputers
@@ -241,7 +247,7 @@ Use [`SYCL_UR_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.htm
 #SBATCH --job-name=example
 #SBATCH --account=project_2012125
 #SBATCH --partition=medium
-#SBATCH --reservation=hlgp-cpu-f2024
+#SBATCH --reservation=high_level_gpu_programming_medium_day_1 # This changes every day to _2 and _3, valid 09:00 to 17:00 
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -268,8 +274,9 @@ single GPU with single MPI task and a single thread use:
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_2012125
-#SBATCH --partition=gpusmall
-#SBATCH --reservation=hlgp-gpu-f2024-thu ?????????
+#SBATCH --partition=gpumedium
+#SBATCH --reservation=high_level_gpu_programming_gpumedium_day_1 # This changes every day to _2 and _3, valid 09:00 to 17:00 
+#SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --time=00:05:00
@@ -277,7 +284,7 @@ single GPU with single MPI task and a single thread use:
 
 srun my_gpu_exe
 ```
-The reservation `hlgp-gpu-f2024-wed` is valid on Wednesday, 15:00 to 17:00. On Thursday we will use `hlgp-gpu-f2024-thu` , while on Friday `hlgp-gpu-f2024-fri`. Outside the course hours, you can use gputest partition instead without the reservation argument, ie, 
+The reservations `....medium_day_1` are  valid on Wednesday, 09:00 to 17:00. On Thursday we will use `...medium_day_2` , while on Friday `...medium_day_3`. Outside the course hours, you can use gputest partition instead without the reservation argument, ie, 
 ```
 srun --account=project_2012125 --nodes=1 --partition=gputest --gres=gpu:a100:1 --time=00:05:00 ./my_gpu_exe
 ```
@@ -293,8 +300,8 @@ LUMI is similar to Mahti.
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_462000752
-#SBATCH --partition=standard
-##SBATCH --reservation=hlgp-cpu-f2024  ??????# The reservation does not work 
+#SBATCH --partition=small
+##SBATCH --reservation=GPUtraining_small
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -310,8 +317,8 @@ srun my_cpu_exe
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_462000752
-#SBATCH --partition=standard-g
-#SBATCH --reservation=hlgp-gpu-f2024 ??????
+#SBATCH --partition=small-g
+#SBATCH --reservation=GPUtraining_small-g
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
