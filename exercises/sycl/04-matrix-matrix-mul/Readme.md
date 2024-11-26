@@ -1,6 +1,6 @@
 # Memory Optimization II
 
-In the previouss [exercise](../07-jacobi/) we saw that having bad data management can have huge impact on the performance. But once we optimized the data movement between CPU and GPU we also need to make sure that it is efficiently access when executing the kernels.
+In the previous [exercise](../07-jacobi/) we saw that having bad data management can have huge impact on the performance. But once we optimized the data movement between CPU and GPU we also need to make sure that it is efficiently access when executing the kernels.
 
 In GPU memory loads from the memory is done in blocks. When gpu thread (or work item) need data from the GPU memory it triggeres a data movement of 64 B or 128B. However threads are physically locked in sub-groups (called warps in CUDA  or waves in Rocm). In order to maximize performance we need to make sure that all threads in a sub-group execute the same instruction and that the data corresponding to work items are close in the memory. This way instead having  64 B or 128B loaded for each work item, we have only on memory operation for all sub-group. This is called `coalesced` access. The GPUs in general have some caching capabilities, however very limited and it is the job of the programmer to write kernels ensuring coalesced accesses. 
 
