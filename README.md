@@ -71,9 +71,9 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 - [Vector Addition](/exercises/sycl/02-vector_add)
 
 ### SYCL Advance Features
-- [Hello World](/exercises/sycl/00-hello/)
-- [Getting Device Info](/exercises/sycl/01-info/)
-- [Vector Addition](/exercises/sycl/02-vector_add)
+- [Dependencies](exercises/sycl/03-axpy/)
+- [Basic Profiling](exercises/sycl/04-matrix-matrix-mul)
+- [Error Handling](exercises/sycl/12-error-handling/)
   
 ### Memory Optimizations
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
