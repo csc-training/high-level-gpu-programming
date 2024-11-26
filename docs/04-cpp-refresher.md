@@ -102,12 +102,12 @@ auto zi = max(a, y);
 
 # Pointers and references
 
-- Raw pointer: Memory address of another variable (as in C)
+- Raw pointer: Memory address of a variable (as in C)
 
 ```cpp
 void foo1(int *a) { *a = 42; }
 
-int x;
+int x = 0;
 int *x_ptr = &x;
 foo1(x_ptr);
 std::cout << x << std::endl;
@@ -119,9 +119,9 @@ std::cout << x << std::endl;
 ```cpp
 void foo2(int &a) { a = 42; }
 
-int y;
-int &z = y;
-foo2(z);
+
+int y = 0;
+foo2(y);
 std::cout << y << std::endl;
 
 ```
