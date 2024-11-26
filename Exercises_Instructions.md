@@ -270,11 +270,27 @@ acpp -O3 --acpp-targets="omp.accelerated;hip:gfx90a" `CC --cray-print-opts=cflag
 ```
 
 ## Running applications in supercomputers
-Programs need to be executed via the batch job system.
-```
-sbatch job.sh
-```
+
+Programs need to be executed via the batch job system:
+
+    sbatch job.sh
+
 The `job.sh` file contains all the necessary information (number of nodes, tasks per node, cores per taks, number of gpus per node, etc.)  for the `slurm` to execute the program.
+Example job scripts for Mahti and LUMI are provided below.
+The output will be by default in file `slurm-xxxxx.out`.
+You can check the status of your jobs with `squeue --me` and cancel possible hanging applications with `scancel JOBID`.
+
+Alternatively to `sbatch`, you can submit directly to the batch job system with useful one-liners:
+
+    # Mahti
+    srun --account=project_2012125 --partition=gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:1 --time=00:05:00 ./my_gpu_exe
+
+    # LUMI
+    srun --account=project_462000752 --partition=dev-g --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gpus-per-node=1 --time=00:05:00 ./my_gpu_exe
+
+The possible options here for `srun` are the same as in the job scripts below.
+
+**NOTE** Some exercises have additional instructions of how to run!
 
 ### Useful environment variables
 
@@ -282,11 +298,12 @@ Use [`SYCL_UR_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.htm
 
     export SYCL_UR_TRACE=1
 
-
 ### Running on Mahti
 
 #### CPU applications
-```
+
+Example `job.sh`:
+```bash
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_2012125
@@ -297,15 +314,11 @@ Use [`SYCL_UR_TRACE`](https://intel.github.io/llvm-docs/EnvironmentVariables.htm
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 
-srun my_cpu_exe
+srun ./my_cpu_exe
 ```
 
-Save the script *e.g.* as `job.sh` and submit it with `sbatch job.sh`.
-The output of job will be in file `slurm-xxxxx.out`. You can check the status of your jobs with `squeue -u $USER` and kill possible hanging applications with
-`scancel JOBID`.
-
-The reservation `hlgp-cpu-f2024` for partition `medium` is available during the training days and it
-is accessible only if the users are part of `project_2012125`.
+The reservations `....medium_day_1` are valid on Wednesday, 09:00 to 17:00. On Thursday we will use `...medium_day_2` , while on Friday `...medium_day_3`.
+Outside the course hours, you can use `--partition=test` instead without the reservation argument.
 
 Some applications use MPI, in this case the number of node and number of tasks per node will have to be adjusted accordingly.
 
@@ -313,8 +326,8 @@ Some applications use MPI, in this case the number of node and number of tasks p
 
 When running GPU programs, few changes need to made to the batch job
 script. The `partition` is now different, and one must also request explicitly a given number of GPUs per node. As an example, in order to use a
-single GPU with single MPI task and a single thread use:
-```
+single GPU with single MPI task and a single thread use example `job.sh`:
+```bash
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_2012125
@@ -322,25 +335,22 @@ single GPU with single MPI task and a single thread use:
 #SBATCH --reservation=high_level_gpu_programming_gpumedium_day_1 # This changes every day to _2 and _3, valid 09:00 to 17:00 
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --time=00:05:00
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
 #SBATCH --gres=gpu:a100:1
 
-srun my_gpu_exe
+srun ./my_gpu_exe
 ```
-The reservations `....medium_day_1` are  valid on Wednesday, 09:00 to 17:00. On Thursday we will use `...medium_day_2` , while on Friday `...medium_day_3`. Outside the course hours, you can use gputest partition instead without the reservation argument, ie, 
-```
-srun --account=project_2012125 --nodes=1 --partition=gputest --gres=gpu:a100:1 --time=00:05:00 ./my_gpu_exe
-```
-
+The reservations `....medium_day_1` are valid on Wednesday, 09:00 to 17:00. On Thursday we will use `...medium_day_2` , while on Friday `...medium_day_3`.
+Outside the course hours, you can use `--partition=gputest` instead without the reservation argument.
 
 ### Running on LUMI
 
-LUMI is similar to Mahti.
-
 #### CPU applications
 
-```
+Example `job.sh`:
+
+```bash
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_462000752
@@ -351,13 +361,12 @@ LUMI is similar to Mahti.
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 
-srun my_cpu_exe
+srun ./my_cpu_exe
 ```
-
 
 #### GPU applications
 
-```
+```bash
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_462000752
@@ -369,15 +378,17 @@ srun my_cpu_exe
 #SBATCH --cpus-per-task=1
 #SBATCH --gpus-per-node=1
 
-srun my_gpu_exe
+srun ./my_gpu_exe
 ```
 Similarly to Mahti, on LUMI we have 2 cpu nodes reservered for us, and as well 2 gpu nodes. 
 
-**NOTE** Some exercises have additional instructions of how to run!
 
 #### Container
 
 Running works as usual except that the code needs to be executed through the container:
+```bash
+#!/bin/bash
+...
 
-    srun -A project_462000752 -p dev-g --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gpus-per-node=1 --time=00:15:00 $CONTAINER_EXEC ./a.out
-
+srun $CONTAINER_EXEC ./my_gpu_exe
+```
