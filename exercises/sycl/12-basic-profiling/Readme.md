@@ -11,4 +11,4 @@ Next set-up `sycl::event` object. the same way is done in the [previous exercise
 ```
 e.get_profiling_info<info::event_profiling::command_end>() - e.get_profiling_info<info::event_profiling::command_start>();
 ```
-Rember to first synchronize the host and the device!
+Remember to first synchronize the host and the device (`e.wait()`)!
