@@ -273,7 +273,7 @@ where `Kokkos::SharedSpace` maps to any potentially available memory of "Unified
 
 - Loop body is functor (explicit or lambda function)
 
-# Exmaple: Parallel for
+# Example: Parallel for
 
 - The following executes a simple for loop with `i` ranging from `0` to `n-1`:
 ```
