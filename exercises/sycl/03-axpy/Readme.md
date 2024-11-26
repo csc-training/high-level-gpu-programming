@@ -16,7 +16,7 @@ When managing memory with **buffers and accessors**, dependencies are handled au
 
 **Steps**
  1. Start from the [vector_add example](../02-vector_add/solution/vector_add_buffer.cpp) or use the skeleton  [axpy_buffer.cpp](axpy_buffer.cpp)
- 1. initialize the arrays `X`and `Y` with two seperate kernels. Use initial values  `X=1`, and `Y=2` at the beginning. 
+ 1. initialize the arrays `X`and `Y` with two separate kernels. Use initial values  `X=1`, and `Y=2` at the beginning. 
  1.  compute `Y=Y+a*X` using a 3rd kernel with `a=1`
  1. copy the final result back to the host to validate
 
