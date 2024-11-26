@@ -41,7 +41,7 @@ int main() {
       });
 
   // Copy results from device to host memory, depending on AXPY completion
-  //TODOO = q.memcpy(host_Y, Y, sizeof(int) * N, axpy_event);
+  //TODO = q.memcpy(host_Y, Y, sizeof(int) * N, axpy_event);
 
   // Wait for all events to complete
   //TODO
