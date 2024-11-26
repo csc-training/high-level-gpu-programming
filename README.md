@@ -54,9 +54,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
 
-The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercise are based on Intel copyrighted work and they have their own license.
-
-Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
+The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercise are based on Intel copyrighted work and they have their own license (MIT).
 
 ## Exercises
 
@@ -72,8 +70,8 @@ Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
 
 ### SYCL Advance Features
 - [Dependencies](exercises/sycl/03-axpy/)
-- [Basic Profiling](exercises/sycl/04-matrix-matrix-mul)
-- [Error Handling](exercises/sycl/12-error-handling/)
+- [Basic Profiling](exercises/sycl/12-basic-profiling)
+- [Error Handling](exercises/sycl/13-error-handling/)
   
 ### Memory Optimizations
 - [Jacobi Iterations](exercises/sycl/07-jacobi)
