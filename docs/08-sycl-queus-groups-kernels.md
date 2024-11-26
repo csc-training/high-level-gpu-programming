@@ -50,7 +50,7 @@ void axpy(queue &q, const T &a, const std::vector<T> &x, std::vector<T> &y) {
  - SYCL provides methods for querying:
     - `platform::get_platforms()` gives a list of available platforms
     - `.get_devices()` gives a list of present devices in a specific platform
-    - `.get_info<info::device:: <property> >()` gives invo about specific property
+    - `.get_info<info::device:: <property> >()` gives info about specific property
         - can be applied to various classes
         - wide `sycl::info` namespace 
 
