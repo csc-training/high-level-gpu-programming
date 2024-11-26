@@ -2,6 +2,9 @@
 #include <cstdlib>
 #include <cstdio>
 
+#define NX 4096
+#define NY 4096
+
 int main(int argc, char** argv)
 {
   Kokkos::initialize();
