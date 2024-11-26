@@ -34,7 +34,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 10:30-12:00  | SYCL Essentials
 | 12:00-13:00  | Lunch break
 | 13:00-14:00  | SYCL exercises (Essentials)
-| 13:00-14:00  | SYCL advance features
+| 14:00-15:00  | SYCL advance features
 | 15:00-15:30  | Coffee break
 | 15:30-16:45  | SYCL exercises (Advance Features & Essentials)
 | 16:45-17:00  | Day 2 wrap-up
