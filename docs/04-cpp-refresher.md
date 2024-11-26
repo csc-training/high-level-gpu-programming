@@ -1,7 +1,6 @@
 ---
 title:    C++ Refresher
 subtitle: High-Level GPU Programming
-author:   CSC Training
 date:     2024-11
 lang:     en
 ---

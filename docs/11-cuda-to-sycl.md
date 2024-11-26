@@ -1,7 +1,6 @@
 ---
 title:    Converting CUDA code to SYCL
 subtitle: High-Level GPU Programming
-author:   CSC Training
 date:     2024-11
 lang:     en
 ---
