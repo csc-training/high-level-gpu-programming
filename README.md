@@ -16,7 +16,7 @@ part of the EuroCC training activities at CSC.
 | 11:20-12:00  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
 | 12:00-13:00  | Lunch break
 | 13:00-13:30  | Refresher of C++ concepts
-| 13:30-15:00  | Standard C++ Parallelism
+| 13:30-15:00  | Standard C++ parallelism
 | 14:00-15:00  | Kokkos and Kokkos exercises
 | 15:00-15:30  | Coffee break
 | 15:30-16:45  | Kokkos and Kokkos exercises
@@ -29,10 +29,10 @@ part of the EuroCC training activities at CSC.
 | 09:00-10:30  | Kokkos and Kokkos exercises
 | 10:30-12:00  | SYCL Essentials 
 | 12:00-13:00  | Lunch break
-| 13:00-14:00  | SYCL Exercises (Essentials)
-| 13:00-14:00  | SYCL Advance Features
-| 15:00-15:30  | Coffee Break
-| 15:30-16:45  | SYCL Exercises (Advance Features)
+| 13:00-14:00  | SYCL exercises (Essentials)
+| 13:00-14:00  | SYCL advance features
+| 15:00-15:30  | Coffee break
+| 15:30-16:45  | SYCL exercises (Advance Features & Essentials)
 | 16:45-17:00  | Day 2 wrap-up
 
 ### Day 3, Friday 29.11
@@ -45,7 +45,7 @@ part of the EuroCC training activities at CSC.
 | 12:00-13:00  | Lunch break
 | 13:00-13:30  | Memory optimization
 | 13:30-15:00  | Interoperability with mpi, ping-pong and pi
-| 15:00-15:30  | Coffee Break
+| 15:00-15:30  | Coffee break
 | 15:30-16:00  | Interoperability with third-party libraries
 | 15:30-16:45  | Exercises & Bring your own code
 | 16:45-17:00  | Day 3 wrap-up & Course closing
@@ -53,6 +53,7 @@ part of the EuroCC training activities at CSC.
 The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercise are based on Intel copyrighted work and they have their own license.  
 
 Link to [HedgeDoc](https://siili.rahtiapp.fi/High-Level-GPU-Programming)
+
 ## Exercises
 
 [General instructions](Exercises_Instructions.md)
