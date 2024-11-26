@@ -41,7 +41,7 @@ void init(const size_t n, double *x, double *y)
     init_<<<blocks, threads>>>(n, x, y);
 }
 
-__global__ void daxpy_(const size_t n, const double a, const double *x, double *y)
+__global__ void daxpy_(const size_t n, const double a, const double* __restrict__ x, double* __restrict__ y)
 {
     size_t i = threadIdx.x + blockIdx.x * blockDim.x;
     size_t stride = gridDim.x * blockDim.x;
