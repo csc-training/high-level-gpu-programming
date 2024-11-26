@@ -6,13 +6,13 @@ int main(int argc, char* argv[]) {
   Kokkos::initialize(argc, argv);
 
   {
-    // NUmber of regions
-    unsigned n = 5;
+    // Number of regions
+    int n = 5;
     // Problem size
-    unsigned nx = 20;
+    int nx = 20;
 
     // Allocate on Kokkos default memory space (Unified Memory)
-    int* a = (int*) Kokkos::kokkos_malloc<Kokkos::SharedSpace>(nx * sizeof(int));
+    Kokkos::View<int*, Kokkos::SharedSpace> a("a", nx);
 
     // Create 'n' execution space instances (maps to streams in CUDA/HIP)
     auto ex = Kokkos::Experimental::partition_space(
@@ -20,23 +20,21 @@ int main(int argc, char* argv[]) {
 
     // Launch 'n' potentially asynchronous kernels
     // Each kernel has their own execution space instances
-    for(unsigned region = 0; region < n; region++) {
+    for(int region = 0; region < n; region++) {
       Kokkos::parallel_for(Kokkos::RangePolicy<Kokkos::DefaultExecutionSpace>(ex[region],
         nx / n * region, nx / n * (region + 1)), KOKKOS_LAMBDA(const int i) {
-          a[i] = region + i;
+          a(i) = 100*region + i;
         });
     }
 
     // Sync execution space instances (maps to streams in CUDA/HIP)
-    for(unsigned region = 0; region < n; region++)
+    for(int region = 0; region < n; region++)
       ex[region].fence();
 
     // Print results
-    for (unsigned i = 0; i < nx; i++)
-      printf("a[%d] = %d\n", i, a[i]);
+    for (int i = 0; i < nx; i++)
+      printf("a(%d) = %d\n", i, a[i]);
 
-    // Free Kokkos allocation (Unified Memory)
-    Kokkos::kokkos_free<Kokkos::SharedSpace>(a);
   }
 
   // Finalize Kokkos
