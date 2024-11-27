@@ -20,7 +20,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 11:00-11:30  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
 | 11:30-12:00  | C++ Refresher
 | 12:00-13:00  | Lunch break
-| 13:30-14:00  | C++ Standard Parallelism
+| 13:00-14:00  | C++ Standard Parallelism
 | 14:00-15:00  | Kokkos and Kokkos exercises
 | 15:00-15:30  | Coffee break
 | 15:30-16:45  | Kokkos and Kokkos exercises
