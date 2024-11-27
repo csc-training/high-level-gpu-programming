@@ -15,11 +15,11 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | ----         | ----- |
 | 09:00-09:15  | Welcome
 | 09:15-10:00  | Introduction to GPUs
-| 10:00-10:40  | GPU execution model
-| 10:40-11:30  | GPU memory hierarchy
-| 11:30-12:00  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
+| 10:00-10:30  | GPU execution model
+| 10:30-11:00  | GPU memory hierarchy
+| 11:00-11:30  | [Mahti and LUMI Computing Platforms](Exercises_Instructions.md)
+| 11:30-12:00  | C++ Refresher
 | 12:00-13:00  | Lunch break
-| 13:00-13:30  | C++ Refresher
 | 13:30-14:00  | C++ Standard Parallelism
 | 14:00-15:00  | Kokkos and Kokkos exercises
 | 15:00-15:30  | Coffee break
