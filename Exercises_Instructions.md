@@ -36,7 +36,7 @@ ssh  <username>@mahti.csc.fi
 
 ### Disk area
 
-The  (computing and storage)  resources can be accessed on on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2012125` on Mahti and `project_462000456` on LUMI.
+The (computing and storage) resources can be accessed on supercomputers via project-based allocation system, where users are granted access based on the specific needs and goals of their projects. Running applications and storage area are directly linked ot this projects. For this event we have been granted access to the training `project_2012125` on Mahti and `project_462000752` on LUMI.
 
 All the exercises in the supercomputers have to be carried out in the **scratch** disk area. The name of the scratch directory can be queried with the commands `csc-workspaces` on Mahti and `lumi-workspaces` onLUMI. As the base directory is shared between members of the project, you should create your own
 directory:
