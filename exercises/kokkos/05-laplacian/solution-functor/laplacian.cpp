@@ -61,6 +61,7 @@ int main(int argc, char** argv)
     Kokkos::MDRangePolicy<Kokkos::Rank<2> >({1, 1}, {nx-1, ny-1}), 
         laplFunctor(A, L, dx, dy));
 
+  Kokkos::fence();
   double t1 = timer.seconds();
 
   // Check the result
