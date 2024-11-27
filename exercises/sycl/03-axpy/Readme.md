@@ -1,6 +1,6 @@
 # Dependencies, `axpy` example
 
-In this exercise, you will solve the `axpy` problem (`Y=Y+a*X`) imposing the right dependencies on the various tasks. while correctly imposing task dependencies. All operations, including initialization, must be performed on devices. You should start from the [vector addition exercise solutions](../02-vector_add/solution/).
+In this exercise, you will solve the `axpy` problem (`Y=Y+a*X`) imposing the right dependencies on the various tasks. while correctly imposing task dependencies. All operations, including initialization, must be performed on devices. You should start from the [vector addition exercise solutions](../02-vector_add/solution/) or from the skeleton codes in this folder.
 
 **Structure of the Code**:
   1. define a SYCL  queue
@@ -11,7 +11,7 @@ In this exercise, you will solve the `axpy` problem (`Y=Y+a*X`) imposing the rig
 
 There are several ways to enforce dependencies. 
 
-## I. Automatic dependencies using Buffer and Acceesors API
+## I. Automatic dependencies using Buffer and Accessors API
 When managing memory with **buffers and accessors**, dependencies are handled automatically. Accessors ensure proper synchronization by blocking access to associated buffers until kernels complete their operations. As a result, kernels that use the same buffer execute in the correct order.
 
 **Steps**
