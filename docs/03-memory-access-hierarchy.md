@@ -30,7 +30,7 @@ lang:     en
 <div class="column" style=width:68%>
 - Accessible by all threads in a grid
 - Slow, latency of eg. 600-700 cycles
-    - Still, high bandwidth compared to CPU memory (1600 TB/s in AMD MI250X)
+    - Still, high bandwidth compared to CPU memory (1600 GB/s for a single GCD of AMD MI250X)
 - Can be controlled by host (via pointer operations)
 - Lifetime of the program
 </div>
