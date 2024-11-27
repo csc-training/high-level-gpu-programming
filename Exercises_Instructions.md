@@ -337,7 +337,7 @@ single GPU with single MPI task and a single thread use example `job.sh`:
 #!/bin/bash
 #SBATCH --job-name=example
 #SBATCH --account=project_2012125
-#SBATCH --partition=gpumedium
+#SBATCH --partition=gpusmall
 #SBATCH --reservation=high_level_gpu_programming_gpumedium_day_1 # This changes every day to _2 and _3, valid 09:00 to 17:00 
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
