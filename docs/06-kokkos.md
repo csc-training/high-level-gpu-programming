@@ -53,6 +53,10 @@ lang:     en
 - Execution units may have distinct memories
 </div>
 
+<div class="column">
+![](img/kokkos-node-doc.png){.center width=70%}
+</div>
+
 # Execution and Memory Spaces
 
 - Kokkos uses an execution space model to abstract the details of parallel hardware 
