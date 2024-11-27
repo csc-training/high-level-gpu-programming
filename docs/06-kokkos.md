@@ -7,12 +7,12 @@ lang:     en
 
 # Kokkos overview
 
-- Kokkos is a C++ performance portability ecosystem 
+- Kokkos is a C++ performance portability ecosystem
     - Linux Foundation project, originally started in Sandia National Laboratories in 2011
     - Part of the US Department of Energies Exascale Project, developed in several
       supercomputing centers in the US and in Europe
 - Abstractions for both parallel execution of code and data management
-- Designed to target complex node architectures with N-level memory hierarchies and multiple types of execution resources 
+- Designed to target complex node architectures with N-level memory hierarchies and multiple types of execution resources
 - Currently there are CUDA, HIP, SYCL, HPX, OpenMP and C++ threads backends
 
 # Kokkos ecosystem
@@ -135,14 +135,14 @@ Kokkos::initialize(Kokkos::InitializationSettings()
                    .set_device_id(0)                /* select the device (eg, 0th gpu of the total of 4 gpus) */
                    .set_disable_warnings(false)     /* disable warning messages */
                    .set_num_threads(1)              /* set the number of threads */
-                   .set_print_configuration(true)); /* print the configuration after initialization */                   
+                   .set_print_configuration(true)); /* print the configuration after initialization */
 ```
 - Kokkos docs: [https://kokkos.github.io/kokkos-core-wiki/API/core/Initialize-and-Finalize.html](https://kokkos.github.io/kokkos-core-wiki/API/core/Initialize-and-Finalize.html)
 </small>
 
 
 
-# Kokkos programmin - hello example
+# Kokkos programming - hello example
 - The following is a full example of a Kokkos program that initializes Kokkos and prints the execution space and memory space instances
 ```
 #include <Kokkos_Core.hpp>
@@ -188,17 +188,17 @@ int main(int argc, char* argv[]) {
 # Views - examples
 
 ```cpp
-    Kokkos::View<int*> a("a", n); // 1D array with runtime dimension 
+    Kokkos::View<int*> a("a", n); // 1D array with runtime dimension
     Kokkos::View<double*[3]> b("b", n); // 2D n x 3 array with compile time dimension
     Kokkos::View<double**, Kokkos::HostSpace> h_b("h_b", n, m);
     Kokkos::View<double***, Kokkos::SharedSpace> s_b("s_b", n, m, k);
-    Kokkos::View<double**, Kokkos::Device<Kokkos::Serial, Kokkos::SharedSpace> > 
+    Kokkos::View<double**, Kokkos::Device<Kokkos::Serial, Kokkos::SharedSpace> >
        s2_b("s2_b", n, m); // Specify execution space
 
     std::cout << "Execution space of a:    " <<
          decltype(a)::execution_space::name() << std::endl;
     std::cout << "Memory space of a:       " <<
-         decltype(a)::memory_space::name() << std::endl;    
+         decltype(a)::memory_space::name() << std::endl;
 ```
 ```
 $ srun ... ./views
@@ -208,7 +208,7 @@ Memory space of a:       HIP
 
 # Accessing entries
 
-- The elements of a view are accessed using parentheses enclosing a comma-delimited list of integer indices 
+- The elements of a view are accessed using parentheses enclosing a comma-delimited list of integer indices
   (similar to Fortran and C++23 `mdspan`)
 - View’s entries can be accessed only in an execution space which is allowed to access that View’s memory space
 
@@ -228,13 +228,13 @@ d_a(1, 1) = 12;  // Error, can be accessed only from code running on device
 ```
 Kokkos::View<int*> a ("a", 10);
 Kokkos::View<int*, Kokkos::HostSpace> b ("b", 10);
-Kokkos::deep_copy (a, b); // copy contents of b into a  
+Kokkos::deep_copy (a, b); // copy contents of b into a
 ```
 
 # Memory management with raw pointers
 
 - Kokkos supports also using raw pointers
-- With raw pointers, one can simply allocate and deallocate memory by 
+- With raw pointers, one can simply allocate and deallocate memory by
 
 <small>
 
@@ -266,7 +266,7 @@ where `Kokkos::SharedSpace` maps to any potentially available memory of "Unified
 
 # Parallel operations
 
-- Kokkos provides three different parallel operations: `parallel_for`, `parallel_reduce`, and `parallel_scan` 
+- Kokkos provides three different parallel operations: `parallel_for`, `parallel_reduce`, and `parallel_scan`
   - The `parallel_for` operation is used to execute a loop in parallel
   - The `parallel_reduce` operation is used to execute a loop in parallel and reduce the results to a single value
   - The `parallel_scan` operation implements a prefix scan
@@ -311,7 +311,7 @@ Kokkos::parallel_reduce(n, KOKKOS_LAMBDA(const int i, int &lsum) {
 - The iteration space of parallel operation is defined by *execution policy*
 - Kokkos provides several possibilities
     - integer: 1D iteration from 0 to count
-    - RangePolicy: 1D iteration from start to end 
+    - RangePolicy: 1D iteration from start to end
     - MDRangePolicy: multi-dimensional iteration space
     - ,,,
 - Kokkos promises nothing about the loop order or the amount of work which actually runs concurrently
@@ -356,12 +356,12 @@ auto h_a2 = Kokkos::create_mirror(d_a) // Always allocate h_a2
 - Kokkos allows one to work with slices (similar to Python and Fortran) via *subviews*.
 - Subview is always reference, *i.e.* modifying data via subview modifies also the orginal array
 - Slices are defined with `std::make_pair`
-- A special `Kokkos::ALL()` 
+- A special `Kokkos::ALL()`
 ```
 Kokkos::View<double**> a ("a", 10, 10);
-// a(2:4, 3:7) slice 
+// a(2:4, 3:7) slice
 auto a_slice = Kokkos::subview(a, std::make_pair(2, 4), std::make_pair(3, 7));
-// a(:, 5) slice 
+// a(:, 5) slice
 auto a_slice2 = Kokkos::subview(a, Kokkos::ALL(), 5);
 ```
 
