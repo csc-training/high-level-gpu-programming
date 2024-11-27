@@ -21,8 +21,8 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 11:30-12:00  | C++ Refresher
 | 12:00-13:00  | Lunch break
 | 13:00-14:00  | C++ Standard Parallelism
-| 14:20-15:00  | Kokkos and Kokkos exercises
-| 15:00-15:30  | Coffee break
+| 14:20-15:10  | Kokkos and Kokkos exercises
+| 15:10-15:30  | Coffee break
 | 15:30-16:45  | Kokkos and Kokkos exercises
 | 16:45-17:00  | Day 1 wrap-up
 
