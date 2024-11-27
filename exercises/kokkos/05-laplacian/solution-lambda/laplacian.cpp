@@ -50,6 +50,7 @@ int main(int argc, char** argv)
                    (A(i,j-1) - 2.0*A(i,j) + A(i,j+1)) * inv_dy2;
         });
 
+  Kokkos::fence();
   double t1 = timer.seconds();
 
   // Check the result
