@@ -7,4 +7,5 @@
 - [Laplacian with Kokkos](05-laplacian)
 - [Subviews](06-subviews)
 - [Bonus: Async kernels](07-async-kernels)
+- [Bonus: Heat equation](08-heat-equation)
 
