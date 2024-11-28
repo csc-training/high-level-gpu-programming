@@ -248,7 +248,7 @@ cgh.parallel_for(range<1>(N), [=](item<1> item){
 
  - runtime choose how to group the work-items
  - supports 1D, 2D, and 3D-grids
- - no control over the size of groups,no locality within kernels 
+ - no control over the size of groups, no locality within kernels 
 
 
 # Parallel launch with **nd-range** I
