@@ -138,6 +138,7 @@ Set up the environment:
 
     source /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
     module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3  # Needed for compiling to AMD GPUs
+    export  HSA_XNACK=1 # enables managed memory
     export MPICH_GPU_SUPPORT_ENABLED=1                                # Needed for using GPU-aware MPI
 
 Compile sycl code:
@@ -161,6 +162,7 @@ Set up the environment:
     export LD_LIBRARY_PATH=/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/:$LD_LIBRARY_PATH
     export LD_PRELOAD=/scratch/project_2012125/cristian/spack/opt/spack/linux-rhel8-x86_64_v3/gcc-10.4.0/llvm-18.1.8-bgdmsbegf2oymsvhmukkr22s2cjb4zxz/lib/libomp.so
 
+
 Compile sycl code:
 
     acpp -fuse-ld=lld -O3 -L/appl/spack/v020/install-tree/gcc-8.5.0/gcc-10.4.0-2oazqj/lib64/ --acpp-targets="omp.accelerated;cuda:sm_80" <sycl_code>.cpp
@@ -168,13 +170,13 @@ Compile sycl code:
 #### AdaptiveCpp on LUMI
 
 Set up the environment:
-
-    module load LUMI/24.03
-    module load partition/G
-    module load rocm/6.0.3
+    
+    module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
     export PATH=/projappl/project_462000752/ACPP/bin/:$PATH
     export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-24.03/G/EB/Boost/1.83.0-cpeGNU-24.03/lib64/:$LD_LIBRARY_PATH
     export LD_PRELOAD=/opt/rocm-6.0.3/llvm/lib/libomp.so
+    export  HSA_XNACK=1 # enables managed memory
+    export MPICH_GPU_SUPPORT_ENABLED=1                                # Needed for using GPU-aware MPI
 
 Compile sycl code:
 
@@ -254,6 +256,7 @@ Similarly on LUMI. First we set up the environment and load the modules as indic
 ```bash
 source /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
 module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
+export HSA_XNAK=1 # enables managed memory
 export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 
@@ -264,12 +267,12 @@ icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa,spir64_
 
 Or with AdaptiveCpp:
 ```
-module load LUMI/24.03
-module load partition/G
-module load rocm/6.0.3
+module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
 export PATH=/projappl/project_462000752/ACPP/bin/:$PATH
 export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-24.03/G/EB/Boost/1.83.0-cpeGNU-24.03/lib64/:$LD_LIBRARY_PATH
 export LD_PRELOAD=/opt/rocm-6.0.3/llvm/lib/libomp.so
+export HSA_XNAK=1 # enables managed memory
+export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 ```
 acpp -O3 --acpp-targets="omp.accelerated;hip:gfx90a" `CC --cray-print-opts=cflags` <sycl_mpi_code>.cpp `CC --cray-print-opts=libs`
