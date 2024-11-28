@@ -54,7 +54,9 @@ void axpy(queue &q, const T &a, const std::vector<T> &x, std::vector<T> &y) {
         - can be applied to various classes
         - wide `sycl::info` namespace 
 
-# SYCL Queue
+# SYCL Queues{.section}
+
+# SYCL Queues
 
  - SYCL class responsible for submitting commands
  - bridge between the host and the target device (**only one**)
