@@ -46,6 +46,11 @@ ml craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
 
 bash compile_lumi.sh -DBENCHMARK
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm603 cuda_hip cuda_hip_sync blas blas_sync
+
+# Kokkos
+export KOKKOS_PATH=$SCRATCH/$USER/kokkos
+make -f Makefile.kokkos ARCH=mi250x CXXFLAGS="-O3 -DBENCHMARK" -j16
+sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm603 kokkos cuda_hip
 ```
 
 ### ROCm container with AdaptiveCpp
