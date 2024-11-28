@@ -30,7 +30,7 @@ Next, create buffers to encapsulate the data. For a one-dimensional array of int
 Accessors provide a mechanism to access data inside the buffers. Accessors on the device must be created within command groups. There are two ways to create accessors. Using the `sycl::accessor` class constructor
 
 ```cpp
-   sycl::accessor a{a_buf, h, read_write};
+   sycl::accessor a_acc{a_buf, h, read_write};
 ```
 or  using the buffer `.getaccess<...>(h)`  member function:
 ```cpp
@@ -46,7 +46,7 @@ Once accessors are ready, submit the task to the device using the `.parallel_for
 
 ```cpp
    h.parallel_for(sycl::range{N}, [=](sycl::id<1> idx) {
-        c[idx] = a[idx] + b[idx];
+        c_acc[idx] = a_acc[idx] + b_acc[idx];
       });
 ```  
 Here: 
