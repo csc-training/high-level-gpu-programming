@@ -247,7 +247,7 @@ cgh.parallel_for(range<1>(N), [=](item<1> item){
 </div>
 
  - runtime choose how to group the work-items
- - supports 1D,2D, and 3D-grids
+ - supports 1D, 2D, and 3D-grids
  - no control over the size of groups,no locality within kernels 
 
 
