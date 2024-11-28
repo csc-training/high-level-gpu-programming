@@ -161,7 +161,7 @@ auto Q = queue { custom_selector {} };
 # Kernels
  - code to be executed in parallel
  - written from the point of view of a work-item (gpu thread)
-    - each intance gets a unique `id` using the work-item index
+    - each instance gets a unique `id` using the work-item index
 
 <div class="column">
  - lambda expressions
