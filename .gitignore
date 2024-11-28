@@ -10,6 +10,7 @@ core
 *.ncu-rep
 heat
 build/
+.acpp-stdpar-.acpp-stdpar-profile
 
 # Kokkos stuff
 KokkosCore*.h
