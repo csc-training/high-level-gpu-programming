@@ -42,9 +42,9 @@ lang:     en
     // Create buffers for data 
     buffer<int, 1> a_buf(y.data(), range<1>(N));
     q.submit([&](handler& cgh) {
-      accessor a{a_buf, cgh, read_write};
+      accessor y_acc{a_buf, cgh, read_write};
       cgh.parallel_for(range<1>(N), [=](id<1> id) {
-        y[id] +=1;
+        y_acc[id] +=1;
       });
     });
     host_accessor result{a_buf}; // host can access data also directly after buffer destruction
