@@ -280,7 +280,7 @@ cgh.parallel_for(nd_range<1>(range<1>(N),range<1>(64)), [=](nd_item<1> item){
         - can be used as programmable cache
     - group-level *barriers* and *fences* to synchronize work-items within a group
         - *barriers* force all work-items to reach a speciffic point before continuing
-        - *fences* ensures writes are visible to all work-items before proceedin
+        - *fences* ensures writes are visible to all work-items before proceeding
     - group-level collectives, for communication, e.g. broadcasting, or computation, e.g. scans
         - useful for reductions at group-level
  
