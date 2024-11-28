@@ -11,6 +11,11 @@ bash compile_mahti_nvcc.sh -DBENCHMARK
 sbatch -p gputest --gres=gpu:a100:1 daxpy_benchmark.sh mahti cuda_hip cuda_hip_sync blas blas_sync
 
 srun -p gpusmall --ntasks-per-node=1 --gres=gpu:a100_1g.5gb:1 -t 0:05:00 ./cuda_hip.x
+
+# Kokkos
+export KOKKOS_PATH=$SCRATCH/$USER/kokkos
+make -f Makefile.kokkos ARCH=a100 CXXFLAGS="-O3 -DBENCHMARK" -j16
+sbatch -p gputest --gres=gpu:a100:1 daxpy_benchmark.sh mahti kokkos cuda_hip
 ```
 
 ### NVIDIA HPC
