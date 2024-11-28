@@ -44,7 +44,7 @@ Instead of using **in-order** queues can use `sycl::events` to explicitly set th
 **Steps**
  1. Start from the  [vector_add example](../02-vector_add/solution/vector_add_usm_device.cpp) or use the skeleton [axpy_usm_events.cpp](axpy_usm_events.cpp)
  1. Keep the default out-of-order queue definition
- 1. Initialize arrays `X` and `Y` on the device using two separate kernels. Capture the events for these kernel submissions:
+ 1. Initialize arrays `X` and `Y` on the device using two separate kernels. Capture the events from these kernel submissions:
 ```cpp
 auto event_x = queue.submit([&](sycl::handler &h) {
     h.parallel_for(range{N}, [=](id<1> idx) { X[idx] = 1; });
@@ -53,7 +53,7 @@ auto event_b = queue.submit([&](sycl::handler &h) {
     h.parallel_for(range{N}, [=](id<1> idx) { Y[idx] = 2; });
 });
 ```
- 1. submit the `axpy` kernel with an explicit dependency on the two initialization events
+ 4. submit the `axpy` kernel with an explicit dependency on the two initialization events
  ```cpp
  queue.submit([&](sycl::handler &h) {
     h.depends_on({event_x, event_y});
@@ -66,5 +66,5 @@ or
  queue.
     h.parallel_for(range{N},{event_x, event_y}, [=](id<1> idx) { Y[idx] += a * X[idx]; });
 ```
- 1. as a exercise you can synch the host with the event `sycl::event::wait({event_a, event_b});`
- 1. copy the final result back to the host for validation
+ 5. as a exercise you can synch the host with the event `sycl::event::wait({event_a, event_b});`
+ 6. copy the final result back to the host for validation
