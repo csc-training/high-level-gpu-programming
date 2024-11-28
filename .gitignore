@@ -10,3 +10,11 @@ core
 *.ncu-rep
 heat
 build/
+
+# Kokkos stuff
+KokkosCore*.h
+KokkosCore*.hpp
+KokkosCore*.tmp
+libkokkos.a
+Desul*.tmp
+desul/
