@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     //# Define queue with default device for offloading computation
     sycl::property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}};
     //queue q{property::queue::enable_profiling{}};
-    queue q{default_selector{},q_prof};
+    queue q{default_selector_v,q_prof};
     //queue q{property::queue::enable_profiling{}};
 
     auto matrix_a=malloc_shared<float>(N*N, q);
@@ -111,9 +111,11 @@ int main(int argc, char *argv[]) {
 
              //# Create local accessors. They use the memory closer to the chip.
             //# In SYCL called local memory. On nvidia and AMD thw so-called shared memory
-            accessor<float, 2, access::mode::read_write, access::target::local> A_tile(range<2>(M, M), h);
-            accessor<float, 2, access::mode::read_write, access::target::local> B_tile(range<2>(M, M), h);
-            //# Parallel Compute Matrix Multiplication
+            //accessor<float, 2, access::mode::read_write, access::target::local> A_tile(range<2>(M, M), h);
+            //accessor<float, 2, access::mode::read_write, access::target::local> B_tile(range<2>(M, M), h);
+            local_accessor<float, 2> A_tile(range<2>(M, M), h);
+	    local_accessor<float, 2> B_tile(range<2>(M, M), h);
+	    //# Parallel Compute Matrix Multiplication
             h.parallel_for(nd_range<2>{global_size, work_group_size}, [=](nd_item<2> item){
                 const int i = item.get_global_id(0);
                 const int j = item.get_global_id(1);
