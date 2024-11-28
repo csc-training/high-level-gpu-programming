@@ -40,7 +40,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 10:30-12:00  | SYCL Essentials
 | 12:00-13:00  | Lunch break
 | 13:00-14:00  | SYCL exercises (Essentials)
-| 14:00-15:00  | SYCL advance features
+| 14:30-15:00  | SYCL advance features
 | 15:00-15:30  | Coffee break
 | 15:30-16:45  | SYCL exercises (Advance Features & Essentials)
 | 16:45-17:00  | Day 2 wrap-up
@@ -57,7 +57,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 15:00-15:30  | Coffee break
 | 15:30-16:00  | Interoperability with third-party libraries
 | 16:00-16:45  | Exercises & Bring your own code
-| 16:45-17:00  | Day 3 wrap-up & Course closing
+| 16:15-16:30  | Day 3 wrap-up & Course closing
 
 The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercises are based on Intel copyrighted work and they have their own license ([MIT](https://spdx.org/licenses/MIT.html)).
 
