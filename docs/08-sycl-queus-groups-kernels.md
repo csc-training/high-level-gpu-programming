@@ -9,7 +9,7 @@ lang:     en
 # GPU Programming Model{.section}
 
 
-# Anatomy of a SYCL code
+# SYCL Code Example
 
 <small>
 ```cpp
