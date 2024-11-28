@@ -60,31 +60,6 @@ lang:     en
   - Nvidia GPUs (via CUDA), AMD GPUs (via ROCM)
 
 
-# Anatomy of a SYCL code
-
-<small>
-```cpp
-#include <sycl/sycl.hpp>
-using namespace sycl;
-
-template <typename T>
-void axpy(queue &q, const T &a, const std::vector<T> &x, std::vector<T> &y) {
-  range<1> N{x.size()};
-  buffer x_buf(x.data(), N);
-  buffer y_buf(y.data(), N);
-
-  q.submit([&](handler &h) {
-    auto x = x_buf.template get_access<access::mode::read>(h);        // accessor x(x_buf, h, read_only);
-    auto y = y_buf.template get_access<access::mode::read_write>(h);  // accessor y(y_buf, h, read_write);
-
-    h.parallel_for(N, [=](id<1> i) {
-      y[i] += a * x[i];
-    });
-  });
-  q.wait_and_throw();
-}
-```
-</small>
 
 # Summary
 
