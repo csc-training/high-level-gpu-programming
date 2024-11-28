@@ -130,7 +130,7 @@ auto Q = queue { custom_selector {} };
 
   - **Enqeue work**: `submit()`, `parallel_for()`, `single_task()`
   - **Memory Operations**: `memcpy()` , `fill()`, `copy()`, `memset()`
-  - **Utilities**: `is_empty()`,  `get_device()`, `get_context()`, `throw_asynchronous()`
+  - **Utilities**: `is_empty()`,  `get_device()`, `get_context()`
   - **Synchronizations**: `wait()`, `wait_and_throw()`
 
 # Command Groups{.section}
