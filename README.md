@@ -7,6 +7,11 @@ part of the EuroCC training activities at CSC.
 
 The slides are available [here](https://csc-training.github.io/high-level-gpu-programming/).
 
+## SYCL Book 
+
+[Data Parallel C++ Programming Accelerated Systems Using C++ and SYCL](https://link.springer.com/book/10.1007/978-1-4842-9691-2)
+[Book Examples](https://github.com/Apress/data-parallel-CPP.git)
+
 ## Agenda
 
 ### Day 1, Wednesday 27.11
