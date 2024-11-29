@@ -7,7 +7,7 @@ part of the EuroCC training activities at CSC.
 
 The slides are available [here](https://csc-training.github.io/high-level-gpu-programming/).
 
-## SYCL Book 
+## SYCL Book
 
 [Data Parallel C++ Programming Accelerated Systems Using C++ and SYCL](https://link.springer.com/book/10.1007/978-1-4842-9691-2)
 
@@ -53,7 +53,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 09:30-11:00  | Converting CUDA to SYCL
 | 11:00-12:00  | Memory optimizations
 | 12:00-13:00  | Lunch break
-| 13:30-15:00  | Interoperability with mpi, ping-pong and pi
+| 13:30-15:00  | Multi-GPU programming with MPI
 | 15:00-15:30  | Coffee break
 | 15:30-16:00  | Interoperability with third-party libraries
 | 16:00-16:30  | Exercises & Bring your own code
@@ -83,8 +83,8 @@ The lectures in this repository are published under [CC-BY-SA license](https://c
 - [Dense matrix matrix multiplication](exercises/sycl/04-matrix-matrix-mul)
 - [Reductions](exercises/sycl/06-reduction-direct) (Optional)
 
-### SYCL and MPI
-- [Ping-pong with 2 GPUs and MPI](exercises/sycl/08-ping-pong)
+### Multi-GPU programming with MPI
+- [MPI send and receive demo](exercises/sycl/08-mpi)
 - [Pi computing with multiple GPU and MPI](exercises/sycl/11-pi/)
 
 ### SYCL interoperability
