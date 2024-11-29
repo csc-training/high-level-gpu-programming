@@ -5,27 +5,6 @@
 //
 // SPDX-License-Identifier: MIT
 // =============================================================
-
-// icpx -std=c++17 -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64  gemm_mkl_usm.cpp
-// syclcc -O3 --hipsycl-targets="cuda:sm_80"  
-// Add -DMKL_LIB if oneMKL is used
-
-// Add -DCUBLAS if cublas library is use. It needs also -isystem $CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
-// Add the appropriate targets: -fsycl-targets=nvptx64-nvidia-cuda,spir64_x86_64 -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80
-
-// Add -DACPP if cublas and Adaptive Cpp is used for compiling
-// Add -DDPCPP -DCUDA_NO_HALF if oneapi is used for compiling
-
-// USe one of the option below
-// ************************************************************************************************************************************************************
-
-// icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
-
-// /projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -DCUBLAS -DACPP -I$CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
-
-// icpx -std=c++17 -fuse-ld=lld -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/include  -L$MKLROOT/lib/intel64/  -lmkl_sycl -lmkl_core  -lmkl_sequential -lmkl_intel_ilp64   -DMKL_LIB gemm_mkl_cublas_usm.cpp 
-
-// ************************************************************************************************************************************************************
 //
 // If uyou are lucky you make this https://github.com/oneapi-src/oneMKL work
 //
@@ -193,7 +172,7 @@ int main(int argc, char *argv[]) {
 #if ACPP
 std::cout << "\n"<< "Running with ACPP interoperability. \n";
 q.submit([&](handler &cgh) {
-     cgh.hipSYCL_enqueue_custom_operation([=](sycl::interop_handle &ih) {
+     cgh.AdaptiveCpp_enqueue_custom_operation([=](sycl::interop_handle &ih) {
        // Set the correct  stream
        auto cuStream = ih.get_native_queue<sycl::backend::cuda>();
        cublasSetStream(handle, cuStream);
