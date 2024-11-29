@@ -1,0 +1,87 @@
+#if (__cplusplus >= 202002L)
+#include <format>
+#else
+#include <cstdio>
+#endif
+#include <iostream>
+#include <sstream>
+#include <vector>
+
+#include <mpi.h>
+#include <sycl/sycl.hpp>
+
+template <typename T>
+void init(sycl::queue &q, const size_t n, T &x)
+{
+    auto kernel = [=](sycl::id<1> i) {
+        x[i] = 1.1 * (size_t)i;
+    };
+
+    q.parallel_for(n, kernel);
+}
+
+int main(int argc, char *argv[])
+{
+    MPI_Init(&argc, &argv);
+
+    const size_t n = argc > 1 ? (size_t)std::stoll(argv[1]) : 1024;
+    const size_t nbytes = sizeof(double) * n;
+
+    int size, rank;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    auto gpu_devices = sycl::device::get_devices(sycl::info::device_type::gpu);
+    auto count = std::size(gpu_devices);
+//    sycl::queue q{gpu_devices[rank], sycl::property::queue::in_order{}};
+    auto q = sycl::queue{gpu_devices[rank], sycl::property::queue::in_order{}};
+
+#if (__cplusplus >= 202002L)
+    std::cout << std::format("Hello from MPI rank {}/{} with a GPU of {}\n", rank, size, count);
+#else
+    printf("Hello from MPI rank %d/%d with a GPU of %zu\n", rank, size, count);
+#endif
+
+    // Device data
+    double *x = sycl::malloc_device<double>(n, q);
+    q.fill(x, 0, n);
+    q.wait();
+
+    if (rank == 0) {
+        // Initialize data on rank 0
+        init(q, n, x);
+        q.wait();
+
+        // Send with rank 0
+        MPI_Send(x, n, MPI_DOUBLE, 1, 123, MPI_COMM_WORLD);
+#if (__cplusplus >= 202002L)
+        std::cout << std::format("Rank {} sent\n", rank);
+#else
+        printf("Rank %d sent\n", rank);
+#endif
+
+    } else if (rank == 1) {
+        // Receive with rank 1
+        MPI_Recv(x, n, MPI_DOUBLE, 0, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+#if (__cplusplus >= 202002L)
+        std::cout << std::format("Rank {} received\n", rank);
+#else
+        printf("Rank %d received\n", rank);
+#endif
+    }
+
+    // Copy result to CPU and print
+    std::vector<double> h_x(n);
+    q.memcpy(h_x.data(), x, nbytes).wait();
+    std::stringstream ss;
+    ss << "Rank " << rank << " has";
+    for (int i = 0; i < std::min(8ul, n); ++i) ss << " " << h_x[i];
+    if (n > 8) ss << " ...";
+    ss << "\n";
+    std::cout << ss.str();
+
+    free(x, q);
+
+    MPI_Finalize();
+}
+
