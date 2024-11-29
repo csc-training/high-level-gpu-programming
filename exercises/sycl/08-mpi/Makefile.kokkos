@@ -1,7 +1,7 @@
 default: build
 
-ifndef ARCH
-  $(error "Please set ARCH")
+ifndef TARGET
+  $(error "Please set TARGET")
 endif
 
 ifndef KOKKOS_PATH
@@ -14,21 +14,23 @@ $(KOKKOS_PATH)/Makefile.kokkos:
 
 
 # Define DEVICES and ARCH before including Makefile.kokkos
-ifeq ($(ARCH),mi250x)
+ifeq ($(TARGET),lumig)
 CXX=hipcc
 CXXFLAGS=-O3
 MPIFLAGS=`CC --cray-print-opts=all`
 KOKKOS_DEVICES=HIP
 KOKKOS_ARCH=AMD_GFX90A
 endif
-ifeq ($(ARCH),a100)
+
+ifeq ($(TARGET),mahtig)
 CXX=$(KOKKOS_PATH)/bin/nvcc_wrapper
 CXXFLAGS=-O3
 MPIFLAGS=-lmpi
 KOKKOS_DEVICES=Cuda
 KOKKOS_ARCH=Ampere80
 endif
-ifeq ($(ARCH),zen2)
+
+ifeq ($(TARGET),omp)
 CXX=g++
 CXXFLAGS=-O3
 KOKKOS_DEVICES=OpenMP

@@ -14,7 +14,7 @@ srun -p gpusmall --ntasks-per-node=1 --gres=gpu:a100_1g.5gb:1 -t 0:05:00 ./cuda_
 
 # Kokkos
 export KOKKOS_PATH=$SCRATCH/$USER/kokkos
-make -f Makefile.kokkos ARCH=a100 CXXFLAGS="-O3 -DBENCHMARK" -j16
+make -f Makefile.kokkos TARGET=mahtig CXXFLAGS="-O3 -DBENCHMARK" -j16
 sbatch -p gputest --gres=gpu:a100:1 daxpy_benchmark.sh mahti kokkos cuda_hip
 ```
 
@@ -54,7 +54,7 @@ sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm603 cuda_hip cuda_
 
 # Kokkos
 export KOKKOS_PATH=$SCRATCH/$USER/kokkos
-make -f Makefile.kokkos ARCH=mi250x CXXFLAGS="-O3 -DBENCHMARK" -j16
+make -f Makefile.kokkos TARGET=lumig CXXFLAGS="-O3 -DBENCHMARK" -j16
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm603 kokkos cuda_hip
 ```
 

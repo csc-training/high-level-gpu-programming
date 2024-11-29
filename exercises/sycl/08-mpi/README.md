@@ -51,7 +51,7 @@ See also [MPI guide](https://developer.codeplay.com/products/oneapi/nvidia/2025.
 ml cuda/11.5.0 openmpi/4.1.2-cuda
 
 export KOKKOS_PATH=$SCRATCH/$USER/kokkos
-make -f Makefile.kokkos ARCH=a100 -j16
+make -f Makefile.kokkos TARGET=mahtig -j16
 srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./kokkos.x
 
 # Examples using Kokkos settings
@@ -94,7 +94,7 @@ ml craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
 export MPICH_GPU_SUPPORT_ENABLED=1
 
 export KOKKOS_PATH=$SCRATCH/$USER/kokkos
-make -f Makefile.kokkos ARCH=mi250x -j16
+make -f Makefile.kokkos TARGET=lumig -j16
 srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./kokkos.x
 
 # Examples using Kokkos settings
