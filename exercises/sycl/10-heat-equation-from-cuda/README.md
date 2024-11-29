@@ -51,7 +51,7 @@ Let's run the code in parallel:
 
     srun -p gputest --nodes=1 --ntasks-per-node=2 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 ./heat.x
 
-This fails!
+This is really slow compared to the single-GPU run or crashes!
 
 Note that in `setup.cpp` dpct tool produced a line `dpct::select_device(nodeRank)` with a warning
 "DPCT1093:0: The "nodeRank" device may be not the one intended for use.".
@@ -61,12 +61,11 @@ This line selects the device from *all* SYCL devices. Let's check the output of 
 
     srun -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 sycl-ls
 
-    [opencl:acc:0] Intel(R) FPGA Emulation Platform for OpenCL(TM), Intel(R) FPGA Emulation Device OpenCL 1.2  [2023.16.12.0.12_195853.xmain-hotfix]
-    [opencl:cpu:1] Intel(R) OpenCL, AMD EPYC 7H12 64-Core Processor                 OpenCL 3.0 (Build 0) [2023.16.12.0.12_195853.xmain-hotfix]
-    [ext_oneapi_cuda:gpu:0] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.0]
-    [ext_oneapi_cuda:gpu:1] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.0]
+    [opencl:cpu][opencl:0] Intel(R) OpenCL, AMD EPYC 7H12 64-Core Processor                 OpenCL 3.0 (Build 0) [2024.18.10.0.08_160000]
+    [cuda:gpu][cuda:0] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.2]
+    [cuda:gpu][cuda:1] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.2]
 
-So, the device selection is not going to work correctly.
+So, the device selection is not going to work correctly as sycl detects a mix of CPU and GPU devices.
 
 As a workaround, we can restrict the SYCL devices in oneAPI to GPUs by:
 
@@ -76,8 +75,8 @@ Resulting in:
 
     srun -p gputest --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --gres=gpu:a100:2 -t 00:05:00 sycl-ls
 
-    [ext_oneapi_cuda:gpu:0] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.0]
-    [ext_oneapi_cuda:gpu:1] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.0]
+    [cuda:gpu] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.2]
+    [cuda:gpu] NVIDIA CUDA BACKEND, NVIDIA A100-SXM4-40GB 8.0 [CUDA 12.2]
 
 With this `ONEAPI_DEVICE_SELECTOR` environment variable active, the MPI-parallelized code works expectedly:
 
