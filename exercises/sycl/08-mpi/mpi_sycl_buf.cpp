@@ -1,8 +1,4 @@
-#if (__cplusplus >= 202002L)
-#include <format>
-#else
 #include <cstdio>
-#endif
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -45,11 +41,7 @@ int main(int argc, char *argv[])
     auto device = gpu_devices[rank];
     sycl::queue q{device, sycl::property::queue::in_order{}};
 
-#if (__cplusplus >= 202002L)
-    std::cout << std::format("Hello from MPI rank {}/{} with a GPU of {}\n", rank, size, count);
-#else
     printf("Hello from MPI rank %d/%d with a GPU of %zu\n", rank, size, count);
-#endif
 
     // Device data
     std::vector<double> h_x(n);
@@ -70,12 +62,7 @@ int main(int argc, char *argv[])
                 MPI_Send(x_ptr, n, MPI_DOUBLE, 1, 123, MPI_COMM_WORLD);
             });
         });
-
-#if (__cplusplus >= 202002L)
-        std::cout << std::format("Rank {} sent\n", rank);
-#else
         printf("Rank %d sent\n", rank);
-#endif
     } else if (rank == 1) {
         // Receive with rank 1
         q.submit([&](sycl::handler &h) {
@@ -85,12 +72,7 @@ int main(int argc, char *argv[])
                 MPI_Recv(x_ptr, n, MPI_DOUBLE, 0, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             });
         });
-
-#if (__cplusplus >= 202002L)
-        std::cout << std::format("Rank {} received\n", rank);
-#else
         printf("Rank %d received\n", rank);
-#endif
     }
     q.wait();
 

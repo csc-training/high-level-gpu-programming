@@ -1,8 +1,4 @@
-#if (__cplusplus >= 202002L)
-#include <format>
-#else
 #include <cstdio>
-#endif
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -36,11 +32,7 @@ int main(int argc, char *argv[])
 //    sycl::queue q{gpu_devices[rank], sycl::property::queue::in_order{}};
     auto q = sycl::queue{gpu_devices[rank], sycl::property::queue::in_order{}};
 
-#if (__cplusplus >= 202002L)
-    std::cout << std::format("Hello from MPI rank {}/{} with a GPU of {}\n", rank, size, count);
-#else
     printf("Hello from MPI rank %d/%d with a GPU of %zu\n", rank, size, count);
-#endif
 
     // Device data
     double *x = sycl::malloc_device<double>(n, q);
@@ -54,20 +46,11 @@ int main(int argc, char *argv[])
 
         // Send with rank 0
         MPI_Send(x, n, MPI_DOUBLE, 1, 123, MPI_COMM_WORLD);
-#if (__cplusplus >= 202002L)
-        std::cout << std::format("Rank {} sent\n", rank);
-#else
         printf("Rank %d sent\n", rank);
-#endif
-
     } else if (rank == 1) {
         // Receive with rank 1
         MPI_Recv(x, n, MPI_DOUBLE, 0, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-#if (__cplusplus >= 202002L)
-        std::cout << std::format("Rank {} received\n", rank);
-#else
         printf("Rank %d received\n", rank);
-#endif
     }
 
     // Copy result to CPU and print

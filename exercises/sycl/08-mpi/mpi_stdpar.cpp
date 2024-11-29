@@ -1,6 +1,6 @@
 #include <algorithm>
+#include <cstdio>
 #include <execution>
-#include <format>
 #include <iostream>
 #include <ranges>
 #include <sstream>
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    std::cout << std::format("Hello from MPI rank {}/{}\n", rank, size);
+    printf("Hello from MPI rank %d/%d\n", rank, size);
 
     // Data
     std::vector<double> x(n);
@@ -45,12 +45,12 @@ int main(int argc, char *argv[])
 
         // Send with rank 0
         MPI_Send(x.data(), n, MPI_DOUBLE, 1, 123, MPI_COMM_WORLD);
-        std::cout << std::format("Rank {} sent\n", rank);
+        printf("Rank %d sent\n", rank);
 
     } else if (rank == 1) {
         // Receive with rank 1
         MPI_Recv(x.data(), n, MPI_DOUBLE, 0, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        std::cout << std::format("Rank {} received\n", rank);
+        printf("Rank %d received\n", rank);
     }
 
     // Print; this migrates memory to CPU

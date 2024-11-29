@@ -24,11 +24,7 @@
 #define gpuSetDevice             hipSetDevice
 #endif
 
-#if (__cplusplus >= 202002L)
-#include <format>
-#else
 #include <cstdio>
-#endif
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -69,11 +65,7 @@ int main(int argc, char *argv[])
     gpuSetDevice(rank % count);
     gpuGetDevice(&device);
 
-#if (__cplusplus >= 202002L)
-    std::cout << std::format("Hello from MPI rank {}/{} with GPU {}/{}\n", rank, size, device, count);
-#else
     printf("Hello from MPI rank %d/%d with GPU %d/%d\n", rank, size, device, count);
-#endif
 
     // Device data
     double *x;
@@ -88,20 +80,12 @@ int main(int argc, char *argv[])
 
         // Send with rank 0
         MPI_Send(x, n, MPI_DOUBLE, 1, 123, MPI_COMM_WORLD);
-#if (__cplusplus >= 202002L)
-        std::cout << std::format("Rank {} sent\n", rank);
-#else
         printf("Rank %d sent\n", rank);
-#endif
 
     } else if (rank == 1) {
         // Receive with rank 1
         MPI_Recv(x, n, MPI_DOUBLE, 0, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-#if (__cplusplus >= 202002L)
-        std::cout << std::format("Rank {} received\n", rank);
-#else
         printf("Rank %d received\n", rank);
-#endif
     }
 
     // Copy result to CPU and print
