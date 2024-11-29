@@ -6,21 +6,29 @@
 #include <mpi.h>
 #include <sycl/sycl.hpp>
 
-#ifdef __ACPP__
-  #define HOST_TASK           AdaptiveCpp_enqueue_custom_operation
-  #if __ACPP_ENABLE_HIP_TARGET__
-    #define SYCL_BACKEND      sycl::backend::hip
-  #elif __ACPP_ENABLE_CUDA_TARGET__
-    #define SYCL_BACKEND      sycl::backend::cuda
+#if defined(__ACPP__)
+  #define INTEROP_TASK                         AdaptiveCpp_enqueue_custom_operation
+  #if __ACPP_ENABLE_CUDA_TARGET__
+    #define SYCL_BACKEND                       sycl::backend::cuda
+  #elif __ACPP_ENABLE_HIP_TARGET__
+    #define SYCL_BACKEND                       sycl::backend::hip
   #endif
-#else
-  #define HOST_TASK           host_task
+#elif defined(__INTEL_LLVM_COMPILER)
+  #ifdef SYCL_EXT_ONEAPI_ENQUEUE_NATIVE_COMMAND
+    #define INTEROP_TASK                       ext_codeplay_enqueue_native_command
+  #else
+    #define INTEROP_TASK                       host_task
+  #endif
   #if SYCL_EXT_ONEAPI_BACKEND_CUDA
-    #define SYCL_BACKEND      sycl::backend::ext_oneapi_cuda
+    #define SYCL_BACKEND                       sycl::backend::ext_oneapi_cuda
   #elif SYCL_EXT_ONEAPI_BACKEND_HIP
-    #define SYCL_BACKEND      sycl::backend::ext_oneapi_hip
+    #define SYCL_BACKEND                       sycl::backend::ext_oneapi_hip
   #endif
 #endif
+
+// See https://en.wikipedia.org/wiki/C_preprocessor#Token_stringification
+#define STR(s) #s
+#define PRINT_MACRO(s) printf("%s=%s\n", #s, STR(s))
 
 template <typename T>
 void init(sycl::queue &q, const size_t n, T &x_buf)
@@ -52,6 +60,8 @@ int main(int argc, char *argv[])
     sycl::queue q{device, sycl::property::queue::in_order{}};
 
     printf("Hello from MPI rank %d/%d with a GPU of %zu\n", rank, size, count);
+    PRINT_MACRO(INTEROP_TASK);
+    PRINT_MACRO(SYCL_BACKEND);
 
     // Device data
     std::vector<double> h_x(n);
@@ -67,7 +77,7 @@ int main(int argc, char *argv[])
         // Send with rank 0
         q.submit([&](sycl::handler &h) {
             sycl::accessor x_acc{x, h, sycl::read_only};
-            h. HOST_TASK([=](sycl::interop_handle ih) {
+            h. INTEROP_TASK([=](sycl::interop_handle ih) {
                 auto x_ptr = reinterpret_cast<void *>(ih.get_native_mem<SYCL_BACKEND>(x_acc));
                 MPI_Send(x_ptr, n, MPI_DOUBLE, 1, 123, MPI_COMM_WORLD);
             });
@@ -77,7 +87,7 @@ int main(int argc, char *argv[])
         // Receive with rank 1
         q.submit([&](sycl::handler &h) {
             sycl::accessor x_acc{x, h, sycl::write_only};
-            h. HOST_TASK([=](sycl::interop_handle ih) {
+            h. INTEROP_TASK([=](sycl::interop_handle ih) {
                 auto x_ptr = reinterpret_cast<void *>(ih.get_native_mem<SYCL_BACKEND>(x_acc));
                 MPI_Recv(x_ptr, n, MPI_DOUBLE, 0, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             });
