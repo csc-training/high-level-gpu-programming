@@ -20,12 +20,14 @@ CXXFLAGS=-O3
 KOKKOS_DEVICES=HIP
 KOKKOS_ARCH=AMD_GFX90A
 endif
+
 ifeq ($(TARGET),mahtig)
 CXX=$(KOKKOS_PATH)/bin/nvcc_wrapper
 CXXFLAGS=-O3
 KOKKOS_DEVICES=Cuda
 KOKKOS_ARCH=Ampere80
 endif
+
 ifeq ($(TARGET),omp)
 CXX=g++
 CXXFLAGS=-O3
