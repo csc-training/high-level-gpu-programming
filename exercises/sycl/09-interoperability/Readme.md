@@ -112,7 +112,7 @@ When compiling for using oneMKL on Intel hardware we add the extra flag `-DMKL_L
 #if ACPP
 std::cout << "\n"<< "Running with ACPP interoperability. \n";
 q.submit([&](handler &cgh) {
-     cgh.hipSYCL_enqueue_custom_operation([=](sycl::interop_handle &ih) {
+     cgh.AdaptiveCpp_enqueue_custom_operation([=](sycl::interop_handle &ih) {
        // Set the correct  stream
        auto cuStream = ih.get_native_queue<sycl::backend::cuda>();
        cublasSetStream(handle, cuStream);
