@@ -17,6 +17,19 @@ nvcc -std=c++17 -O3 -x cu -arch sm_80 --expt-relaxed-constexpr -Xcompiler "`mpic
 srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./cuda_hip.x
 ```
 
+### C++ stdpar
+
+```bash
+ml purge
+ml use /appl/opt/nvhpc/modulefiles
+ml nvhpc-hpcx-cuda12/24.3
+ml gcc/11.2.0
+export PATH=/appl/spack/v017/install-tree/gcc-8.5.0/binutils-2.37-ed6z3n/bin:$PATH
+
+mpicxx -O4 -std=c++20 -stdpar=gpu -gpu=cc80 --gcc-toolchain=$(dirname $(which g++)) mpi_stdpar.cpp -o stdpar.x
+srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./stdpar.x
+```
+
 ### OneAPI
 
 ```bash
