@@ -256,7 +256,7 @@ Similarly on LUMI. First we set up the environment and load the modules as indic
 ```bash
 source /projappl/project_462000752/intel/oneapi/setvars.sh --include-intel-llvm
 module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
-export HSA_XNAK=1 # enables managed memory
+export HSA_XNACK=1 # enables managed memory
 export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 
@@ -271,7 +271,7 @@ module load craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
 export PATH=/projappl/project_462000752/ACPP/bin/:$PATH
 export LD_LIBRARY_PATH=/appl/lumi/SW/LUMI-24.03/G/EB/Boost/1.83.0-cpeGNU-24.03/lib64/:$LD_LIBRARY_PATH
 export LD_PRELOAD=/opt/rocm-6.0.3/llvm/lib/libomp.so
-export HSA_XNAK=1 # enables managed memory
+export HSA_XNACK=1 # enables managed memory
 export MPICH_GPU_SUPPORT_ENABLED=1
 ```
 ```
