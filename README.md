@@ -50,8 +50,9 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | Time         | Topic |
 | ----         | ----- |
 | 09:00-09:30  | SYCL Review
-| 09:30-11:00  | Converting CUDA to SYCL
-| 11:00-12:00  | Memory optimizations
+| 09:30-10:10  | Converting CUDA to SYCL
+| 10:10-10:45  | Exercises
+| 10:45-12:00  | Memory optimizations
 | 12:00-13:00  | Lunch break
 | 13:00-14:00  | Multi-GPU programming with MPI
 | 14:00-14:00  | Interoperability with third-party libraries
