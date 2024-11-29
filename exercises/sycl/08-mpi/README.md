@@ -87,6 +87,22 @@ srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./sycl
 
 See also [MPI guide](https://developer.codeplay.com/products/oneapi/amd/2025.0.0/guides/MPI-guide).
 
+
+### AdaptiveCpp
+
+```bash
+ml LUMI/24.03
+ml partition/G
+ml use /appl/local/csc/modulefiles
+ml rocm/6.0.3
+ml acpp/24.06.0
+export MPICH_GPU_SUPPORT_ENABLED=1
+
+acpp -std=c++20 -O3 --acpp-targets=hip:gfx90a `CC --cray-print-opts=all` mpi_sycl_usm.cpp -o sycl_usm.x
+srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./sycl_usm.x
+
+```
+
 ### Kokkos
 
 ```bash

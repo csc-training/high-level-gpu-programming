@@ -6,10 +6,20 @@
 #include <mpi.h>
 #include <sycl/sycl.hpp>
 
-#if SYCL_EXT_ONEAPI_BACKEND_CUDA
-#define SYCL_BACKEND      sycl::backend::ext_oneapi_cuda
-#elif SYCL_EXT_ONEAPI_BACKEND_HIP
-#define SYCL_BACKEND      sycl::backend::ext_oneapi_hip
+#ifdef __ACPP__
+  #define HOST_TASK           AdaptiveCpp_enqueue_custom_operation
+  #if __ACPP_ENABLE_HIP_TARGET__
+    #define SYCL_BACKEND      sycl::backend::hip
+  #elif __ACPP_ENABLE_CUDA_TARGET__
+    #define SYCL_BACKEND      sycl::backend::cuda
+  #endif
+#else
+  #define HOST_TASK           host_task
+  #if SYCL_EXT_ONEAPI_BACKEND_CUDA
+    #define SYCL_BACKEND      sycl::backend::ext_oneapi_cuda
+  #elif SYCL_EXT_ONEAPI_BACKEND_HIP
+    #define SYCL_BACKEND      sycl::backend::ext_oneapi_hip
+  #endif
 #endif
 
 template <typename T>
@@ -57,7 +67,7 @@ int main(int argc, char *argv[])
         // Send with rank 0
         q.submit([&](sycl::handler &h) {
             sycl::accessor x_acc{x, h, sycl::read_only};
-            h.host_task([=](sycl::interop_handle ih) {
+            h. HOST_TASK([=](sycl::interop_handle ih) {
                 auto x_ptr = reinterpret_cast<void *>(ih.get_native_mem<SYCL_BACKEND>(x_acc));
                 MPI_Send(x_ptr, n, MPI_DOUBLE, 1, 123, MPI_COMM_WORLD);
             });
@@ -67,7 +77,7 @@ int main(int argc, char *argv[])
         // Receive with rank 1
         q.submit([&](sycl::handler &h) {
             sycl::accessor x_acc{x, h, sycl::write_only};
-            h.host_task([=](sycl::interop_handle ih) {
+            h. HOST_TASK([=](sycl::interop_handle ih) {
                 auto x_ptr = reinterpret_cast<void *>(ih.get_native_mem<SYCL_BACKEND>(x_acc));
                 MPI_Recv(x_ptr, n, MPI_DOUBLE, 0, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             });
