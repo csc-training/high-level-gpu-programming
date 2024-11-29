@@ -54,10 +54,11 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 10:10-10:45  | Exercises
 | 10:45-12:00  | Memory optimizations
 | 12:00-13:00  | Lunch break
-| 13:00-14:00  | Multi-GPU programming with MPI
-| 14:00-14:00  | Interoperability with third-party libraries
+| 13:00-13:30  | Multi-GPU programming with MPI
+| 13:30-14:00  | Interoperability with third-party libraries
+| 14:00-15:00  | Exercises & Bring your own code
 | 15:00-15:30  | Coffee break
-| 15:30-16:15 | Exercises & Bring your own code
+| 15:30-16:15  | Exercises & Bring your own code
 | 16:15-16:30  | Day 3 wrap-up & Course closing
 
 The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercises are based on Intel copyrighted work and they have their own license ([MIT](https://spdx.org/licenses/MIT.html)).
@@ -86,7 +87,7 @@ The lectures in this repository are published under [CC-BY-SA license](https://c
 
 ### Multi-GPU programming with MPI
 - [MPI send and receive demo](exercises/sycl/08-mpi)
-- [Pi computing with multiple GPU and MPI](exercises/sycl/11-pi/)
+- [Parallel calculation of π with multiple GPU](exercises/sycl/11-pi/)
 
 ### SYCL interoperability
 - [SYCL and 3rd party libraries](exercises/sycl/09-interoperability/)
