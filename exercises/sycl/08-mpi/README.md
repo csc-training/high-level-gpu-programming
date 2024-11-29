@@ -45,6 +45,20 @@ srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./sy
 
 See also [MPI guide](https://developer.codeplay.com/products/oneapi/nvidia/2025.0.0/guides/MPI-guide).
 
+### Kokkos
+
+```bash
+ml cuda/11.5.0 openmpi/4.1.2-cuda
+
+export KOKKOS_PATH=$SCRATCH/$USER/kokkos
+make -f Makefile.kokkos ARCH=a100 -j16
+srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./kokkos.x 1024
+
+# Examples using Kokkos settings
+srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./kokkos.x --kokkos-map-device-id-by=mpi_rank 1024
+srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./kokkos.x --kokkos-map-device-id-by=0 1024  # you can use e.g. $SLURM_PROCID in a sbatch script here
+```
+
 ## LUMI
 
 ### HIP

@@ -1,0 +1,43 @@
+default: build
+
+ifndef ARCH
+  $(error "Please set ARCH")
+endif
+
+ifndef KOKKOS_PATH
+  $(error "Please set KOKKOS_PATH")
+endif
+
+# Get Kokkos
+$(KOKKOS_PATH)/Makefile.kokkos:
+	git clone -b 4.5.00 https://github.com/kokkos/kokkos.git $(KOKKOS_PATH)
+
+
+# Define DEVICES and ARCH before including Makefile.kokkos
+ifeq ($(ARCH),mi250x)
+CXX=hipcc
+CXXFLAGS=-O3
+KOKKOS_DEVICES=HIP
+KOKKOS_ARCH=AMD_GFX90A
+endif
+ifeq ($(ARCH),a100)
+CXX=$(KOKKOS_PATH)/bin/nvcc_wrapper
+CXXFLAGS=-O3
+KOKKOS_DEVICES=Cuda
+KOKKOS_ARCH=Ampere80
+endif
+ifeq ($(ARCH),zen2)
+CXX=g++
+CXXFLAGS=-O3
+KOKKOS_DEVICES=OpenMP
+KOKKOS_ARCH=Zen2
+endif
+
+
+include $(KOKKOS_PATH)/Makefile.kokkos
+
+build: $(KOKKOS_LINK_DEPENDS) $(KOKKOS_CPP_DEPENDS) mpi_kokkos.cpp
+	$(CXX) $(CXXFLAGS) $(KOKKOS_CPPFLAGS) $(KOKKOS_CXXFLAGS) $(KOKKOS_LDFLAGS) -lmpi mpi_kokkos.cpp $(KOKKOS_LIBS) -o kokkos.x
+
+clean: kokkos-clean
+	rm -f Kokkos*.tmp *.o *.cuda *.host
