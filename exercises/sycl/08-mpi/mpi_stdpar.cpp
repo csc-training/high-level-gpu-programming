@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
     MPI_Init(&argc, &argv);
 
     const size_t n = argc > 1 ? (size_t)std::stoll(argv[1]) : 1024;
-    const size_t nbytes = sizeof(double) * n;
 
     int size, rank;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
