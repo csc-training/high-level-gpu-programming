@@ -8,10 +8,12 @@
 
 #if defined(__ACPP__)
   #define INTEROP_TASK                         AdaptiveCpp_enqueue_custom_operation
-  #if __ACPP_ENABLE_CUDA_TARGET__
-    #define SYCL_BACKEND                       sycl::backend::cuda
-  #elif __ACPP_ENABLE_HIP_TARGET__
-    #define SYCL_BACKEND                       sycl::backend::hip
+  #if defined(SYCL_BACKEND_HIP)
+      #define SYCL_BACKEND                     sycl::backend::hip
+  #elif defined(SYCL_BACKEND_CUDA)
+      #define SYCL_BACKEND                     sycl::backend::cuda
+  #else
+      #error Define SYCL_BACKEND_HIP or SYCL_BACKEND_CUDA
   #endif
 #elif defined(__INTEL_LLVM_COMPILER)
   #ifdef SYCL_EXT_ONEAPI_ENQUEUE_NATIVE_COMMAND
@@ -19,10 +21,12 @@
   #else
     #define INTEROP_TASK                       host_task
   #endif
-  #if SYCL_EXT_ONEAPI_BACKEND_CUDA
-    #define SYCL_BACKEND                       sycl::backend::ext_oneapi_cuda
-  #elif SYCL_EXT_ONEAPI_BACKEND_HIP
-    #define SYCL_BACKEND                       sycl::backend::ext_oneapi_hip
+  #if defined(SYCL_BACKEND_HIP)
+      #define SYCL_BACKEND                     sycl::backend::ext_oneapi_hip
+  #elif defined(SYCL_BACKEND_CUDA)
+      #define SYCL_BACKEND                     sycl::backend::ext_oneapi_cuda
+  #else
+      #error Define SYCL_BACKEND_HIP or SYCL_BACKEND_CUDA
   #endif
 #endif
 

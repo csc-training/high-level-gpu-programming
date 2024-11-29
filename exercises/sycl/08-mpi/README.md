@@ -39,7 +39,7 @@ ml cuda/11.5.0 openmpi/4.1.2-cuda
 icpx -fuse-ld=lld -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 `mpicxx --showme:compile` `mpixx --showme:link` mpi_sycl_usm.cpp -o sycl.x
 srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./sycl_usm.x
 
-icpx -fuse-ld=lld -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 `mpicxx --showme:compile` `mpicxx --showme:link` mpi_sycl_buf.cpp -o sycl_buf.x
+icpx -DSYCL_BACKEND_CUDA -fuse-ld=lld -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80 `mpicxx --showme:compile` `mpicxx --showme:link` mpi_sycl_buf.cpp -o sycl_buf.x
 srun -p gputest --nodes=1 --ntasks-per-node=2 --gres=gpu:a100:2 -t 00:05:00 ./sycl_buf.x
 ```
 
@@ -81,7 +81,7 @@ export MPICH_GPU_SUPPORT_ENABLED=1
 icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a `CC --cray-print-opts=all` mpi_sycl_usm.cpp -o sycl_usm.x
 srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./sycl_usm.x
 
-icpx -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a `CC --cray-print-opts=all` mpi_sycl_buf.cpp -o sycl_buf.x
+icpx -DSYCL_BACKEND_HIP -fuse-ld=lld -std=c++20 -O3 -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend=amdgcn-amd-amdhsa --offload-arch=gfx90a `CC --cray-print-opts=all` mpi_sycl_buf.cpp -o sycl_buf.x
 srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./sycl_buf.x
 ```
 
