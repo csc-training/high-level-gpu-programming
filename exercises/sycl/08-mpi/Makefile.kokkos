@@ -17,12 +17,14 @@ $(KOKKOS_PATH)/Makefile.kokkos:
 ifeq ($(ARCH),mi250x)
 CXX=hipcc
 CXXFLAGS=-O3
+MPIFLAGS=`CC --cray-print-opts=all`
 KOKKOS_DEVICES=HIP
 KOKKOS_ARCH=AMD_GFX90A
 endif
 ifeq ($(ARCH),a100)
 CXX=$(KOKKOS_PATH)/bin/nvcc_wrapper
 CXXFLAGS=-O3
+MPIFLAGS=-lmpi
 KOKKOS_DEVICES=Cuda
 KOKKOS_ARCH=Ampere80
 endif
@@ -37,7 +39,7 @@ endif
 include $(KOKKOS_PATH)/Makefile.kokkos
 
 build: $(KOKKOS_LINK_DEPENDS) $(KOKKOS_CPP_DEPENDS) mpi_kokkos.cpp
-	$(CXX) $(CXXFLAGS) $(KOKKOS_CPPFLAGS) $(KOKKOS_CXXFLAGS) $(KOKKOS_LDFLAGS) -lmpi mpi_kokkos.cpp $(KOKKOS_LIBS) -o kokkos.x
+	$(CXX) $(CXXFLAGS) $(KOKKOS_CPPFLAGS) $(KOKKOS_CXXFLAGS) $(KOKKOS_LDFLAGS) $(MPIFLAGS) mpi_kokkos.cpp $(KOKKOS_LIBS) -o kokkos.x
 
 clean: kokkos-clean
 	rm -f Kokkos*.tmp *.o *.cuda *.host

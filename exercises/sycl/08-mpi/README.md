@@ -86,3 +86,18 @@ srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./sycl
 ```
 
 See also [MPI guide](https://developer.codeplay.com/products/oneapi/amd/2025.0.0/guides/MPI-guide).
+
+### Kokkos
+
+```bash
+ml craype-x86-trento craype-accel-amd-gfx90a rocm/6.0.3
+export MPICH_GPU_SUPPORT_ENABLED=1
+
+export KOKKOS_PATH=$SCRATCH/$USER/kokkos
+make -f Makefile.kokkos ARCH=mi250x -j16
+srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./kokkos.x
+
+# Examples using Kokkos settings
+srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./kokkos.x --kokkos-map-device-id-by=mpi_rank
+srun -p dev-g --nodes=1 --ntasks-per-node=2 --gpus-per-node=2 -t 00:05:00 ./kokkos.x --kokkos-device-id=0   # you can use e.g. $SLURM_PROCID in a sbatch script here
+```
