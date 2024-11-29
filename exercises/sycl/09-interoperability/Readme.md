@@ -160,10 +160,10 @@ icpx -std=c++17 -fuse-ld=lld -O3 -fsycl -fsycl-targets=spir64_x86_64 -I$MKLROOT/
 
 #### OneAPI with `cuBlas`
 ```
-icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -std=c++17 -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
+icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_80  -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda gemm_mkl_cublas_usm.cpp
 ```
 #### AdaptiveCpp with `cuBlas`
 
 ```
- /projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -DCUBLAS -DACPP -I$CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda
+ /projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -DCUBLAS -DACPP -I$CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda gemm_mkl_cublas_usm.cpp
 ```
