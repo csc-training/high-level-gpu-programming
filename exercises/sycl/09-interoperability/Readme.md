@@ -165,5 +165,5 @@ icpx -std=c++17 -fuse-ld=lld -isystem $CUDA_HOME/include/  -DCUBLAS -DDPCPP -O3 
 #### AdaptiveCpp with `cuBlas`
 
 ```
- /projappl/project_2008874/AdaptiveCpp/bin/acpp -fuse-ld=lld -O3 -DCUBLAS -DACPP -I$CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda gemm_mkl_cublas_usm.cpp
+acpp -fuse-ld=lld -O3 -DCUBLAS -DACPP -I$CUDA_HOME/include/ -L$CUDA_HOME/lib64/ -lcublas -lcudart -lcuda gemm_mkl_cublas_usm.cpp
 ```
