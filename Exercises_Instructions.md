@@ -188,7 +188,7 @@ Set up the environment:
 
     ml purge
     ml use /appl/opt/nvhpc/modulefiles
-    ml nvhpc/24.3
+    ml nvhpc-hpcx-cuda12/24.3
     ml gcc/11.2.0
     export PATH=/appl/spack/v017/install-tree/gcc-8.5.0/binutils-2.37-ed6z3n/bin:$PATH
 
