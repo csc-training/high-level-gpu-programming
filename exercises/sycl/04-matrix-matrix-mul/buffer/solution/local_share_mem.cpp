@@ -146,8 +146,10 @@ int main(int argc, char *argv[]) {
 
             //# Create local accessors. They use the memory closer to the chip.
             //# In SYCL called local memory. On nvidia and AMD thw so-called shared memory
-            accessor<float, 2, access::mode::read_write, access::target::local> A_tile(range<2>(M, M), h);
-            accessor<float, 2, access::mode::read_write, access::target::local> B_tile(range<2>(M, M), h);
+            local_accessor<float, 2> A_tile(range<2>(M, M), h);
+            local_accessor<float, 2> B_tile(range<2>(M, M), h);
+            //accessor<float, 2, access::mode::read_write, access::target::local> A_tile(range<2>(M, M), h);
+            //accessor<float, 2, access::mode::read_write, access::target::local> B_tile(range<2>(M, M), h);
             //# Parallel Compute Matrix Multiplication
             h.parallel_for(nd_range<2>{global_size, work_group_size}, [=](nd_item<2> item){
                 const int i = item.get_global_id(0);
