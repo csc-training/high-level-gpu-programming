@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     //# Define queue with default device for offloading computation
     sycl::property_list q_prof{property::queue::enable_profiling{}, sycl::property::queue::in_order{}};
     //queue q{property::queue::enable_profiling{}};
-    queue q{default_selector{},q_prof};
+    queue q{default_selector_v,q_prof};
     //queue q{property::queue::enable_profiling{}};
 
     auto matrix_a=malloc_shared<float>(N*N, q);
