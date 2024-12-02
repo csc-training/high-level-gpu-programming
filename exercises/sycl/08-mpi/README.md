@@ -1,6 +1,6 @@
 # MPI send and receive with GPUs
 
-Here are example codes with MPI + {CUDA,HIP,SYCL,stdpar} for two MPI tasks.
+Here are example codes with MPI + {CUDA,HIP,SYCL,Kokkos,stdpar} for two MPI tasks.
 Task 0 fills an array with values and sends the array to task 1 that receives the values.
 Finally both tasks print their arrays.
 
