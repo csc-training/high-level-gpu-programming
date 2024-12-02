@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
 
     auto gpu_devices = sycl::device::get_devices(sycl::info::device_type::gpu);
     auto count = std::size(gpu_devices);
-//    sycl::queue q{gpu_devices[rank], sycl::property::queue::in_order{}};
-    auto q = sycl::queue{gpu_devices[rank], sycl::property::queue::in_order{}};
+    auto device = gpu_devices[rank];
+    sycl::queue q{device, sycl::property::queue::in_order{}};
 
     printf("Hello from MPI rank %d/%d with a GPU of %zu\n", rank, size, count);
 
