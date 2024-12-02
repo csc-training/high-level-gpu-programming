@@ -17,7 +17,7 @@ void init(std::vector<double> &x, std::vector<double> &y)
 
     using std::begin;
     auto indices = std::views::iota(0);
-    std::for_each_n(begin(indices), size(x), kernel);
+    std::for_each_n(std::execution::par_unseq, begin(indices), size(x), kernel);
 }
 
 void daxpy(const double a, const std::vector<double> &x, std::vector<double> &y)
