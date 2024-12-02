@@ -73,7 +73,6 @@ sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 stdpar cuda_hi
 # AdaptiveCpp
 bash compile_lumi_container_acpp.sh -DBENCHMARK
 sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 sycl_acpp sycl_sync_acpp stdpar_acpp
-# Note! Timing is incorrect for stdpar_acpp due to missing synchronization
 ```
 
 ### OneAPI
