@@ -55,8 +55,10 @@ If you are lucky someone set the [mkl interfaces](https://oneapi-src.github.io/o
 ```
 This option is functionally correct, but due to the way the `host_task` is designed, this means that all work before the `cuBlas` call needs to be finished before the actually call. And then also note the `cuStreamSynchronize()`  call in the `host_task` which means that the program waits for the work to be done before continuing. 
 
+**NOTE!** There is an experimental function `ext_codeplay_enqueue_native_command` which was inspired by and acts similar to `AdaptiveCpp_enqueue_custom_operation()` (described below). As an exercise you should implement this instead of `hiost_task()`.
+
 ### Using AdaptiveCpp
-The alternative to the `host_task` is the `hipSYCL_enqueue_custom_operation()`. As the name suggests this is only available in the AdaptiveCpp (formerly known as hipsycl) implementation. Below is an example:
+The alternative to the `host_task` is the `AdaptiveCpp_enqueue_custom_operation()`. As the name suggests this is only available in the AdaptiveCpp (formerly known as hipsycl) implementation. Below is an example:
 
 ```
 q.submit([&](handler &cgh) {
