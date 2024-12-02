@@ -7,7 +7,7 @@ using namespace sycl;
 
 int main() {
   // Set up an in-order queue on any available device
-  queue q{default_selector{}, property::queue::in_order{}};
+  queue q{default_selector_v, property::queue::in_order{}};
 
   // Initialize input and output memory on the host
   constexpr size_t N = 256;
@@ -20,16 +20,17 @@ int main() {
   // Allocate host memory for results validation
   int* host_Y = new int[N];
 
-  // Initialize X and Y arrays on the device
+  // Initialize X array on the device
   q.parallel_for(range<1>(N), [=](id<1> idx) {
     X[idx] = 1;  // Initialize X with value 1
   });
 
 
-  // Initialize X and Y arrays on the device
+  // Initialize Y array on the device
   q.parallel_for(range<1>(N), [=](id<1> idx) {
     Y[idx] = 2;  // Initialize Y with value 2
   });
+  
   // Perform the AXPY operation: Y = X + a * Y
   q.parallel_for(range<1>(N), [=](id<1> idx) {
     Y[idx] = X[idx] + a * Y[idx];
