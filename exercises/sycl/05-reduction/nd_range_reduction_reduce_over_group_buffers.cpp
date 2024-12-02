@@ -41,8 +41,9 @@ int main() {
   // END CODE SNIP
 
   // Access the sum value from the buffer
-  int final_sum = sum_buffer.get_access<access::mode::read>()[0];
-
+  host_accessor sum_acc(sum_buffer, read_only);
+  int final_sum = sum_acc[0];
+  
   std::cout << "sum = " << final_sum << "\n";
   bool passed = (final_sum == ((N * (N + 1)) / 2));
   std::cout << ((passed) ? "SUCCESS" : "FAILURE") << "\n";
