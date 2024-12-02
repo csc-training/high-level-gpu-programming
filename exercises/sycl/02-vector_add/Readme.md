@@ -76,10 +76,6 @@ Similar to the device  accessors, it is possible to define host accessors in two
 ```cpp
     host_accessor c{c_buf, read_only};
 ``` 
-or by using the `.get_access` member function of the buffer
-```cpp
-    auto c = c_buf.get_access<access::mode::read>();
-```
 
 ## II. Memory management with Unified Shared Memory
  
