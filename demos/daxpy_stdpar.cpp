@@ -3,9 +3,12 @@
 #include <cmath>
 #include <cstdio>
 #include <execution>
-#include <ranges>
 #include <string>
 #include <vector>
+
+#if (__cplusplus >= 202002L)
+#include <ranges>
+#endif
 
 
 void init(std::vector<double> &x, std::vector<double> &y)
@@ -15,8 +18,13 @@ void init(std::vector<double> &x, std::vector<double> &y)
         y[i] = cos((double)i) * 1.1;
     };
 
+#if (__cplusplus >= 202002L)
     using std::begin;
     auto indices = std::views::iota(0);
+#else
+    std::vector<size_t> indices(size(x));
+    std::iota(begin(indices), end(indices), 0);
+#endif
     std::for_each_n(std::execution::par_unseq, begin(indices), size(x), kernel);
 }
 

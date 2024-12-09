@@ -68,7 +68,7 @@ export SINGULARITYENV_LC_ALL=C
 export HSA_XNACK=1
 
 bash compile_lumi_container.sh -DBENCHMARK
-sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 stdpar cuda_hip cuda_hip_sync blas blas_sync
+sbatch -p dev-g --gpus-per-node=1 daxpy_benchmark.sh lumi-rocm624 stdpar stdpar_ia cuda_hip cuda_hip_sync blas blas_sync
 
 # AdaptiveCpp
 bash compile_lumi_container_acpp.sh -DBENCHMARK
