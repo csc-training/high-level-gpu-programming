@@ -1,5 +1,6 @@
 default: build
 # This worked on a laptop with Intel® Core™ Ultra 7 Processor 155H , Windows 11, inside UBUNTU 24.04 using WSL2
+# It uses OneAPI
 ifndef KOKKOS_PATH
   $(error "Please set KOKKOS_PATH")
 endif
