@@ -59,4 +59,4 @@ On LUMI `rocm` is used as a backend. We can use `rocprof` to obtained similar in
 ```
 rocprof --stats --hip-trace --hsa-trace ./j_simple_buffer -n 16000
 ```
-The `rocprof` results are save in a set of files `resutls.<...>.csv` 
+The `rocprof` results are saved in a set of files `resutls.<...>.csv` 
