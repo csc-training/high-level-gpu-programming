@@ -91,7 +91,7 @@ lang:     en
 ```
 </small>
 
-# Unifed Shared Memory III
+# Unified Shared Memory III
 
 | Function        | Location	         | Device Accessible
 ------------------+--------------------+--------------------
