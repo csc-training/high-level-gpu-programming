@@ -27,7 +27,7 @@ int main() {
     //TODO
   });
 
-  // Submit kernel to perform the AXPY operation: a = X + Y
+  // Submit kernel to perform the AXPY operation: Y = X + a*Y
   q.submit([&](handler& h) {
     //TODO
 }
