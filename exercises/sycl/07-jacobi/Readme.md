@@ -56,7 +56,7 @@ CUDA Memory Operation Statistics (by size):
  413,696.000    404     1,024.000     1,024.000     1,024.000        0.000  [CUDA memcpy HtoD]
  206,848.000    202     1,024.000     1,024.000     1,024.000        0.000  [CUDA memcpy DtoH]
 ```
-We note in the upper table that a lot of time (around 62 s) is spentexecuting cuda memory copy operations, while the lower panel we note that we had 606 memory operations with more more than 600 GB of data moved around. This is 15x more than the whole memory of the A100 GPU. We can conclude that whole data was moved every iteration. 
+We note in the upper table that a lot of time (around 62 s) is spente xecuting cuda memory copy operations, while the lower panel we note that we had 606 memory operations with more more than 600 GB of data moved around. This is 15x more than the whole memory of the A100 GPU. We can conclude that whole data was moved every iteration. 
 
 # The task
 The exercise is to reduce this data movement. The [solution](solution/) shows a way to solve this problem using unified shared memory (USM) or with buffers and accessors API. But you can try to experiment with moving the buffer declaration outside of the loop over iterations. Use the application timings and also the profilers to get the needed information. You can use Mahti or LUMI for this. 
