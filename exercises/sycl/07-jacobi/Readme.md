@@ -9,6 +9,13 @@ In order to exemplify the importance of this, we consider the simple [Jacobi ite
 In the first implementation we focused on elegance and productivity. The application initializes the data on the CPU and then uses buffers to offload the operations to the GPUs. In the application we measure the total time to perform a specific number iterations via C++ chronos library and also the effective time spent in actual computation on the GPU using `sycl::event`.
 
 ## Timings and basic performance analysis
+
+For this we need to use cuda version 12.6.1:
+```
+module load gcc/10.4.0
+module load cuda/12.6.1
+```
+
 In order to test the code we executed the code on a nvidia GPU we ran the with quite large system size:
 
 ```
