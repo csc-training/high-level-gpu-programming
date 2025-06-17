@@ -228,8 +228,9 @@ The SYCL implementation do not know anything about MPI. Intel oneAPI contains mp
 
 For exampl on Mahti in order to use CUDA-aware MPI we would first load the modules:
 ```
-module load cuda/11.5.0
-module load openmpi/4.1.2-cuda
+    module load gcc/10.4.0
+    module load cuda/12.6.1  # Needed for compiling to NVIDIA GPUs
+    module load  openmpi/4.1.5-cuda # Needed for using GPU-aware MPI
 ```
 The environment would be setup for compiling a CUDA code which use GPU to GPU communications. We can inspect the `mpicxx` wrapper:
 ```
