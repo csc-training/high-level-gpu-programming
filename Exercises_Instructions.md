@@ -123,8 +123,9 @@ oneAPI is a collection of tool and library supporting a wide range of programmin
 Set up the environment:
 
     source /projappl/project_2012125/intel/oneapi/setvars.sh --include-intel-llvm
-    module load cuda/11.5.0          # Needed for compiling to NVIDIA GPUs
-    module load openmpi/4.1.2-cuda   # Needed for using GPU-aware MPI
+    module load gcc/10.4.0
+    module load cuda/12.6.1  # Needed for compiling to NVIDIA GPUs
+    module load  openmpi/4.1.5-cuda # Needed for using GPU-aware MPI
 
 Compile sycl code:
 
