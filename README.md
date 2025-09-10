@@ -15,51 +15,53 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 
 ## Agenda
 
-### Day 1, Wednesday 27.11
+### Day 1,Tuesday 21.10
 
 | Time         | Topic |
 | ----         | ----- |
-| 09:00-09:15  | Welcome
-| 09:15-10:00  | Introduction to GPUs
-| 10:00-10:30  | GPU execution model
-| 10:30-11:00  | GPU memory hierarchy
-| 11:00-11:30  | Mahti and LUMI Computing Platforms
-| 11:30-12:00  | C++ Refresher
+| 09:15-09:30  | Welcome
+| 09:15-10:00  | Introduction to Parallel Computing, Motivation
+| 10:00-11:00  | Mahti and LUMI Computing Platforms
+| 11:00-12:00  | C++ Refresher
 | 12:00-13:00  | Lunch break
-| 13:00-14:00  | C++ Standard Parallelism
-| 14:20-15:10  | Kokkos and Kokkos exercises
-| 15:10-15:30  | Coffee break
-| 15:30-16:45  | Kokkos and Kokkos exercises
-| 16:45-17:00  | Day 1 wrap-up
+| 13:00-13:45  | Introduction to GPUs
+| 13:45-15:00  | GPU execution model
+| 15:00-15:30  | Coffee break
+| 15:30-16:45  | GPU memory hierarchy
+| 16:30-16:45  | Day 1 wrap-up
 
-### Day 2, Thursday 28.11
+### Day 2, Wednesday 22.10
 
 | Time         | Topic |
 | ----         | ----- |
-| 09:00-10:30  | Kokkos and Kokkos exercises
-| 10:30-12:00  | SYCL Essentials
+| 09:15-12:00  | SYCL I (with exercises)
 | 12:00-13:00  | Lunch break
-| 13:00-14:00  | SYCL exercises (Essentials)
-| 14:30-15:00  | SYCL advance features
+| 13:00-15:00  | SYCL II (with exercises)
 | 15:00-15:30  | Coffee break
-| 15:30-16:45  | SYCL exercises (Advance Features & Essentials)
-| 16:45-17:00  | Day 2 wrap-up
+| 15:30-16:30  | SYCL III (with exercises)
+| 16:30-16:45  | Day 2 wrap-up
 
-### Day 3, Friday 29.11
+### Day 3, THURSDAY 23.10
 
 | Time         | Topic |
 | ----         | ----- |
-| 09:00-09:30  | SYCL Review
-| 09:30-10:10  | Converting CUDA to SYCL
-| 10:10-10:45  | Exercises
-| 10:45-12:00  | Memory optimizations
+| 09:15-12:00  | Kokkos I (with exercises)
 | 12:00-13:00  | Lunch break
-| 13:00-13:30  | Multi-GPU programming with MPI
-| 13:30-14:00  | Interoperability with third-party libraries
-| 14:00-15:00  | Exercises & Bring your own code
+| 13:00-15:00  | Kokkos II (with exercises)
 | 15:00-15:30  | Coffee break
-| 15:30-16:15  | Exercises & Bring your own code
-| 16:15-16:30  | Day 3 wrap-up & Course closing
+| 15:30-16:30  | Kokkos III (with exercises)
+| 16:30-16:45  | Day 3 wrap-up
+
+### Day 4, Friday 24.10
+
+| Time         | Topic |
+| ----         | ----- |
+| 09:15-12:00  | OpenMP offloading I (with exercises)
+| 12:00-13:00  | Lunch break
+| 13:00-15:00  | OpenMP offloading II (with exercises)
+| 15:00-15:30  | Coffee break
+| 15:30-16:30  | OpenMP offloading III (with exercises)
+| 16:30-16:45  | Day 4 wrap-up & closing
 
 The lectures in this repository are published under [CC-BY-SA license](https://creativecommons.org/licenses/by-nc/4.0/). Some of the lectures and exercises are based on Intel copyrighted work and they have their own license ([MIT](https://spdx.org/licenses/MIT.html)).
 
