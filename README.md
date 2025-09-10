@@ -27,7 +27,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 13:00-13:45  | Introduction to GPUs
 | 13:45-15:00  | GPU execution model
 | 15:00-15:30  | Coffee break
-| 15:30-16:45  | GPU memory hierarchy
+| 15:30-16:30  | GPU memory hierarchy
 | 16:30-16:45  | Day 1 wrap-up
 
 ### Day 2, Wednesday 22.10
