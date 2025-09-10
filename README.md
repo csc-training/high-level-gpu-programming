@@ -20,7 +20,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | Time         | Topic |
 | ----         | ----- |
 | 09:15-09:30  | Welcome
-| 09:15-10:00  | Introduction to Parallel Computing, Motivation
+| 09:30-10:00  | Introduction to Parallel Computing
 | 10:00-11:00  | Mahti and LUMI Computing Platforms
 | 11:00-12:00  | C++ Refresher
 | 12:00-13:00  | Lunch break
