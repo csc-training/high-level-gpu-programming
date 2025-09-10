@@ -15,7 +15,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 
 ## Agenda
 
-### Day 1,Tuesday 21.10
+### Day 1, Tuesday 21.10
 
 | Time         | Topic |
 | ----         | ----- |
@@ -41,7 +41,7 @@ The slides are available [here](https://csc-training.github.io/high-level-gpu-pr
 | 15:30-16:30  | SYCL III (with exercises)
 | 16:30-16:45  | Day 2 wrap-up
 
-### Day 3, THURSDAY 23.10
+### Day 3, Thursday 23.10
 
 | Time         | Topic |
 | ----         | ----- |
