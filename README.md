@@ -1,4 +1,4 @@
-# Portable GPU Programming
+# High-Level GPU Programming
 
 Course material for the CSC course "Portable GPU Programming". The course is
 part of the EuroCC training activities at CSC.
