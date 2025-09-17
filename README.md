@@ -1,6 +1,8 @@
+# HUOM! This training has be discountinued! Instead check the [Portable GPU Programming repository](../portable-gpu-programming).
+
 # High-Level GPU Programming
 
-Course material for the CSC course "Portable GPU Programming". The course is
+Course material for the CSC course "High-Level  GPU Programming". The course is
 part of the EuroCC training activities at CSC.
 
 ## Presentation slides
