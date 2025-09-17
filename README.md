@@ -1,4 +1,4 @@
-# HUOM! This training has be discountinued! Instead check the [Portable GPU Programming repository](../portable-gpu-programming).
+ **HUOM!** This training has been discountinued! Instead check the [Portable GPU Programming repository](../portable-gpu-programming).
 
 # High-Level GPU Programming
 
