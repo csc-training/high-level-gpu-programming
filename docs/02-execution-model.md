@@ -105,7 +105,7 @@ GPU_K void axpy_(int n, double a, double *x, double *y, int id)
     - warp (NVIDIA, 32 threads), wavefront (AMD, 64 threads)
 - All members of the group execute the same instruction
 - In the case of branching, each branch is executed sequentially
-- Memory accesses are done per group
+- Memory accesses are done per warp/warpfront
 
 # Thread blocks
 
